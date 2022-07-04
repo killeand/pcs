@@ -1,0 +1,33 @@
+<p>
+    <button type="button" className="bg-blue-500" onClick={() => {
+    let ele = document.createElement("a");
+    ele.href = `data:application/json;charset=utf8,${JSON.stringify({anothertest:'yay'})}`;
+    ele.download = "anothertest.json";
+    ele.style.display = "none";
+    document.body.appendChild(ele);
+    ele.click();
+    document.body.removeChild(ele);
+    }}>Click to Download</button>
+</p>
+<p>
+    <label className="block bg-green-500 rounded-md border border-black px-2 py-1 hover:bg-green-600">
+    <input type="file" className="hidden h-0" onChange={(e) => {
+        let files = e.target.files;
+
+        if (files.length == 0) return;
+
+        for (let i = 0; i < files.length; i++) {
+        if (files[i].type.match(/(json)+/gmi)) {
+            let FR = new FileReader();
+            FR.addEventListener("loadend", (e) => {
+            let results = FR.result;
+            console.log(JSON.parse(results));
+            });
+            FR.readAsText(files[i]);
+            FR.read
+        }
+        }
+    }} />
+    Upload File
+    </label>
+</p>

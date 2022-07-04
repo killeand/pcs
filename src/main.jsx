@@ -1,10 +1,15 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+import React, { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import Application from './components/Application';
+import { PCSContextProvider } from './components/PCSContext';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import './main.css';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-)
+let WebsiteRoot = createRoot(document.getElementById('root'));
+WebsiteRoot.render(
+    <StrictMode>
+        <PCSContextProvider>
+            <Application />
+        </PCSContextProvider>
+    </StrictMode>
+);
