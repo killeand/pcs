@@ -7,5 +7,17 @@ html, body, #root {
 }
 
 #root {
-    @apply bg-white text-black;
+    @apply bg-slate-300 text-black flex flex-col p-1;
+}
+
+header, main, footer {
+    @apply bg-white rounded-xl border border-black drop-shadow-md p-2 m-1;
+}
+
+nav  a {
+    @apply flex-grow p-3 text-center hover:bg-gradient-to-r from-white to-slate-300;
+}
+
+nav a:last-child {
+    @apply rounded-b-xl md:rounded-b-none;
 }
