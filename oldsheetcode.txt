@@ -1,0 +1,993 @@
+	<div id="content-tabs">
+		<ul>
+			<li><a href="#details">Character Details</a></li>
+			<li><a href="#ability-scores">Ability Scores</a></li>
+			<li><a href="#class-health">Class and Health</a></li>
+			<li><a href="#saving-throws">Saving Throws</a></li>
+			<li><a href="#offense">Offensive Stats</a></li>
+			<li><a href="#defense">Defensive Stats</a></li>
+			<li><a href="#misc-stats">Miscellaneous Stats</a></li>
+			<li><a href="#weapons">Weapons</a></li>
+			<li><a href="#armor">Armor</a></li>
+			<li><a href="#skills">Skills</a></li>
+			<li><a href="#exp-wealth">EXP and Wealth</a></li>
+			<li><a href="#feats-abilities">Feats and Abilities</a></li>
+			<li><a href="#equipment">Equipment</a></li>
+			<li><a href="#spells">Spells</a></li>
+			<li><a href="#notes">Notes</a></li>
+		</ul>
+		<div id="details">
+			<h1>Character Details</h1>
+			<table class="cs_std_tbl">
+				<tr>
+					<td class="title">Name</td>
+					<td><input type="text" id="name" class="textbox" size="50" /></td>
+				</tr>
+				<tr>
+					<td class="title">Race</td>
+					<td><input type="text" id="race" class="textbox" size="40" /></td>
+				</tr>
+				<tr>
+					<td class="title">Size</td>
+					<td><input type="text" id="size" class="textbox" size="30" /></td>
+				</tr>
+				<tr>
+					<td class="title">Gender</td>
+					<td><input type="text" id="gender" class="textbox" size="30" /></td>
+				</tr>
+				<tr>
+					<td class="title">Height</td>
+					<td><input type="text" id="height" class="textbox" size="15" /></td>
+				</tr>
+				<tr>
+					<td class="title">Weight</td>
+					<td><input type="text" id="weight" class="textbox" size="15" /></td>
+				</tr>
+				<tr>
+					<td class="title">Hair</td>
+					<td><input type="text" id="hair" class="textbox" size="30" /></td>
+				</tr>
+				<tr>
+					<td class="title">Eyes</td>
+					<td><input type="text" id="eyes" class="textbox" size="30" /></td>
+				</tr>
+				<tr>
+					<td class="title">Skin</td>
+					<td><input type="text" id="skin" class="textbox" size="30" /></td>
+				</tr>
+				<tr>
+					<td class="title">Age</td>
+					<td><input type="text" id="age" class="textbox" size="10" /></td>
+				</tr>
+				<tr>
+					<td class="title">Alignment</td>
+					<td><input type="text" id="alignment" class="textbox" size="30" /></td>
+				</tr>
+				<tr>
+					<td class="title">Deity</td>
+					<td><input type="text" id="deity" class="textbox" size="30" /></td>
+				</tr>
+				<tr>
+					<td class="title">Homeland</td>
+					<td><input type="text" id="homeland" class="textbox" size="50" /></td>
+				</tr>
+			</table>
+			<table class="cs_std_tbl">
+				<tr>
+					<td class="title">Pathfinder Languages</td>
+				</tr>
+				<tr>
+					<td>
+						<table>
+							<tr>
+								<td><input type="checkbox" id="language_abyssal" /></td>
+								<td>Abyssal</td>
+								<td><input type="checkbox" id="language_druidic" /></td>
+								<td>Druidic</td>
+								<td><input type="checkbox" id="language_halfling" /></td>
+								<td>Halfling</td>
+							</tr>
+							<tr>
+								<td><input type="checkbox" id="language_aklo" /></td>
+								<td>Aklo</td>
+								<td><input type="checkbox" id="language_dwarven" /></td>
+								<td>Dwarven</td>
+								<td><input type="checkbox" id="language_ignan" /></td>
+								<td>Ignan</td>
+							</tr>
+							<tr>
+								<td><input type="checkbox" id="language_aquan" /></td>
+								<td>Aquan</td>
+								<td><input type="checkbox" id="language_elven" /></td>
+								<td>Elven</td>
+								<td><input type="checkbox" id="language_infernal" /></td>
+								<td>Infernal</td>
+							</tr>
+							<tr>
+								<td><input type="checkbox" id="language_auran" /></td>
+								<td>Auran</td>
+								<td><input type="checkbox" id="language_giant" /></td>
+								<td>Giant</td>
+								<td><input type="checkbox" id="language_orc" /></td>
+								<td>Orc</td>
+							</tr>
+							<tr>
+								<td><input type="checkbox" id="language_celestial" /></td>
+								<td>Celestial</td>
+								<td><input type="checkbox" id="language_gnome" /></td>
+								<td>Gnome</td>
+								<td><input type="checkbox" id="language_sylvan" /></td>
+								<td>Sylvan</td>
+							</tr>
+							<tr>
+								<td><input type="checkbox" id="language_common" /></td>
+								<td>Common</td>
+								<td><input type="checkbox" id="language_goblin" /></td>
+								<td>Goblin</td>
+								<td><input type="checkbox" id="language_terran" /></td>
+								<td>Terran</td>
+							</tr>
+							<tr>
+								<td><input type="checkbox" id="language_draconic" /></td>
+								<td>Draconic</td>
+								<td><input type="checkbox" id="language_gnoll" /></td>
+								<td>Gnoll</td>
+								<td><input type="checkbox" id="language_undercommon" /></td>
+								<td>Undercommon</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td class="title">Miscellanious Languages</td>
+				</tr>
+				<tr>
+					<td><input type="text" id="languages_misc" class="textbox" size="40" /></td>
+				</tr>
+			</table>
+			<div class="button_separator"></div>
+		</div>
+		<div id="ability-scores">
+			<h1>Ability Scores</h1>
+			<table class="cs_std_tbl">
+				<tr>
+					<td></td>
+					<td class="label">Total</td>
+					<td class="label">Mod</td>
+					<td class="label">Base</td>
+					<td class="label">Enhance</td>
+					<td class="label">Misc</td>
+					<td class="label">Temp</td>
+				</tr>
+				<tr>
+					<td class="title">STR</td>
+					<td><input type="text" id="str_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="str_mod" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="str_base" class="textbox" size="4" /></td>
+					<td><input type="text" id="str_enhance" class="textbox" size="4" /></td>
+					<td><input type="text" id="str_misc" class="textbox" size="4" /></td>
+					<td><input type="text" id="str_temp" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td class="title">DEX</td>
+					<td><input type="text" id="dex_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="dex_mod" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="dex_base" class="textbox" size="4" /></td>
+					<td><input type="text" id="dex_enhance" class="textbox" size="4" /></td>
+					<td><input type="text" id="dex_misc" class="textbox" size="4" /></td>
+					<td><input type="text" id="dex_temp" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td class="title">CON</td>
+					<td><input type="text" id="con_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="con_mod" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="con_base" class="textbox" size="4" /></td>
+					<td><input type="text" id="con_enhance" class="textbox" size="4" /></td>
+					<td><input type="text" id="con_misc" class="textbox" size="4" /></td>
+					<td><input type="text" id="con_temp" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td class="title">INT</td>
+					<td><input type="text" id="int_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="int_mod" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="int_base" class="textbox" size="4" /></td>
+					<td><input type="text" id="int_enhance" class="textbox" size="4" /></td>
+					<td><input type="text" id="int_misc" class="textbox" size="4" /></td>
+					<td><input type="text" id="int_temp" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td class="title">WIS</td>
+					<td><input type="text" id="wis_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="wis_mod" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="wis_base" class="textbox" size="4" /></td>
+					<td><input type="text" id="wis_enhance" class="textbox" size="4" /></td>
+					<td><input type="text" id="wis_misc" class="textbox" size="4" /></td>
+					<td><input type="text" id="wis_temp" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td class="title">CHR</td>
+					<td><input type="text" id="chr_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="chr_mod" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="chr_base" class="textbox" size="4" /></td>
+					<td><input type="text" id="chr_enhance" class="textbox" size="4" /></td>
+					<td><input type="text" id="chr_misc" class="textbox" size="4" /></td>
+					<td><input type="text" id="chr_temp" class="textbox" size="4" /></td>
+				</tr>
+			</table>
+			<div class="button_separator"></div>
+			<hr />
+			<p><strong>Mods</strong>: &lfloor;(StatTotal - 10) / 2)&rfloor;</p>
+		</div>
+		<div id="class-health">
+			<h1>Class and Health</h1>
+			<table class="cs_std_tbl">
+				<tr>
+					<td></td>
+					<td class="label">Current</td>
+					<td class="label">Wounds</td>
+					<td class="label">NonLethal</td>
+					<td class="label">Misc</td>
+					<td class="label">Temp</td>
+				</tr>
+				<tr>
+					<td class="title">Health</td>
+					<td><input type="text" id="health_current" class="textbox" size="6" readonly="readonly" /></td>
+					<td><input type="text" id="health_wounds" class="textbox" size="6" /></td>
+					<td><input type="text" id="health_nonlethal" class="textbox" size="6" /></td>
+					<td><input type="text" id="health_misc" class="textbox" size="6" /></td>
+					<td><input type="text" id="health_temp" class="textbox" size="6" /></td>
+				</tr>
+			</table>
+			<table id="class_table" class="cs_std_tbl">
+				<tr>
+					<td class="title">Class</td>
+					<td class="label">Level</td>
+					<td class="label">HD</td>
+					<td class="label">Health</td>
+					<td class="label">BAB</td>
+					<td class="label">Skill #</td>
+					<td class="label">FC Skill</td>
+					<td class="label">FC HP</td>
+					<td class="label">Fort</td>
+					<td class="label">Ref</td>
+					<td class="label">Will</td>
+					<td><a id="class_add" class="addbutton" href="javascript:pcdb.sheet.class_add();">Add</a></td>
+				</tr>
+				<tr>
+					<td class="title">Totals</td>
+					<td><input type="text" id="class_total_level" class="textbox" size="4" readonly="readonly" /></td>
+					<td></td>
+					<td><input type="text" id="class_total_health" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="class_total_bab" class="textbox" size="4" readonly="readonly" /></td>
+					<td></td>
+					<td><input type="text" id="class_total_fcskill" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="class_total_fchealth" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="class_total_fort" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="class_total_ref" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="class_total_will" class="textbox" size="4" readonly="readonly" /></td>
+					<td></td>
+				</tr>
+			</table>
+			<div class="button_separator"></div>
+			<hr />
+			<p><strong>Current Health</strong>: (Class Total Health + Class Total FC Health + (Class Total Level X CON Mod)) - Wounds - Non-Lethal + Misc + Temp</p>
+			<p><strong>HD</strong>: Hit Die; the hit die rolled for new HP. Is not used in calculations, is provided for convenience.</p>
+			<p><strong>BAB</strong>: Base Attack Bonus; the current BAB of the class at that level.</p>
+			<p><strong>Skill #</strong>: Skill number specified by the class.</p>
+			<p><strong>FC Skill/Health</strong>: Favored Class; for each level in race favored class, 1 point may be added to either FC Skill or Health.</p>
+		</div>
+		<div id="saving-throws">
+			<h1>Saving Throws</h1>
+			<table class="cs_std_tbl">
+				<tr>
+					<td></td>
+					<td class="label">Total</td>
+					<td class="label">Base</td>
+					<td class="label">Ability</td>
+					<td class="label">Enhance</td>
+					<td class="label">Misc</td>
+					<td class="label">Temp</td>
+				</tr>
+				<tr>
+					<td class="title">FORT</td>
+					<td><input type="text" id="fort_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="fort_base" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="fort_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="fort_enhance" class="textbox" size="4" /></td>
+					<td><input type="text" id="fort_misc" class="textbox" size="4" /></td>
+					<td><input type="text" id="fort_temp" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td class="title">REF</td>
+					<td><input type="text" id="ref_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="ref_base" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="ref_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="ref_enhance" class="textbox" size="4" /></td>
+					<td><input type="text" id="ref_misc" class="textbox" size="4" /></td>
+					<td><input type="text" id="ref_temp" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td class="title">WILL</td>
+					<td><input type="text" id="will_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="will_base" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="will_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="will_enhance" class="textbox" size="4" /></td>
+					<td><input type="text" id="will_misc" class="textbox" size="4" /></td>
+					<td><input type="text" id="will_temp" class="textbox" size="4" /></td>
+				</tr>
+			</table>
+			<div class="button_separator"></div>
+		</div>
+		<div id="offense">
+			<h1>Offensive Stats</h1>
+			<table class="cs_std_tbl">
+				<tr>
+					<td></td>
+					<td class="label">Total</td>
+					<td colspan="4" class="label">Base Attack</td>
+					<td class="label">Ability</td>
+					<td class="label">Size</td>
+					<td class="label">Misc</td>
+					<td class="label">Temp</td>
+				</tr>
+				<tr>
+					<td class="title">Melee</td>
+					<td><input type="text" id="melee_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td colspan="4"><input type="text" id="melee_bab" class="textbox" size="10" readonly="readonly" /></td>
+					<td><input type="text" id="melee_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="melee_size" class="textbox" size="4" /></td>
+					<td><input type="text" id="melee_misc" class="textbox" size="4" /></td>
+					<td><input type="text" id="melee_temp" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td class="title">Ranged</td>
+					<td><input type="text" id="range_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td colspan="4"><input type="text" id="range_bab" class="textbox" size="10" readonly="readonly" /></td>
+					<td><input type="text" id="range_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="range_size" class="textbox" size="4" /></td>
+					<td><input type="text" id="range_misc" class="textbox" size="4" /></td>
+					<td><input type="text" id="range_temp" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td class="title">CMB</td>
+					<td><input type="text" id="cmb_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td colspan="4"><input type="text" id="cmb_bab" class="textbox" size="10" readonly="readonly" /></td>
+					<td><input type="text" id="cmb_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="cmb_size" class="textbox" size="4" /></td>
+					<td><input type="text" id="cmb_misc" class="textbox" size="4" /></td>
+					<td><input type="text" id="cmb_temp" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td class="title">CMD</td>
+					<td><input type="text" id="cmd_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td>=</td>
+					<td>10</td>
+					<td>+</td>
+					<td><input type="text" id="cmd_bab" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="cmd_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="cmd_size" class="textbox" size="4" /></td>
+					<td><input type="text" id="cmd_misc" class="textbox" size="4" /></td>
+					<td><input type="text" id="cmd_temp" class="textbox" size="4" /></td>
+				</tr>
+			</table>
+			<table class="cs_std_tbl">
+				<tr>
+					<td class="title">Melee Totals</td>
+					<td><input type="text" id="melee_attk_total" class="textbox" size="25" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td class="title">Ranged Totals</td>
+					<td><input type="text" id="range_attk_total" class="textbox" size="25" readonly="readonly" /></td>
+				</tr>
+			</table>
+			<div class="button_separator"></div>
+			<hr />
+			<p><strong>CMD Ability</strong>: STR Mod + DEX Mod</p>
+		</div>
+		<div id="defense">
+			<h1>Defensive Stats</h1>
+			<table class="cs_std_tbl">
+				<tr>
+					<td></td>
+					<td class="label">Total</td>
+					<td colspan="3" class="label">&nbsp;</td>
+					<td class="label">Armor</td>
+					<td class="label">Dex</td>
+					<td class="label">Size</td>
+					<td class="label">Dodge</td>
+					<td class="label">Natural</td>
+					<td class="label">Misc</td>
+					<td class="label">Temp</td>
+				</tr>
+				<tr>
+					<td class="title">AC</td>
+					<td><input type="text" id="ac_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td>=</td>
+					<td>10</td>
+					<td>+</td>
+					<td><input type="text" id="ac_armor" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="ac_dex" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="ac_size" class="textbox" size="4" /></td>
+					<td><input type="text" id="ac_dodge" class="textbox" size="4" /></td>
+					<td><input type="text" id="ac_natural" class="textbox" size="4" /></td>
+					<td><input type="text" id="ac_misc" class="textbox" size="4" /></td>
+					<td><input type="text" id="ac_temp" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td class="title">TOUCH</td>
+					<td><input type="text" id="touch_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td>=</td>
+					<td>10</td>
+					<td>+</td>
+					<td></td>
+					<td><input type="text" id="touch_dex" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="touch_size" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="touch_dodge" class="textbox" size="4" readonly="readonly" /></td>
+					<td></td>
+					<td><input type="text" id="touch_misc" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="touch_temp" class="textbox" size="4" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td class="title">FLAT-FOOT</td>
+					<td><input type="text" id="flatfoot_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td>=</td>
+					<td>10</td>
+					<td>+</td>
+					<td><input type="text" id="flatfoot_armor" class="textbox" size="4" readonly="readonly" /></td>
+					<td></td>
+					<td><input type="text" id="flatfoot_size" class="textbox" size="4" readonly="readonly" /></td>
+					<td></td>
+					<td><input type="text" id="flatfoot_natural" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="flatfoot_misc" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="flatfoot_temp" class="textbox" size="4" readonly="readonly" /></td>
+				</tr>
+			</table>
+			<table class="cs_std_tbl">
+				<tr>
+					<td class="title">Armor Check Penalty</td>
+					<td><input type="text" id="armor_check_penalty_total" class="textbox" size="4" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td class="title">Maximum Dex</td>
+					<td><input type="text" id="max_dex_total" class="textbox" size="4" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td class="title">Spell Failure</td>
+					<td><input type="text" id="spell_failure_total" class="textbox" size="4" readonly="readonly" /></td>
+				</tr>
+			</table>
+			<div class="button_separator"></div>
+			<hr />
+			<p><strong>Armor Number</strong>: Total of all protective items (under armor) that are marked as active.</p>
+		</div>
+		<div id="misc-stats">
+			<h1>Miscellaneous Stats</h1>
+			<table class="cs_std_tbl">
+				<tr>
+					<td></td>
+					<td class="label">Walk</td>
+					<td class="label">Run</td>
+					<td class="label">Fly</td>
+					<td class="label">Swim</td>
+					<td class="label">Climb</td>
+				</tr>
+				<tr>
+					<td class="title">Speed</td>
+					<td><input type="text" id="speed_walk" class="textbox" size="4" /></td>
+					<td><input type="text" id="speed_run" class="textbox" size="4" /></td>
+					<td><input type="text" id="speed_fly" class="textbox" size="4" /></td>
+					<td><input type="text" id="speed_swim" class="textbox" size="4" /></td>
+					<td><input type="text" id="speed_climb" class="textbox" size="4" /></td>
+				</tr>
+			</table>
+			<table class="cs_std_tbl">
+				<tr>
+					<td></td>
+					<td class="label">Total</td>
+					<td class="label">Dex</td>
+					<td class="label">Misc</td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td class="title">Init</td>
+					<td><input type="text" id="init_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="init_dex" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="init_misc" class="textbox" size="4" /></td>
+					<td colspan="2"></td>
+				</tr>
+			</table>
+			<table class="cs_std_tbl">
+				<tr>
+					<td></td>
+					<td class="label">Acid</td>
+					<td class="label">Cold</td>
+					<td class="label">Elec</td>
+					<td class="label">Fire</td>
+					<td class="label">Sonic</td>
+				</tr>
+				<tr>
+					<td class="title">Resistance</td>
+					<td><input type="text" id="resist_acid" class="textbox" size="4" /></td>
+					<td><input type="text" id="resist_cold" class="textbox" size="4" /></td>
+					<td><input type="text" id="resist_elec" class="textbox" size="4" /></td>
+					<td><input type="text" id="resist_fire" class="textbox" size="4" /></td>
+					<td><input type="text" id="resist_sonic" class="textbox" size="4" /></td>
+				</tr>
+			</table>
+			<table class="cs_std_tbl">
+				<tr>
+					<td class="title">DR</td>
+					<td colspan="5"><input type="text" id="dr" class="textbox" size="30" /></td>
+				</tr>
+				<tr>
+					<td class="title">SR</td>
+					<td colspan="5"><input type="text" id="sr" class="textbox" size="30" /></td>
+				</tr>
+			</table>
+			<div class="button_separator"></div>
+		</div>
+		<div id="weapons">
+			<h1>Weapons and Attacks</h1>
+			<table id="weapon_table" class="cs_std_tbl">
+				<tr>
+					<td class="title">Weapon</td>
+					<td class="label">To Hit</td>
+					<td class="label">Damage</td>
+					<td class="label">Critical</td>
+					<td class="label">Range</td>
+					<td class="label">Type</td>
+					<td class="label">Ammo and Notes</td>
+					<td><a id="weapon_add" class="addbutton" href="javascript:pcdb.sheet.weapon_add();">Add</a></td>
+				</tr>
+			</table>
+			<div class="button_separator"></div>
+		</div>
+		<div id="armor">
+			<h1>Armor, Shields and Protection</h1>
+			<table id="armor_table" class="cs_std_tbl">
+				<tr>
+					<td class="title">Armor</td>
+					<td class="label">Active</td>
+					<td class="label">AC</td>
+					<td class="label">Max Dex</td>
+					<td class="label">Penalty</td>
+					<td class="label">Spell Fail</td>
+					<td class="label">Notes</td>
+					<td><a id="armor_add" class="addbutton" href="javascript:pcdb.sheet.armor_add();">Add</a></td>
+				</tr>
+			</table>
+			<div class="button_separator"></div>
+		</div>
+		<div id="skills">
+			<h1>Skills</h1>
+			<table id="main_skill_table" class="cs_std_tbl">
+				<tr>
+					<td colspan="4" class="title">Skills</td>
+					<td class="label">Total</td>
+					<td><input type="text" id="skill_total_ranks" class="textbox" size="4" readonly="readonly" /></td>
+					<td class="label">Used</td>
+					<td><input type="text" id="skill_used_ranks" class="textbox" size="4" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td colspan="4">&nbsp;</td>
+					<td class="label">Total</td>
+					<td class="label">Ranks</td>
+					<td class="label">Ability</td>
+					<td class="label">Misc</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_acro_class" /></td>
+					<td colspan="2">Acrobatics *</td>
+					<td><span>DEX</span></td>
+					<td><input type="text" id="skill_acro_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_acro_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_acro_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_acro_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_appr_class" /></td>
+					<td colspan="2">Appraise</td>
+					<td><span>INT</span></td>
+					<td><input type="text" id="skill_appr_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_appr_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_appr_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_appr_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_bluf_class" /></td>
+					<td colspan="2">Bluff</td>
+					<td><span>CHR</span></td>
+					<td><input type="text" id="skill_bluf_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_bluf_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_bluf_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_bluf_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_clim_class" /></td>
+					<td colspan="2">Climb *</td>
+					<td><span>STR</span></td>
+					<td><input type="text" id="skill_clim_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_clim_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_clim_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_clim_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_dipl_class" /></td>
+					<td colspan="2">Diplomacy</td>
+					<td><span>CHR</span></td>
+					<td><input type="text" id="skill_dipl_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_dipl_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_dipl_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_dipl_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_disd_class" /></td>
+					<td colspan="2">Disable Device * &dagger;</td>
+					<td><span>DEX</span></td>
+					<td><input type="text" id="skill_disd_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_disd_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_disd_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_disd_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_disg_class" /></td>
+					<td colspan="2">Disguise</td>
+					<td><span>CHR</span></td>
+					<td><input type="text" id="skill_disg_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_disg_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_disg_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_disg_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_esca_class" /></td>
+					<td colspan="2">Escape Artist *</td>
+					<td><span>DEX</span></td>
+					<td><input type="text" id="skill_esca_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_esca_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_esca_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_esca_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_fly_class" /></td>
+					<td colspan="2">Fly *</td>
+					<td><span>DEX</span></td>
+					<td><input type="text" id="skill_fly_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_fly_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_fly_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_fly_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_hana_class" /></td>
+					<td colspan="2">Handle Animal &dagger;</td>
+					<td><span>CHR</span></td>
+					<td><input type="text" id="skill_hana_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_hana_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_hana_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_hana_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_heal_class" /></td>
+					<td colspan="2">Heal</td>
+					<td><span>WIS</span></td>
+					<td><input type="text" id="skill_heal_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_heal_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_heal_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_heal_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_inti_class" /></td>
+					<td colspan="2">Intimidate</td>
+					<td><span>CHR</span></td>
+					<td><input type="text" id="skill_inti_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_inti_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_inti_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_inti_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_karc_class" /></td>
+					<td colspan="2">Kn: Arcana &dagger;</td>
+					<td><span>INT</span></td>
+					<td><input type="text" id="skill_karc_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_karc_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_karc_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_karc_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_kdun_class" /></td>
+					<td colspan="2">Kn: Dungeoneer &dagger;</td>
+					<td><span>INT</span></td>
+					<td><input type="text" id="skill_kdun_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_kdun_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_kdun_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_kdun_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_keng_class" /></td>
+					<td colspan="2">Kn: Engineer &dagger;</td>
+					<td><span>INT</span></td>
+					<td><input type="text" id="skill_keng_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_keng_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_keng_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_keng_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_kgeo_class" /></td>
+					<td colspan="2">Kn: Geography &dagger;</td>
+					<td><span>INT</span></td>
+					<td><input type="text" id="skill_kgeo_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_kgeo_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_kgeo_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_kgeo_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_khis_class" /></td>
+					<td colspan="2">Kn: History &dagger;</td>
+					<td><span>INT</span></td>
+					<td><input type="text" id="skill_khis_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_khis_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_khis_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_khis_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_kloc_class" /></td>
+					<td colspan="2">Kn: Local &dagger;</td>
+					<td><span>INT</span></td>
+					<td><input type="text" id="skill_kloc_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_kloc_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_kloc_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_kloc_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_knat_class" /></td>
+					<td colspan="2">Kn: Nature &dagger;</td>
+					<td><span>INT</span></td>
+					<td><input type="text" id="skill_knat_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_knat_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_knat_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_knat_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_knob_class" /></td>
+					<td colspan="2">Kn: Nobility &dagger;</td>
+					<td><span>INT</span></td>
+					<td><input type="text" id="skill_knob_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_knob_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_knob_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_knob_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_kpla_class" /></td>
+					<td colspan="2">Kn: Planes &dagger;</td>
+					<td><span>INT</span></td>
+					<td><input type="text" id="skill_kpla_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_kpla_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_kpla_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_kpla_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_krel_class" /></td>
+					<td colspan="2">Kn: Religion &dagger;</td>
+					<td><span>INT</span></td>
+					<td><input type="text" id="skill_krel_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_krel_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_krel_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_krel_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_ling_class" /></td>
+					<td colspan="2">Linguistics &dagger;</td>
+					<td><span>INT</span></td>
+					<td><input type="text" id="skill_ling_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_ling_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_ling_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_ling_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_perc_class" /></td>
+					<td colspan="2">Perception</td>
+					<td><span>WIS</span></td>
+					<td><input type="text" id="skill_perc_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_perc_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_perc_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_perc_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_ride_class" /></td>
+					<td colspan="2">Ride *</td>
+					<td><span>DEX</span></td>
+					<td><input type="text" id="skill_ride_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_ride_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_ride_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_ride_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_senm_class" /></td>
+					<td colspan="2">Sense Motive</td>
+					<td><span>WIS</span></td>
+					<td><input type="text" id="skill_senm_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_senm_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_senm_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_senm_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_sleh_class" /></td>
+					<td colspan="2">Sleight of Hand * &dagger;</td>
+					<td><span>DEX</span></td>
+					<td><input type="text" id="skill_sleh_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_sleh_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_sleh_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_sleh_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_spel_class" /></td>
+					<td colspan="2">Spellcraft &dagger;</td>
+					<td><span>INT</span></td>
+					<td><input type="text" id="skill_spel_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_spel_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_spel_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_spel_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_stea_class" /></td>
+					<td colspan="2">Stealth *</td>
+					<td><span>DEX</span></td>
+					<td><input type="text" id="skill_stea_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_stea_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_stea_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_stea_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_surv_class" /></td>
+					<td colspan="2">Survival</td>
+					<td><span>WIS</span></td>
+					<td><input type="text" id="skill_surv_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_surv_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_surv_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_surv_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_swim_class" /></td>
+					<td colspan="2">Swim *</td>
+					<td><span>STR</span></td>
+					<td><input type="text" id="skill_swim_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_swim_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_swim_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_swim_misc" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="skill_usmd_class" /></td>
+					<td colspan="2">Use Magic Device &dagger;</td>
+					<td><span>CHR</span></td>
+					<td><input type="text" id="skill_usmd_total" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_usmd_ranks" class="textbox" size="4" /></td>
+					<td><input type="text" id="skill_usmd_ability" class="textbox" size="4" readonly="readonly" /></td>
+					<td><input type="text" id="skill_usmd_misc" class="textbox" size="4" /></td>
+				</tr>
+			</table>
+			<table id="skill_table" class="cs_std_tbl">
+				<tr>
+					<td colspan="4" class="title">Custom Skills</td>
+					<td class="label">Total</td>
+					<td class="label">Ranks</td>
+					<td class="label">Ability</td>
+					<td class="label">Misc</td>
+					<td><a id="skill_add" class="addbutton" href="javascript:pcdb.sheet.skill_add();">Add</a></td>
+				</tr>
+			</table>
+			<div>* Armor Check Penalty Applies</div>
+			<div>&dagger; Cannot Use Untrained</div>
+			<div class="button_separator"></div>
+			<hr />
+			<p><strong>Total Skills</strong>: Sum of((Class Skill # + INT Mod) * Class Level) + FC Skill Total (min 1 per level)</p>
+			<p><strong>Used Skills</strong>: Sum of(Skill Ranks + Custom Skill Ranks)</p>
+			<p><strong>Total Points in Skill</strong>: Ranks + Ability Mod + Misc + (If Class & Rank == 3) - (If STR or DEX == Armor Check Penalty)</p>
+		</div>
+		<div id="exp-wealth">
+			<h1>Experience and Wealth</h1>
+			<table class="cs_std_tbl">
+				<tr>
+					<td class="title" colspan="3">Experience</td>
+				</tr>
+				<tr>
+					<td><input type="text" id="exp_total" class="textbox" size="10" /></td>
+					<td>/</td>
+					<td><input type="text" id="exp_next" class="textbox" size="10" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td colspan="3"><input type="radio" name="exp" id="exp_slow" /> Slow <input type="radio" name="exp" id="exp_medium" checked="checked" /> Medium <input type="radio" name="exp" id="exp_fast" /> Fast</td>
+				</tr>
+			</table>
+			<table class="cs_std_tbl">
+				<tr>
+					<td class="title" colspan="3">Wealth</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td class="label">Carried</td>
+					<td class="label">Stored</td>
+				</tr>
+				<tr>
+					<td>Platinum</td>
+					<td><input type="text" id="wealth_plat_carried" class="textbox" size="4" /></td>
+					<td><input type="text" id="wealth_plat_stored" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td>Gold</td>
+					<td><input type="text" id="wealth_gold_carried" class="textbox" size="4" /></td>
+					<td><input type="text" id="wealth_gold_stored" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td>Silver</td>
+					<td><input type="text" id="wealth_silv_carried" class="textbox" size="4" /></td>
+					<td><input type="text" id="wealth_silv_stored" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td>Copper</td>
+					<td><input type="text" id="wealth_copp_carried" class="textbox" size="4" /></td>
+					<td><input type="text" id="wealth_copp_stored" class="textbox" size="4" /></td>
+				</tr>
+				<tr>
+					<td>Other (gp)</td>
+					<td><input type="text" id="wealth_othe_carried" class="textbox" size="4" /></td>
+					<td><input type="text" id="wealth_othe_stored" class="textbox" size="4" /></td>
+				</tr>
+			</table>
+			<div class="button_separator"></div>
+			<hr />
+			<p><strong>Next Level Experience</strong>: Based on the XP needed for the next level of your Total Class Levels. XP levels are hard coded, trust me when I say there is NO pattern to the XP levels. Some are easier to attain than others.</p>
+		</div>
+		<div id="feats-abilities">
+			<h1>Feats and Abilities</h1>
+			<table id="feats_table" class="cs_std_tbl">
+				<tr>
+					<td class="title">Feats</td>
+					<td><a id="feats_add" class="addbutton" href="javascript:pcdb.sheet.col_add('feats');">Add</a></td>
+				</tr>
+			</table>
+			<table id="features_table" class="cs_std_tbl">
+				<tr>
+					<td class="title">Class Features</td>
+					<td><a id="features_add" class="addbutton" href="javascript:pcdb.sheet.col_add('features');">Add</a></td>
+				</tr>
+			</table>
+			<table id="traits_table" class="cs_std_tbl">
+				<tr>
+					<td class="title">Racial Traits</td>
+					<td><a id="traits_add" class="addbutton" href="javascript:pcdb.sheet.col_add('traits');">Add</a></td>
+				</tr>
+			</table>
+			<table id="abilities_table" class="cs_std_tbl">
+				<tr>
+					<td class="title">Abilities</td>
+					<td><a id="abilities_add" class="addbutton" href="javascript:pcdb.sheet.col_add('abilities');">Add</a></td>
+				</tr>
+			</table>
+			<div class="button_separator"></div>
+		</div>
+		<div id="equipment">
+			<h1>Equipment and Items</h1>
+			<table id="equipment_table" class="cs_std_tbl">
+				<tr>
+					<td class="title">Items</td>
+					<td><a id="equipment_add" class="addbutton" href="javascript:pcdb.sheet.col_add('equipment');">Add</a></td>
+				</tr>
+			</table>
+			<div class="button_separator"></div>
+		</div>
+		<div id="spells">
+			<h1>Spells</h1>
+			<div class="button_separator"><a id="spells_add" class="addbutton" href="javascript:pcdb.sheet.spells_add();">Add</a></div>
+			<div id="spells_container"></div>
+			<div class="button_separator"></div>
+			<hr />
+			<p><strong>Save DC</strong>: 10 + Spell Level + Ability Mod</p>
+			<p><strong>Total Spells</strong>: Can cast; Class Spells + Spell Mod Calc + Misc</p>
+			<p><strong>Spell Mod Calculation</strong>: Mod = Ability Mod, Lv = Spell Level; (&lceil;Mod / 4&rceil; + (((Mod % 4) == 0) ? 1 : 0)) - &lceil;(Lv - (Mod % 4)) / 4&rceil;</p>
+			<p><strong>Distances</strong>: Cl = Caster Level; Long = 400 + 40 * Cl, Medium = 100 + 10 * Cl, Short = 25 + 5 * &lceil;Cl / 2&rceil;</p>
+		</div>
+		<div id="notes">
+			<h1>Character Notes</h1>
+			<textarea id="character_notes" cols="60" rows="20"></textarea>
+			<div class="button_separator"></div>
+		</div>
+	</div>
