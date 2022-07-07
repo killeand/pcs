@@ -5,6 +5,24 @@ import PCSContext from './PCSContext';
 import IconicIcon from '../images/iconic';
 import FileManager from '../pages/FileManager';
 
+const CHAR_PAGES = [
+    {url:"/details",icon:"bi-journal-text",name:"Character Details",component:(<p>blah</p>)},
+    {url:"/ability-scores",icon:"bi-person-lines-fill",name:"Ability Scores",component:(<p>blah</p>)},
+    {url:"/class-health",icon:"bi-briefcase",name:"Class and Health",component:(<p>blah</p>)},
+    {url:"/saving-throws",icon:"bi-hospital",name:"Saving Throws",component:(<p>blah</p>)},
+    {url:"/offense",icon:"bi-lightning",name:"Offensive Stats",component:(<p>blah</p>)},
+    {url:"/defense",icon:"bi-shield",name:"Defensive Stats",component:(<p>blah</p>)},
+    {url:"/misc-stats",icon:"bi-sliders",name:"Miscellaneous Stats",component:(<p>blah</p>)},
+    {url:"/weapons",icon:"bi-tornado",name:"Weapons",component:(<p>blah</p>)},
+    {url:"/armor",icon:"bi-robot",name:"Armor",component:(<p>blah</p>)},
+    {url:"/skills",icon:"bi-plus-slash-minus",name:"Skills",component:(<p>blah</p>)},
+    {url:"/exp-wealth",icon:"bi-coin",name:"EXP and Wealth",component:(<p>blah</p>)},
+    {url:"/feats-abilities",icon:"bi-cloud-haze2",name:"Feats and Abilities",component:(<p>blah</p>)},
+    {url:"/equipment",icon:"bi-check2-square",name:"Equipment",component:(<p>blah</p>)},
+    {url:"/spellbook",icon:"bi-book",name:"Spellbook",component:(<p>blah</p>)},
+    {url:"/notes",icon:"bi-body-text",name:"Notes",component:(<p>blah</p>)},
+];
+
 export default function Application() {
     let PCSD = useContext(PCSContext);
 
@@ -25,28 +43,21 @@ export default function Application() {
 
     function RenderMenu() {
         let menu = [];
-
         menu.push(<Link key="menu0" className="bi-hdd" to="/"> File Manager</Link>);
 
         if (!_.isNil(PCSD.character)) {
-            menu.push(<Link key="menu1" className="bi-journal-text" to="/details"> Character Details</Link>);
-            menu.push(<Link key="menu2" className="bi-person-lines-fill" to="/ability-scores"> Ability Scores</Link>);
-            menu.push(<Link key="menu3" className="bi-briefcase" to="/class-health"> Class and Health</Link>);
-            menu.push(<Link key="menu4" className="bi-hospital" to="/saving-throws"> Saving Throws</Link>);
-            menu.push(<Link key="menu5" className="bi-lightning" to="/offense"> Offensive Stats</Link>);
-            menu.push(<Link key="menu6" className="bi-shield" to="/defense"> Defensive States</Link>);
-            menu.push(<Link key="menu7" className="bi-sliders" to="/misc-stats"> Miscellaneous Stats</Link>);
-            menu.push(<Link key="menu8" className="bi-tornado" to="/weapons"> Weapons</Link>);
-            menu.push(<Link key="menu9" className="bi-robot" to="/armor"> Armor</Link>);
-            menu.push(<Link key="menu10" className="bi-plus-slash-minus" to="/skills"> Skills</Link>);
-            menu.push(<Link key="menu11" className="bi-coin" to="/exp-wealth"> EXP and Wealth</Link>);
-            menu.push(<Link key="menu12" className="bi-cloud-haze2" to="/feats-abilities"> Feats and Abilities</Link>);
-            menu.push(<Link key="menu13" className="bi-check2-square" to="/equipment"> Equipment</Link>);
-            menu.push(<Link key="menu14" className="bi-book" to="/spellbook"> Spellbook</Link>);
-            menu.push(<Link key="menu15" className="bi-body-text" to="/notes"> Notes</Link>);
+            CHAR_PAGES.forEach((item, i) => {
+                menu.push(<Link key={`menu${i+1}`} className={item.icon} to={item.url}> {item.name}</Link>);
+            });
         }
 
         return menu;
+    }
+
+    function RenderRoutes() {
+        return CHAR_PAGES.map((item, i) => {
+            return (<Route key={`CharRoute${i}`} path={item.url} element={item.component} />);
+        });
     }
 
     return (
@@ -64,6 +75,7 @@ export default function Application() {
                 <main className="flex-grow">
                     <Routes>
                         <Route path="/" element={<FileManager />} />
+                        {RenderRoutes()}
                         <Route path="/404" element={<p>Page not found</p>} />
                         <Route path="*" element={<Navigate to="/404" />} />
                     </Routes>

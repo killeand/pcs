@@ -31,5 +31,5 @@ h2 {
 }
 
 button {
-    @apply bg-gradient-to-b from-slate-200 to-white hover:from-slate-400 hover:to-slate-200 rounded-lg border px-2 py-1;
+    @apply rounded-xl border;
 }
