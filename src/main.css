@@ -14,10 +14,22 @@ header, main, footer {
     @apply bg-white rounded-xl border border-black drop-shadow-md p-2 m-1;
 }
 
-nav  a {
-    @apply flex-grow p-3 text-center hover:bg-gradient-to-r from-white to-slate-300;
+nav a {
+    @apply flex-grow px-2 py-1 hover:bg-gradient-to-r from-white to-slate-300;
 }
 
 nav a:last-child {
     @apply rounded-b-xl md:rounded-b-none;
+}
+
+h1 {
+    @apply text-2xl font-bold border-b-2 border-black;
+}
+
+h2 {
+    @apply text-lg font-bold border-b border-l border-black pl-2;
+}
+
+button {
+    @apply bg-gradient-to-b from-slate-200 to-white hover:from-slate-400 hover:to-slate-200 rounded-lg border px-2 py-1;
 }

@@ -3,14 +3,16 @@ import React, { useState } from 'react';
 const PCSContext = React.createContext(null);
 
 export function PCSContextProvider(props) {
-    let [ test, setTest ] = useState("");
+    let [ character, setCharacter ] = useState(null);
+    let [ files, setFiles ] = useState([]);
 
-    function Clean() {
-        setTest("");
+    function clean() {
+        setCharacter(null);
+        setFiles([]);
     }
 
     return (
-        <PCSContext.Provider value={{ test, setTest }}>
+        <PCSContext.Provider value={{ character, setCharacter, files, setFiles, clean }}>
             {props.children}
         </PCSContext.Provider>
     );
