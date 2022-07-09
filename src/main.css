@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 html, body, #root {
-    @apply h-full w-full;
+    @apply h-full w-full bg-slate-300 text-black;
 }
 
 #root {
-    @apply bg-slate-300 text-black flex flex-col p-1;
+    @apply flex flex-col p-1;
 }
 
 header, main, footer {
@@ -19,7 +19,7 @@ nav a {
 }
 
 nav a:last-child {
-    @apply rounded-b-xl md:rounded-b-none;
+    @apply rounded-b-xl;
 }
 
 h1 {

@@ -3,16 +3,22 @@ import React, { useState } from 'react';
 const PCSContext = React.createContext(null);
 
 export function PCSContextProvider(props) {
-    let [ character, setCharacter ] = useState(null);
     let [ files, setFiles ] = useState([]);
 
+    function getLoadedIndex() {
+        for (let i = 0; i < files.length; i++) {
+            if (files[i].loaded) return i;
+        }
+
+        return -1;
+    }
+
     function clean() {
-        setCharacter(null);
         setFiles([]);
     }
 
     return (
-        <PCSContext.Provider value={{ character, setCharacter, files, setFiles, clean }}>
+        <PCSContext.Provider value={{ files, setFiles, getLoadedIndex, clean }}>
             {props.children}
         </PCSContext.Provider>
     );

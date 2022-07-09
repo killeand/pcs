@@ -26,8 +26,6 @@ const CHAR_PAGES = [
 export default function Application() {
     let PCSD = useContext(PCSContext);
 
-    console.log(PCSD)
-
     function ToggleNav() {
         let navbar = document.getElementsByTagName("nav")[0];
 
@@ -41,13 +39,22 @@ export default function Application() {
         }
     }
 
+    function HideMobileNav() {
+        let navbar = document.getElementsByTagName("nav")[0];
+
+        if (navbar.classList.contains("flex")) {
+            navbar.classList.remove("flex");
+            navbar.classList.add("hidden");
+        }
+    }
+
     function RenderMenu() {
         let menu = [];
-        menu.push(<Link key="menu0" className="bi-hdd" to="/"> File Manager</Link>);
+        menu.push(<Link key="menu0" className="bi-hdd" to="/" onClick={HideMobileNav}> File Manager</Link>);
 
-        if (!_.isNil(PCSD.character)) {
+        if (PCSD.getLoadedIndex() != -1) {
             CHAR_PAGES.forEach((item, i) => {
-                menu.push(<Link key={`menu${i+1}`} className={item.icon} to={item.url}> {item.name}</Link>);
+                menu.push(<Link key={`menu${i+1}`} className={item.icon} to={item.url} onClick={HideMobileNav}> {item.name}</Link>);
             });
         }
 
