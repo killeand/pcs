@@ -18,7 +18,31 @@ export default function FileManager() {
         PCSD.setFiles(newFiles);
     }
 
-    function LoadCharacter(index) {
+    function LoadCharacter(e) {
+        let files = e.target.files;
+
+        for (let i = 0; i < files.length; i++) {
+            if (files[i].type.match(/(json)+/gmi)) {
+                let FR = new FileReader();
+                FR.addEventListener("loadend", (e) => {
+                    let results = FR.result;
+                    let data = null;
+
+                    try {
+                        data = JSON.parse(results);
+
+                        console.log(data);
+                    }
+                    catch(error) {
+                        console.error("DEAL WITH NON-STANDARD FILE LOADS", error);
+                    }
+                });
+                FR.readAsText(files[i]);
+            }
+        }
+    }
+
+    function ActivateCharacter(index) {
         if (!_.isNil(PCSD.files[index])) {
             let newFiles = PCSD.files.map((file, subindex) => {
                 file.loaded = (index == subindex);
@@ -40,7 +64,7 @@ export default function FileManager() {
                     <div className="flex-grow">{files.title}</div>
                     <div className="">{(files.saved)?"Saved":"Unsaved"}</div>
                     <div className="flex flex-row space-x-1">
-                        {(files.loaded)?<Button color="disabled" className="bi-play-circle" />:<Button color="purple" className="bi-play-circle" onClick={LoadCharacter.bind(this, index)} />}
+                        {(files.loaded)?<Button color="disabled" className="bi-play-circle" />:<Button color="purple" className="bi-play-circle" onClick={ActivateCharacter.bind(this, index)} />}
                         <Button color="green" className="bi-save" onClick={()=>console.log(`Saving ${files.title}`)} />
                         <Button color="red" className="bi-trash" onClick={()=>console.log(`Removing ${files.title}`)} />
                     </div>
@@ -54,7 +78,10 @@ export default function FileManager() {
             <h1>File Manager</h1>
             <div className="flex justify-evenly m-3">
                 <Button color="blue" onClick={NewCharacter}>New Character</Button>
-                <Button color="yellow">Load Character</Button>
+                <Button as="label" color="yellow">
+                    <input type="file" className="hidden h-0" multiple accept=".json" onChange={LoadCharacter} />
+                    Load Character
+                </Button>
             </div>
             <h2>Characters</h2>
             <div className="flex flex-col m-3 space-y-2">

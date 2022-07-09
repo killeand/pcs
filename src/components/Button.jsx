@@ -26,9 +26,9 @@ export default function Button(props) {
     }
 
     if (newType != null) {
-        return React.createElement(newType, {...newProps, className:classProp + " px-2 py-1"}, props.children);
+        return React.createElement(newType, {...newProps, className:classProp + " px-2 py-1 rounded-xl border"}, props.children);
     }
     else {
-        return React.createElement("button", {...newProps, className:classProp + " px-2 py-1"}, props.children);
+        return React.createElement("button", {...newProps, className:classProp + " px-2 py-1 rounded-xl border"}, props.children);
     }
 }

@@ -29,7 +29,3 @@ h1 {
 h2 {
     @apply text-lg font-bold border-b border-l border-black pl-2;
 }
-
-button {
-    @apply rounded-xl border;
-}
