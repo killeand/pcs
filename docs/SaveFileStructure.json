@@ -1,0 +1,212 @@
+{
+    "title": "",
+    "data": {
+        "details": {
+            "name": "",
+            "race": "",
+            "size": 4,
+            "gender": "",
+            "height": "",
+            "weight": "",
+            "hair": "",
+            "eyes": "",
+            "skin": "",
+            "age": "",
+            "alignment": "",
+            "deity": "",
+            "homeland": "",
+            "languages": []
+        },
+        "stats": {
+            "str": [0,0,0,0],
+            "dex": [0,0,0,0],
+            "con": [0,0,0,0],
+            "int": [0,0,0,0],
+            "wis": [0,0,0,0],
+            "chr": [0,0,0,0]
+        },
+        "health": [0,0,0,0],
+        "classes": [
+            {
+                "name": "",
+                "level": 0,
+                "hd": 0,
+                "health": 0,
+                "bab": 0,
+                "skillnum": 0,
+                "favclass": [0,0],
+                "saves": [0,0,0]
+            }
+        ],
+        "saves": {
+            "fort": [0,0,0],
+            "ref": [0,0,0],
+            "will": [0,0,0]
+        },
+        "offense": {
+            "melee": [0,0],
+            "range": [0,0],
+            "cmb": [0,0],
+            "cmd": [0,0]
+        },
+        "defense": [0,0,0,0],
+        "miscstats": {
+            "speed": [0,0,0,0,0],
+            "init": 0,
+            "resist": [0,0,0,0,0],
+            "dr": "",
+            "sr": ""
+        },
+        "weapons": [
+            {
+                "name": "",
+                "hit": [
+                    {
+                        "type": "",
+                        "bonus": 0
+                    }
+                ],
+                "dmg": [
+                    {
+                        "type": "",
+                        "bonus": 0
+                    }
+                ],
+                "critical": 0,
+                "range": 0,
+                "type": "",
+                "info": ""
+            }
+        ],
+        "armors": [
+            {
+                "name": "",
+                "active": false,
+                "ac": 0,
+                "maxdex": 0,
+                "penalty": 0,
+                "spellfail": 0,
+                "info": ""
+            }
+        ],
+        "skills": {
+            "acro": [false,0,0],
+            "appr": [false,0,0],
+            "bluf": [false,0,0],
+            "clim": [false,0,0],
+            "craf": [
+                {
+                    "name": "",
+                    "stats": [false,0,0]
+                }
+            ],
+            "dipl": [false,0,0],
+            "disd": [false,0,0],
+            "disg": [false,0,0],
+            "esca": [false,0,0],
+            "fly": [false,0,0],
+            "hana": [false,0,0],
+            "heal": [false,0,0],
+            "inti": [false,0,0],
+            "know": [
+                {
+                    "name": "",
+                    "stats": [false,0,0]
+                }
+            ],
+            "ling": [false,0,0],
+            "perf": [
+                {
+                    "name": "",
+                    "stats": [false,0,0]
+                }
+            ],
+            "perc": [false,0,0],
+            "prof": [
+                {
+                    "name": "",
+                    "stats": [false,0,0]
+                }
+            ],
+            "ride": [false,0,0],
+            "senm": [false,0,0],
+            "sleh": [false,0,0],
+            "spel": [false,0,0],
+            "stea": [false,0,0],
+            "surv": [false,0,0],
+            "swim": [false,0,0],
+            "usmd": [false,0,0]
+        },
+        "exp": [0,0],
+        "wealth": {
+            "plat": [0,0],
+            "gold": [0.0],
+            "silv": [0,0],
+            "copp": [0,0],
+            "othe": ""
+        },
+        "abilities": {
+            "feats": [
+                {
+                    "name": "",
+                    "ref": "",
+                    "info": ""
+                }
+            ],
+            "features": [
+                {
+                    "name": "",
+                    "ref": "",
+                    "info": ""
+                }
+            ],
+            "racial": [
+                {
+                    "name": "",
+                    "ref": "",
+                    "info": ""
+                }
+            ],
+            "misc": [
+                {
+                    "name": "",
+                    "ref": "",
+                    "info": ""
+                }
+            ]
+        },
+        "equipment": [
+            {
+                "name": "",
+                "ref": "",
+                "num": 0,
+                "weight": 0,
+                "info": ""
+            }
+        ],
+        "spellbook": [
+            {
+                "class": 0,
+                "score": 0,
+                "stats": [
+                    [0,0,0],
+                    [0,0,0],
+                    [0,0,0],
+                    [0,0,0],
+                    [0,0,0],
+                    [0,0,0],
+                    [0,0,0],
+                    [0,0,0],
+                    [0,0,0],
+                    [0,0,0]
+                ]
+            }
+        ],
+        "notes": [
+            {
+                "title": "",
+                "info": ""
+            }
+        ]
+    }
+}

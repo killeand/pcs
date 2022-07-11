@@ -4,9 +4,10 @@ import _ from 'lodash';
 import PCSContext from './PCSContext';
 import IconicIcon from '../images/iconic';
 import FileManager from '../pages/FileManager';
+import Details from '../pages/Details';
 
 const CHAR_PAGES = [
-    {url:"/details",icon:"bi-journal-text",name:"Character Details",component:(<p>blah</p>)},
+    {url:"/details",icon:"bi-journal-text",name:"Character Details",component:(<Details />)},
     {url:"/ability-scores",icon:"bi-person-lines-fill",name:"Ability Scores",component:(<p>blah</p>)},
     {url:"/class-health",icon:"bi-briefcase",name:"Class and Health",component:(<p>blah</p>)},
     {url:"/saving-throws",icon:"bi-hospital",name:"Saving Throws",component:(<p>blah</p>)},
@@ -70,7 +71,7 @@ export default function Application() {
     return (
         <HashRouter>
             <div className="flex flex-col md:flex-row flex-grow">
-                <header className="p-0">
+                <header className="p-0 min-w-fit">
                     <div className="p-2 flex flex-row justify-between items-center bg-gradient-to-b from-yellow-800 to-white rounded-xl">
                         <img src={IconicIcon} className="rounded-full border border-black max-h-10 md:mx-auto" />
                         <div className="bi-list text-3xl inline md:hidden" onClick={ToggleNav} />

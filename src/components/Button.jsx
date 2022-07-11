@@ -10,19 +10,19 @@ export default function Button(props) {
 
     if (_.has(newProps, "color")) {
         switch(newProps.color) {
-            case "red": classProp = "bg-gradient-to-b from-red-100 to-red-400 hover:from-white hover:to-red-300 " + classProp; break;
-            case "green": classProp = "bg-gradient-to-b from-emerald-100 to-emerald-400 hover:from-white hover:to-emerald-300 " + classProp; break;
-            case "blue": classProp = "bg-gradient-to-b from-blue-100 to-blue-400 hover:from-white hover:to-blue-300 " + classProp; break;
-            case "gray": classProp = "bg-gradient-to-b from-gray-100 to-gray-400 hover:from-white hover:to-gray-300 " + classProp; break;
-            case "yellow": classProp = "bg-gradient-to-b from-amber-100 to-amber-400 hover:from-white hover:to-amber-300 " + classProp; break;
-            case "purple": classProp = "bg-gradient-to-b from-purple-100 to-purple-400 hover:from-white hover:to-purple-300 " + classProp; break;
-            case "white": classProp = "bg-gradient-to-b from-white to-gray-300 hover:from-gray-100 hover:to-gray-400 " + classProp; break;
-            case "disabled": classProp = "bg-gradient-to-b from-gray-100 to-gray-400 text-gray-600 " + classProp; break;
-            default: classProp = "bg-gradient-to-b from-slate-100 to-slate-400 hover:from-white hover:to-slate-300 " + classProp;
+            case "red": classProp += " bg-gradient-to-b from-red-100 to-red-400 hover:from-white hover:to-red-300"; break;
+            case "green": classProp += " bg-gradient-to-b from-emerald-100 to-emerald-400 hover:from-white hover:to-emerald-300"; break;
+            case "blue": classProp += " bg-gradient-to-b from-blue-100 to-blue-400 hover:from-white hover:to-blue-300"; break;
+            case "gray": classProp += " bg-gradient-to-b from-gray-100 to-gray-400 hover:from-white hover:to-gray-300"; break;
+            case "yellow": classProp += " bg-gradient-to-b from-amber-100 to-amber-400 hover:from-white hover:to-amber-300"; break;
+            case "purple": classProp += " bg-gradient-to-b from-purple-100 to-purple-400 hover:from-white hover:to-purple-300"; break;
+            case "white": classProp += " bg-gradient-to-b from-white to-gray-300 hover:from-gray-100 hover:to-gray-400"; break;
+            case "disabled": classProp += " bg-gradient-to-b from-gray-100 to-gray-400 text-gray-600"; break;
+            default: classProp += " bg-gradient-to-b from-slate-100 to-slate-400 hover:from-white hover:to-slate-300";
         }
     }
     else {
-        classProp = "bg-gradient-to-b from-slate-100 to-slate-400 hover:from-white hover:to-slate-300 " + classProp;
+        classProp += " bg-gradient-to-b from-slate-100 to-slate-400 hover:from-white hover:to-slate-300";
     }
 
     if (newType != null) {

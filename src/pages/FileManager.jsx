@@ -1,21 +1,26 @@
 import React, { useContext, useEffect, useState } from 'react';
+import _ from 'lodash';
 import PCSContext from '../components/PCSContext';
 import Button from '../components/Button';
-import _ from 'lodash';
+import Modal from '../components/Modal';
 
 export default function FileManager() {
     let PCSD = useContext(PCSContext);
+    let [ newCharModal, setNewCharModal ] = useState(false);
+    let [ newTitle, setNewTitle ] = useState("");
 
     function NewCharacter() {
         let newFiles = [...PCSD.files];
         newFiles.push({
-            title: "New Display Title",
+            title: newTitle,
             loaded: false,
             saved: false,
             data: {}
         });
 
         PCSD.setFiles(newFiles);
+        setNewCharModal(false);
+        setNewTitle("");
     }
 
     function LoadCharacter(e) {
@@ -30,8 +35,10 @@ export default function FileManager() {
 
                     try {
                         data = JSON.parse(results);
+                        if (!_.has(data, "title") || !_.has(data, "data")) throw("Invalid data format");
 
-                        console.log(data);
+                        _.assign(data, {loaded:false,saved:true});
+                        PCSD.setFiles([...PCSD.files, data]);
                     }
                     catch(error) {
                         console.error("DEAL WITH NON-STANDARD FILE LOADS", error);
@@ -53,6 +60,49 @@ export default function FileManager() {
         }
     }
 
+    function SaveCharacter(index) {
+        let SavedClass = {...PCSD.files[index]};
+        _.unset(SavedClass, "loaded");
+        _.unset(SavedClass, "saved");
+        
+        let db = document.createElement("a");
+        db.href = `data:application/json;charset=utf8,${JSON.stringify(SavedClass)}`;
+        db.download = `${SavedClass.title}.json`;
+        db.style.display = "none";
+        document.body.appendChild(db);
+        db.click();
+        document.body.removeChild(db);
+
+        PCSD.files[index].saved = true;
+        PCSD.setFiles([...PCSD.files]);
+    }
+
+    function RemoveCharacter(index) {
+        let newFiles = [...PCSD.files];
+        newFiles.splice(index, 1);
+        PCSD.setFiles(newFiles);
+    }
+
+    function RenderNewCharModal() {
+        if (newCharModal) {
+            return (
+                <Modal className="flex flex-col" title="Create New Character" onClose={()=>{setNewCharModal(false);setNewTitle("");}}>
+                    <div className="flex flex-row items-center mt-2 py-2 border-t border-black">
+                        <label htmlFor="title" className="font-bold mr-2">New Title</label>
+                        <input type="text" id="title" name="title" value={newTitle} placeholder="Enter new name..." className="flex-grow border rounded-md p-1" onChange={(e)=>setNewTitle(e.target.value)} />
+                    </div>
+                    <div className="flex">
+                        {(_.isEmpty(newTitle))?(
+                            <Button color="disabled" className="flex-grow">Create Character</Button>
+                        ):(
+                            <Button color="green" className="flex-grow" onClick={NewCharacter}>Create Character</Button>
+                        )}
+                    </div>
+                </Modal>
+            );
+        }
+    }
+
     function RenderCharacters() {
         if (PCSD.files.length == 0) {
             return (<p>No characters have been loaded or created...</p>);
@@ -64,9 +114,9 @@ export default function FileManager() {
                     <div className="flex-grow">{files.title}</div>
                     <div className="">{(files.saved)?"Saved":"Unsaved"}</div>
                     <div className="flex flex-row space-x-1">
-                        {(files.loaded)?<Button color="disabled" className="bi-play-circle" />:<Button color="purple" className="bi-play-circle" onClick={ActivateCharacter.bind(this, index)} />}
-                        <Button color="green" className="bi-save" onClick={()=>console.log(`Saving ${files.title}`)} />
-                        <Button color="red" className="bi-trash" onClick={()=>console.log(`Removing ${files.title}`)} />
+                        {(files.loaded)?<Button color="disabled" className="bi-play-circle" />:<Button color="purple" className="bi-play-circle" onClick={()=>ActivateCharacter(index)} />}
+                        <Button color="green" className="bi-save" onClick={()=>SaveCharacter(index)} />
+                        <Button color="red" className="bi-trash" onClick={()=>RemoveCharacter(index)} />
                     </div>
                 </div>
             );
@@ -75,9 +125,10 @@ export default function FileManager() {
 
     return (
         <>
+            {RenderNewCharModal()}
             <h1>File Manager</h1>
             <div className="flex justify-evenly m-3">
-                <Button color="blue" onClick={NewCharacter}>New Character</Button>
+                <Button color="blue" onClick={()=>setNewCharModal(true)}>New Character</Button>
                 <Button as="label" color="yellow">
                     <input type="file" className="hidden h-0" multiple accept=".json" onChange={LoadCharacter} />
                     Load Character
