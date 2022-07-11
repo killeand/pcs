@@ -1,5 +1,5 @@
 .det-cont {
-    @apply mx-3 my-1 flex flex-col md:flex-row md:flex-wrap space-y-1 md:w-1/2;
+    @apply mx-3 my-1 flex flex-col md:flex-row md:flex-wrap md:justify-center space-y-1 md:w-1/2;
 }
 
 .det-row {
@@ -11,13 +11,29 @@
 }
 
 .det-text {
-    @apply bg-white border-t-2 border-r-2 border-b-2 border-amber-300 rounded-r-md p-1 flex-grow w-full;
+    @apply appearance-none bg-white border-t-2 border-r-2 border-b-2 border-amber-300 rounded-r-md p-1 flex-grow w-full;
+}
+
+.det-lang-cont {
+    @apply mx-3 my-1 flex flex-col md:w-1/2;
 }
 
 .det-lang-title {
     @apply flex-grow font-bold text-center p-1 bg-amber-300 rounded-t-md border-b border-amber-700
 }
 
-.det-lang-cont {
+.det-lang-group {
+    @apply flex flex-row flex-wrap flex-grow justify-between border-r-2 border-b-2 border-l-2 p-1 border-amber-300 rounded-b-md;
+}
 
+.det-lang-group label {
+    @apply mr-2 flex items-center;
+}
+
+.det-lang-group label input[type=checkbox] {
+    @apply appearance-none;
+}
+
+.det-lang-group label input[type=checkbox]::before {
+    @apply border border-black
 }

@@ -81,7 +81,32 @@ export default function Details() {
 
     function RenderSizes() {
         return ["Fine","Diminutive","Tiny","Small","Medium","Large","Huge","Gargantuan","Colossal"].map((value, index) => {
-            return (<option key={`sizeopts${index}`} value={index}>{value}</option>);
+            return (<option key={`sizeopts${index}`} value={index} className="bi-caret-right-fill">{value}</option>);
+        });
+    }
+
+    function RenderLanguages() {
+        let Languages = [
+            "Abyssal","Aklo","Aquan","Auran",
+            "Celestal","Common",
+            "Draconic","Druidic","Dwarf",
+            "Elf",
+            "Giant","Gnoll","Gnome","Goblin",
+            "Halfling",
+            "Ignan","Infernal",
+            "Orc",
+            "Sign","Sign (Drow)","Sylvan",
+            "Terran",
+            "Undercommon"
+        ];
+
+        return Languages.map((lang, index) => {
+            return (
+                <label key={`langopt${index}`} htmlFor={`lang${index}`}>
+                    <input type="checkbox" id={`lang${index}`} name={`lang${index}`} value={lang} />
+                    {lang}
+                </label>
+            );
         });
     }
 
@@ -144,9 +169,11 @@ export default function Details() {
                     <input type="text" id="home" name="home" value={home} className="det-text" onChange={(e)=>UpdateState(setHome, "homeland", e.target.value)} />
                 </div>
             </div>
-            <div className="det-cont">
+            <div className="det-lang-cont">
                 <div className="det-lang-title">Languages</div>
-                
+                <div className="det-lang-group">
+                    {RenderLanguages()}
+                </div>
             </div>
         </>
     );
