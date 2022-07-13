@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
 import PCSContext from '../components/PCSContext';
+import TextRow from '../components/TextRow';
 import '../styles/Details.css';
 
 export default function Details() {
@@ -70,13 +71,28 @@ export default function Details() {
         setLang(PCSD.files[tempIndex].data.details.languages)
     }, []);
 
-    function UpdateState(cbFunc, path, value) {
-        cbFunc(value);
+    function GetInfo(path) {
+        return _.get(PCSD.files[charIndex].data.details, path);
+    }
+
+    function UpdateState(path, value) {
         let newObj = {};
         newObj[path] = value;
         _.assign(PCSD.files[charIndex].data.details, newObj);
+    }
 
-        console.log(value);
+    function RenderFields() {
+        if (charIndex == -1) {
+            return (<p>Loading</p>);
+        }
+        else {
+            return (
+                <>
+                    <TextRow title="Name" id="name" value={GetInfo("name")} onChange={(retval)=>UpdateState("name", retval)} />
+                    <TextRow title="Race" id="race" value={GetInfo("race")} onChange={(retval)=>UpdateState("race", retval)} />
+                </>
+            );
+        }
     }
 
     function RenderSizes() {
@@ -114,10 +130,7 @@ export default function Details() {
         <>
             <h1>Character Details</h1>
             <div className="det-cont">
-                <div className="det-row">
-                    <label htmlFor="name" className="det-label">Name</label>
-                    <input type="text" id="name" name="name" value={name} className="det-text" onChange={(e)=>UpdateState(setName, "name", e.target.value)} />
-                </div>
+                {RenderFields()}
                 <div className="det-row">
                     <label htmlFor="race" className="det-label">Race</label>
                     <input type="text" id="race" name="race" value={race} className="det-text" onChange={(e)=>UpdateState(setRace, "race", e.target.value)} />
