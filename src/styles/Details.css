@@ -2,18 +2,6 @@
     @apply mx-3 my-1 flex flex-col md:flex-row md:flex-wrap md:justify-center space-y-1 md:w-1/2;
 }
 
-.det-row {
-    @apply flex flex-row items-center md:w-5/12 md:mr-3;
-}
-
-.det-label {
-    @apply flex items-center font-bold text-lg bg-amber-300 py-1 px-2 rounded-l-md border-r border-amber-700;
-}
-
-.det-text {
-    @apply appearance-none bg-white border-t-2 border-r-2 border-b-2 border-amber-300 rounded-r-md p-1 flex-grow w-full;
-}
-
 .det-lang-cont {
     @apply mx-3 my-1 flex flex-col md:w-1/2;
 }

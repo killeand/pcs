@@ -12,7 +12,7 @@
             "eyes": "",
             "skin": "",
             "age": "",
-            "alignment": "",
+            "alignment": 0,
             "deity": "",
             "homeland": "",
             "languages": []

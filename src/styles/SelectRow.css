@@ -1,0 +1,15 @@
+.selectrow-cont {
+    @apply relative flex flex-row items-center md:w-5/12 md:mr-3;
+}
+
+.selectrow-label {
+    @apply flex items-center font-bold text-lg bg-amber-300 py-1 px-2 rounded-l-md border-r border-amber-700;
+}
+
+.selectrow-select {
+    @apply appearance-none bg-white border-t-2 border-b-2 border-amber-300 p-1 flex-grow w-full border-r-2 rounded-r-md;
+}
+
+.selectrow-end {
+    @apply absolute right-2 pointer-events-none;
+}

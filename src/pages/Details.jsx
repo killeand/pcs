@@ -3,26 +3,17 @@ import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
 import PCSContext from '../components/PCSContext';
 import TextRow from '../components/TextRow';
+import SelectRow from '../components/SelectRow';
 import '../styles/Details.css';
+
+const CHAR_SIZES = ["Fine","Diminutive","Tiny","Small","Medium","Large","Huge","Gargantuan","Colossal"];
+const CHAR_ALIGNMENTS = ["Unaligned","Lawful Good","Neutral Good","Chaotic Good","Lawful Neutral","True Neutral","Chaotic Neutral","Lawful Evil","Neutral Evil","Chaotic Evil","Its Complicated"];
+const CHAR_LANGUAGES = ["Abyssal","Aklo","Aquan","Auran","Celestal","Common","Draconic","Druidic","Dwarf","Elf","Giant","Gnoll","Gnome","Goblin","Halfling","Ignan","Infernal","Orc","Sign","Sign (Drow)","Sylvan","Terran","Undercommon"];
 
 export default function Details() {
     let PCSD = useContext(PCSContext);
     let Nav = useNavigate();
     let [ charIndex, setCharIndex ] = useState(-1);
-    let [ name, setName ] = useState("");
-    let [ race, setRace ] = useState("");
-    let [ size, setSize ] = useState(4);
-    let [ gender, setGender ] = useState("");
-    let [ height, setHeight ] = useState("");
-    let [ weight, setWeight ] = useState("");
-    let [ hair, setHair ] = useState("");
-    let [ eyes, setEyes ] = useState("");
-    let [ skin, setSkin ] = useState("");
-    let [ age, setAge ] = useState("");
-    let [ align, setAlign ] = useState("");
-    let [ deity, setDeity ] = useState("");
-    let [ home, setHome ] = useState("");
-    let [ lang, setLang ] = useState([]);
 
     useEffect(() => {
         let tempIndex = PCSD.getLoadedIndex();
@@ -55,20 +46,6 @@ export default function Details() {
         }
 
         setCharIndex(tempIndex);
-        setName(PCSD.files[tempIndex].data.details.name);
-        setRace(PCSD.files[tempIndex].data.details.race)
-        setSize(PCSD.files[tempIndex].data.details.size)
-        setGender(PCSD.files[tempIndex].data.details.gender)
-        setHeight(PCSD.files[tempIndex].data.details.height)
-        setWeight(PCSD.files[tempIndex].data.details.weight)
-        setHair(PCSD.files[tempIndex].data.details.hair)
-        setEyes(PCSD.files[tempIndex].data.details.eyes)
-        setSkin(PCSD.files[tempIndex].data.details.skin)
-        setAge(PCSD.files[tempIndex].data.details.age)
-        setAlign(PCSD.files[tempIndex].data.details.alignment)
-        setDeity(PCSD.files[tempIndex].data.details.deity)
-        setHome(PCSD.files[tempIndex].data.details.homeland)
-        setLang(PCSD.files[tempIndex].data.details.languages)
     }, []);
 
     function GetInfo(path) {
@@ -79,6 +56,7 @@ export default function Details() {
         let newObj = {};
         newObj[path] = value;
         _.assign(PCSD.files[charIndex].data.details, newObj);
+        PCSD.files[charIndex].saved = false;
     }
 
     function RenderFields() {
@@ -90,33 +68,24 @@ export default function Details() {
                 <>
                     <TextRow title="Name" id="name" value={GetInfo("name")} onChange={(retval)=>UpdateState("name", retval)} />
                     <TextRow title="Race" id="race" value={GetInfo("race")} onChange={(retval)=>UpdateState("race", retval)} />
+                    <SelectRow title="Size" id="size" index={GetInfo("size")} arrow="bi-aspect-ratio" values={CHAR_SIZES} onChange={(retval)=>UpdateState("size", retval)} />
+                    <TextRow title="Gender" id="gender" value={GetInfo("gender")} onChange={(retval)=>UpdateState("gender", retval)} />
+                    <TextRow title="Height" id="height" value={GetInfo("height")} onChange={(retval)=>UpdateState("height", retval)} />
+                    <TextRow title="Weight" id="weight" value={GetInfo("weight")} onChange={(retval)=>UpdateState("weight", retval)} />
+                    <TextRow title="Hair" id="hair" value={GetInfo("hair")} onChange={(retval)=>UpdateState("hair", retval)} />
+                    <TextRow title="Eyes" id="eyes" value={GetInfo("eyes")} onChange={(retval)=>UpdateState("eyes", retval)} />
+                    <TextRow title="Skin" id="skin" value={GetInfo("skin")} onChange={(retval)=>UpdateState("skin", retval)} />
+                    <TextRow title="Age" id="age" value={GetInfo("age")} onChange={(retval)=>UpdateState("age", retval)} />
+                    <SelectRow title="Alignment" id="alignment" arrow="bi-text-indent-left" index={GetInfo("alignment")} values={CHAR_ALIGNMENTS} onChange={(retval)=>UpdateState("alignment", retval)} />
+                    <TextRow title="Deity" id="deity" value={GetInfo("deity")} onChange={(retval)=>UpdateState("deity", retval)} />
+                    <TextRow title="Homeland" id="homeland" value={GetInfo("homeland")} onChange={(retval)=>UpdateState("homeland", retval)} />
                 </>
             );
         }
     }
 
-    function RenderSizes() {
-        return ["Fine","Diminutive","Tiny","Small","Medium","Large","Huge","Gargantuan","Colossal"].map((value, index) => {
-            return (<option key={`sizeopts${index}`} value={index} className="bi-caret-right-fill">{value}</option>);
-        });
-    }
-
     function RenderLanguages() {
-        let Languages = [
-            "Abyssal","Aklo","Aquan","Auran",
-            "Celestal","Common",
-            "Draconic","Druidic","Dwarf",
-            "Elf",
-            "Giant","Gnoll","Gnome","Goblin",
-            "Halfling",
-            "Ignan","Infernal",
-            "Orc",
-            "Sign","Sign (Drow)","Sylvan",
-            "Terran",
-            "Undercommon"
-        ];
-
-        return Languages.map((lang, index) => {
+        return CHAR_LANGUAGES.map((lang, index) => {
             return (
                 <label key={`langopt${index}`} htmlFor={`lang${index}`}>
                     <input type="checkbox" id={`lang${index}`} name={`lang${index}`} value={lang} />
@@ -131,56 +100,6 @@ export default function Details() {
             <h1>Character Details</h1>
             <div className="det-cont">
                 {RenderFields()}
-                <div className="det-row">
-                    <label htmlFor="race" className="det-label">Race</label>
-                    <input type="text" id="race" name="race" value={race} className="det-text" onChange={(e)=>UpdateState(setRace, "race", e.target.value)} />
-                </div>
-                <div className="det-row">
-                    <label htmlFor="size" className="det-label">Size</label>
-                    <select id="size" name="size" className="det-text" value={size} onChange={(e)=>UpdateState(setSize, "size", e.target.selectedIndex)}>
-                        {RenderSizes()}
-                    </select>
-                </div>
-                <div className="det-row">
-                    <label htmlFor="gender" className="det-label">Gender</label>
-                    <input type="text" id="gender" name="gender" value={gender} className="det-text" onChange={(e)=>UpdateState(setGender, "gender", e.target.value)} />
-                </div>
-                <div className="det-row">
-                    <label htmlFor="height" className="det-label">Height</label>
-                    <input type="text" id="height" name="height" value={height} className="det-text" onChange={(e)=>UpdateState(setHeight, "height", e.target.value)} />
-                </div>
-                <div className="det-row">
-                    <label htmlFor="weight" className="det-label">Weight</label>
-                    <input type="text" id="weight" name="weight" value={weight} className="det-text" onChange={(e)=>UpdateState(setWeight, "weight", e.target.value)} />
-                </div>
-                <div className="det-row">
-                    <label htmlFor="hair" className="det-label">Hair</label>
-                    <input type="text" id="hair" name="hair" value={hair} className="det-text" onChange={(e)=>UpdateState(setHair, "hair", e.target.value)} />
-                </div>
-                <div className="det-row">
-                    <label htmlFor="eyes" className="det-label">Eyes</label>
-                    <input type="text" id="eyes" name="eyes" value={eyes} className="det-text" onChange={(e)=>UpdateState(setEyes, "eyes", e.target.value)} />
-                </div>
-                <div className="det-row">
-                    <label htmlFor="skin" className="det-label">Skin</label>
-                    <input type="text" id="skin" name="skin" value={skin} className="det-text" onChange={(e)=>UpdateState(setSkin, "skin", e.target.value)} />
-                </div>
-                <div className="det-row">
-                    <label htmlFor="age" className="det-label">Age</label>
-                    <input type="text" id="age" name="age" value={age} className="det-text" onChange={(e)=>UpdateState(setAge, "age", e.target.value)} />
-                </div>
-                <div className="det-row">
-                    <label htmlFor="align" className="det-label">Alignment</label>
-                    <input type="text" id="align" name="align" value={align} className="det-text" onChange={(e)=>UpdateState(setAlign, "alignment", e.target.value)} />
-                </div>
-                <div className="det-row">
-                    <label htmlFor="deity" className="det-label">Deity</label>
-                    <input type="text" id="deity" name="deity" value={deity} className="det-text" onChange={(e)=>UpdateState(setDeity, "deity", e.target.value)} />
-                </div>
-                <div className="det-row">
-                    <label htmlFor="home" className="det-label">Homeland</label>
-                    <input type="text" id="home" name="home" value={home} className="det-text" onChange={(e)=>UpdateState(setHome, "homeland", e.target.value)} />
-                </div>
             </div>
             <div className="det-lang-cont">
                 <div className="det-lang-title">Languages</div>
