@@ -1,11 +1,11 @@
 .textrow-cont {
-    @apply flex flex-row items-center md:w-5/12 md:mr-3;
+    @apply flex flex-row items-center;
 }
 
 .textrow-label {
-    @apply flex items-center font-bold text-lg bg-amber-300 py-1 px-2 rounded-l-md border-r border-amber-700;
+    @apply flex items-center font-bold bg-amber-300 py-1 px-2 rounded-l-md border-r border-amber-700;
 }
 
 .textrow-input {
-    @apply bg-white border-t-2 border-r-2 border-b-2 border-amber-300 rounded-r-md p-1 flex-grow w-full;
+    @apply bg-white border-t-2 border-r-2 border-b-2 border-amber-300 rounded-r-md py-0.5 px-1 flex-grow w-full h-full;
 }

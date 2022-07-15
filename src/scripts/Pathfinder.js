@@ -1,0 +1,3 @@
+export const PF_SIZES = ["Fine","Diminutive","Tiny","Small","Medium","Large","Huge","Gargantuan","Colossal"];
+export const PF_ALIGNMENTS = ["Unaligned","Lawful Good","Neutral Good","Chaotic Good","Lawful Neutral","True Neutral","Chaotic Neutral","Lawful Evil","Neutral Evil","Chaotic Evil","Its Complicated"];
+export const PF_LANGUAGES = ["Abyssal","Aklo","Aquan","Auran","Celestal","Common","Draconic","Druidic","Dwarf","Elf","Giant","Gnoll","Gnome","Goblin","Halfling","Ignan","Infernal","Orc","Sign","Sylvan","Terran","Undercommon"];

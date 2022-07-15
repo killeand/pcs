@@ -1,13 +1,13 @@
 .selectrow-cont {
-    @apply relative flex flex-row items-center md:w-5/12 md:mr-3;
+    @apply relative flex flex-row items-center;
 }
 
 .selectrow-label {
-    @apply flex items-center font-bold text-lg bg-amber-300 py-1 px-2 rounded-l-md border-r border-amber-700;
+    @apply flex items-center font-bold bg-amber-300 py-1 px-2 rounded-l-md border-r border-amber-700;
 }
 
 .selectrow-select {
-    @apply appearance-none bg-white border-t-2 border-b-2 border-amber-300 p-1 flex-grow w-full border-r-2 rounded-r-md;
+    @apply appearance-none bg-white border-t-2 border-b-2 border-amber-300 py-0.5 px-1 flex-grow w-full border-r-2 rounded-r-md;
 }
 
 .selectrow-end {

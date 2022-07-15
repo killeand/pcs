@@ -1,0 +1,27 @@
+.checkboxrow-cont {
+    @apply flex flex-col;
+}
+
+.checkboxrow-title {
+    @apply flex items-center py-1 px-2 font-bold bg-amber-300 rounded-t-md border-b border-amber-700;
+}
+
+.checkboxrow-group {
+    @apply flex flex-row flex-wrap flex-grow p-2 border-r-2 border-b-2 border-l-2 border-amber-300 rounded-b-md;
+}
+
+.checkboxrow-item {
+    @apply flex flex-row relative items-center mr-2 mt-2 w-5/12 md:w-1/5;
+}
+
+.checkboxrow-check {
+    @apply appearance-none w-full h-4 border-l-2 border-b-2 border-amber-300;
+}
+
+.checkboxrow-check:checked {
+    @apply bg-gradient-to-r from-amber-300 to-white;
+}
+
+.checkboxrow-label {
+    @apply absolute left-1 pointer-events-none;
+}
