@@ -3,53 +3,53 @@ import _ from 'lodash';
 import { v1 as uuid } from 'uuid';
 import '../styles/CheckboxRow.css';
 
-export default function CheckboxRow({className, title, checked, values, onChange, id, ...props}) {
-    if (_.isNil(className)) className = "";
-    if (_.isNil(checked)) checked = [];
-    if (_.isNil(values)) values = [];
+export default function CheckboxRow({title, id, value, items, className, onChange, ...props}) {
     if (_.isNil(title)) title = "Checkboxes";
-    if (_.isNil(onChange)) console.warn("In order to get the index, you need to assign something to onChange...");
     if (_.isNil(id)) id = "";
+    if (_.isNil(value)) value = [];
+    if (_.isNil(items)) items = [];
+    if (_.isNil(className)) className = "";
+    if (_.isNil(onChange)) console.warn("In order to get the index, you need to assign something to onChange...");
 
-    let [ selectedItems, setSelectedItems ] = useState(checked);
-    let [ CheckboxId, setCheckboxId ] = useState(id);
+    let [ rowValue, setRowValue ] = useState(value);
+    let [ rowId, setRowId ] = useState(id);
 
     useEffect(() => {
-        if (_.isEmpty(CheckboxId))
-            setCheckboxId(uuid());
+        if (_.isEmpty(rowId))
+            setRowId(uuid());
     }, []);
 
-    function InSelectedItems(item) {
-        for (let i = 0; i < selectedItems.length; i++) {
-            if (selectedItems[i] == item)
+    function HasItem(item) {
+        for (let i = 0; i < rowValue.length; i++) {
+            if (rowValue[i] == item)
                 return true;
         }
 
         return false;
     }
 
-    function UpdateSelected(e) {
+    function ChangeValue(e) {
         let tempItems = null;
         let value = e.target.value;
 
         if (e.target.checked) {
-            tempItems = [...selectedItems];
+            tempItems = [...rowValue];
             tempItems.push(value);
         }
         else {
-            tempItems = [...selectedItems].filter((item)=>(item != value));
+            tempItems = [...rowValue].filter((item)=>(item != value));
         }
 
-        setSelectedItems(tempItems);
+        setRowValue(tempItems);
         if (!_.isNil(onChange)) onChange(tempItems);
     }
 
-    function RenderValues() {
-        return values.map((item, index) => {
+    function RenderItems() {
+        return items.map((item, index) => {
             return (
-                <div key={`${CheckboxId}${index}`} className="checkboxrow-item">
-                    <input type="checkbox" id={`${CheckboxId}${index}`} name={`${CheckboxId}${index}`} value={item} className="checkboxrow-check" checked={InSelectedItems(item)} onChange={UpdateSelected} />
-                    <label htmlFor={`${CheckboxId}${index}`} className="checkboxrow-label">{item}</label>
+                <div key={`${rowId}${index}`} className="checkboxrow-item">
+                    <input type="checkbox" id={`${rowId}${index}`} name={`${rowId}${index}`} value={item} className="checkboxrow-check" checked={HasItem(item)} onChange={ChangeValue} />
+                    <label htmlFor={`${rowId}${index}`} className="checkboxrow-label">{item}</label>
                 </div>    
             );
         });
@@ -59,7 +59,7 @@ export default function CheckboxRow({className, title, checked, values, onChange
         <div className={`checkboxrow-cont ${className}`}>
             <div className="checkboxrow-title">{title}</div>
             <div className="checkboxrow-group">
-                {RenderValues()}
+                {RenderItems()}
             </div>
         </div>
     );

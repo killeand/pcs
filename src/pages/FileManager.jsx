@@ -9,6 +9,10 @@ export default function FileManager() {
     let [ newCharModal, setNewCharModal ] = useState(false);
     let [ newTitle, setNewTitle ] = useState("");
 
+    useEffect(() => {
+        PCSD.setFiles([...PCSD.files]);
+    },[]);
+
     function NewCharacter() {
         let newFiles = [...PCSD.files];
         newFiles.push({
@@ -110,11 +114,11 @@ export default function FileManager() {
           
         return PCSD.files.map((files, index) => {
             return (
-                <div key={`char${index}`} className="border border-black p-1 flex flex-row items-center space-x-2">
+                <div key={`char${index}`} className="border border-amber-300 rounded-md p-1 flex flex-row items-center space-x-2">
                     <div className="flex-grow">{files.title}</div>
                     <div className="">{(files.saved)?"Saved":"Unsaved"}</div>
                     <div className="flex flex-row space-x-1">
-                        {(files.loaded)?<Button color="disabled" className="bi-play-circle" />:<Button color="purple" className="bi-play-circle" onClick={()=>ActivateCharacter(index)} />}
+                        {(files.loaded)?<Button color="disabled">Play</Button>:<Button color="purple" onClick={()=>ActivateCharacter(index)}>Play</Button>}
                         <Button color="green" className="bi-save" onClick={()=>SaveCharacter(index)} />
                         <Button color="red" className="bi-trash" onClick={()=>RemoveCharacter(index)} />
                     </div>
@@ -135,7 +139,7 @@ export default function FileManager() {
                 </Button>
             </div>
             <h2>Characters</h2>
-            <div className="flex flex-col m-3 space-y-2">
+            <div className="flex flex-col mt-3 space-y-2">
                 {RenderCharacters()}
             </div>
         </>
