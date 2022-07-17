@@ -1,7 +1,0 @@
-.det-cont {
-    @apply my-1 flex flex-col md:flex-row md:flex-wrap md:items-start;
-}
-
-.det-cont > div {
-    @apply w-full md:mr-3 mt-1 md:w-1/3;
-}

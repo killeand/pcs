@@ -1,0 +1,7 @@
+.page-container {
+    @apply my-1 flex flex-col md:flex-row md:flex-wrap md:items-start;
+}
+
+.page-container > div {
+    @apply w-full md:mr-3 mt-1 md:w-5/12 lg:w-1/3;
+}

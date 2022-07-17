@@ -6,7 +6,7 @@ import TextRow from '../components/TextRow';
 import SelectRow from '../components/SelectRow';
 import CheckboxRow from '../components/CheckboxRow';
 import { PF_SIZES, PF_ALIGNMENTS, PF_LANGUAGES } from '../scripts/Pathfinder';
-import '../styles/Details.css';
+import '../styles/Page.css';
 
 export default function Details() {
     /*#########################################################################
@@ -70,7 +70,7 @@ export default function Details() {
     return (
         <>
             <h1>Character Details</h1>
-            <div className="det-cont">
+            <div className="page-container">
                 {(charIndex == -1)?(
                     <p>Loading...</p>
                 ):(

@@ -5,10 +5,11 @@ import PCSContext from './PCSContext';
 import IconicIcon from '../images/iconic';
 import FileManager from '../pages/FileManager';
 import Details from '../pages/Details';
+import Stats from '../pages/Stats';
 
 const CHAR_PAGES = [
     {url:"/details",icon:"bi-journal-text",name:"Character Details",component:(<Details />)},
-    {url:"/ability-scores",icon:"bi-person-lines-fill",name:"Ability Scores",component:(<p>blah</p>)},
+    {url:"/ability-scores",icon:"bi-person-lines-fill",name:"Ability Scores",component:(<Stats />)},
     {url:"/class-health",icon:"bi-briefcase",name:"Class and Health",component:(<p>blah</p>)},
     {url:"/saving-throws",icon:"bi-hospital",name:"Saving Throws",component:(<p>blah</p>)},
     {url:"/offense",icon:"bi-lightning",name:"Offensive Stats",component:(<p>blah</p>)},
@@ -80,7 +81,7 @@ export default function Application() {
                         {RenderMenu()}
                     </nav>
                 </header>
-                <main className="flex-grow">
+                <main className="flex flex-col flex-grow">
                     <Routes>
                         <Route path="/" element={<FileManager />} />
                         {RenderRoutes()}
