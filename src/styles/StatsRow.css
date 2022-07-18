@@ -1,1 +1,39 @@
+.statsrow-top {
+    @apply flex flex-row space-x-1 bg-amber-300 p-1 cursor-pointer rounded-t-md;
+}
 
+.statsrow-bottom {
+    @apply flex-row justify-evenly bg-white rounded-b-md border-2 border-amber-300;
+}
+
+.statsrow-title {
+    @apply flex-grow font-bold pointer-events-none;
+}
+
+.statsrow-total {
+    @apply border border-black bg-white px-2 pointer-events-none;
+}
+
+.statsrow-mod {
+    @apply border border-black bg-white px-1 rounded-full pointer-events-none;
+}
+
+.statsrow-cont {
+    @apply flex flex-col justify-center;
+}
+
+.statsrow-label {
+    @apply text-center text-xs;
+}
+
+.statsrow-num {
+    @apply text-center w-full border border-black;
+}
+
+.statsrow-cont:first-child > input {
+    @apply rounded-bl-md;
+}
+
+.statsrow-cont:last-child > input {
+    @apply rounded-br-md;
+}
