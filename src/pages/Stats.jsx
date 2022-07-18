@@ -73,6 +73,9 @@ export default function Stats() {
                     </>
                 )}
             </div>
+            <div className="flex flex-grow items-end mt-3 italic text-xs">
+                <span className="font-bold">Mods Calculation</span>: &lfloor;(StatTotal - 10) / 2)&rfloor;
+            </div>
         </>
     );
 }

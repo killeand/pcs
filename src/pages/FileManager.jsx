@@ -142,10 +142,8 @@ export default function FileManager() {
             <div className="flex flex-col mt-3 space-y-2">
                 {RenderCharacters()}
             </div>
-            <div className="flex flex-grow items-end justify-center mt-3">
-                <div className="italic text-xs">
-                    Characters will be saved upon any changes to the list from this page, or periodically every 10 seconds. Upon loading the page again, they should be reloaded. Please note that this file uses localstorage to store the characters, so if you move this file the localstorage will be reset. It is a known flaw with non-server based web applications. To prevent any major losses, make sure you <span className="bi-save" /> save the characters listed as Unsaved.
-                </div>
+            <div className="flex flex-grow items-end mt-3 italic text-xs">
+                Characters will be saved upon any changes to the list from this page, or periodically every 10 seconds. Upon loading the page again, they should be reloaded. Please note that this file uses localstorage to store the characters, so if you move this file the localstorage will be reset. It is a known flaw with non-server based web applications. To prevent any major losses, make sure you <span className="bi-save" /> save the characters listed as Unsaved.
             </div>
         </>
     );

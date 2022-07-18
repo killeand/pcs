@@ -10,7 +10,8 @@ import Stats from '../pages/Stats';
 const CHAR_PAGES = [
     {url:"/details",icon:"bi-journal-text",name:"Character Details",component:(<Details />)},
     {url:"/ability-scores",icon:"bi-person-lines-fill",name:"Ability Scores",component:(<Stats />)},
-    {url:"/class-health",icon:"bi-briefcase",name:"Class and Health",component:(<p>blah</p>)},
+    {url:"/classes",icon:"bi-briefcase",name:"Classes",component:(<p>blah</p>)},
+    {url:"/health",icon:"bi-plus-circle",name:"Health",component:(<p>blah</p>)},
     {url:"/saving-throws",icon:"bi-hospital",name:"Saving Throws",component:(<p>blah</p>)},
     {url:"/offense",icon:"bi-lightning",name:"Offensive Stats",component:(<p>blah</p>)},
     {url:"/defense",icon:"bi-shield",name:"Defensive Stats",component:(<p>blah</p>)},
