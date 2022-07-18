@@ -11,11 +11,11 @@
 }
 
 .statsrow-total {
-    @apply border border-black bg-white px-2 pointer-events-none;
+    @apply border border-black bg-emerald-100 px-2 pointer-events-none;
 }
 
 .statsrow-mod {
-    @apply border border-black bg-white px-1 rounded-full pointer-events-none;
+    @apply border border-black bg-sky-100 px-1 rounded-full pointer-events-none;
 }
 
 .statsrow-cont {
@@ -27,7 +27,7 @@
 }
 
 .statsrow-num {
-    @apply text-center w-full border border-black;
+    @apply text-center w-full border border-black bg-white;
 }
 
 .statsrow-cont:first-child > input {

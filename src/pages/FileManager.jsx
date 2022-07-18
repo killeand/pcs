@@ -3,6 +3,7 @@ import _ from 'lodash';
 import PCSContext from '../components/PCSContext';
 import Button from '../components/Button';
 import Modal from '../components/Modal';
+import "../styles/Page.css";
 
 export default function FileManager() {
     let PCSD = useContext(PCSContext);
@@ -118,7 +119,7 @@ export default function FileManager() {
                     <div className="flex-grow">{files.title}</div>
                     <div className="">{(files.saved)?"Saved":"Unsaved"}</div>
                     <div className="flex flex-row space-x-1">
-                        {(files.loaded)?<Button color="disabled">Play</Button>:<Button color="purple" onClick={()=>ActivateCharacter(index)}>Play</Button>}
+                        {(files.loaded)?<Button color="disabled">Play</Button>:<Button color="yellow" onClick={()=>ActivateCharacter(index)}>Play</Button>}
                         <Button color="green" className="bi-save" onClick={()=>SaveCharacter(index)} />
                         <Button color="red" className="bi-trash" onClick={()=>RemoveCharacter(index)} />
                     </div>
@@ -131,19 +132,19 @@ export default function FileManager() {
         <>
             {RenderNewCharModal()}
             <h1>File Manager</h1>
-            <div className="flex justify-evenly m-3">
-                <Button color="blue" onClick={()=>setNewCharModal(true)}>New Character</Button>
+            <div className="single-container">
+                <Button color="yellow" onClick={()=>setNewCharModal(true)}>New Character</Button>
                 <Button as="label" color="yellow">
                     <input type="file" className="hidden h-0" multiple accept=".json" onChange={LoadCharacter} />
                     Load Character
                 </Button>
             </div>
             <h2>Characters</h2>
-            <div className="flex flex-col mt-3 space-y-2">
+            <div className="single-container">
                 {RenderCharacters()}
             </div>
-            <div className="flex flex-grow items-end mt-3 italic text-xs">
-                Characters will be saved upon any changes to the list from this page, or periodically every 10 seconds. Upon loading the page again, they should be reloaded. Please note that this file uses localstorage to store the characters, so if you move this file the localstorage will be reset. It is a known flaw with non-server based web applications. To prevent any major losses, make sure you <span className="bi-save" /> save the characters listed as Unsaved.
+            <div className="messages-cont">
+                <div>Characters will be saved upon any changes to the list from this page, or periodically every 10 seconds. Upon loading the page again, they should be reloaded. Please note that this file uses localstorage to store the characters, so if you move this file the localstorage will be reset. It is a known flaw with non-server based web applications. To prevent any major losses, make sure you <span className="bi-save" /> save the characters listed as Unsaved.</div>
             </div>
         </>
     );

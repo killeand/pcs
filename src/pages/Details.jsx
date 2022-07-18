@@ -70,7 +70,7 @@ export default function Details() {
     return (
         <>
             <h1>Character Details</h1>
-            <div className="page-container">
+            <div className="double-container">
                 {(charIndex == -1)?(
                     <p>Loading...</p>
                 ):(

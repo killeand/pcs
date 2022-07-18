@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
 import PCSContext from '../components/PCSContext';
-import StatsRow from '../components/StatsRow';
 import '../styles/Page.css';
 
 export default function Stats() {
@@ -59,7 +58,7 @@ export default function Stats() {
     return (
         <>
             <h1>Ability Scores</h1>
-            <div className="single-container">
+            <div className="page-container">
                 {(charIndex == -1)?(
                     <p>Loading...</p>
                 ):(
@@ -73,8 +72,8 @@ export default function Stats() {
                     </>
                 )}
             </div>
-            <div className="messages-cont">
-                <div><span className="font-bold">Mods Calculation</span>: &lfloor;(StatTotal - 10) / 2)&rfloor;</div>
+            <div className="flex flex-grow items-end mt-3 italic text-xs">
+                <span className="font-bold">Mods Calculation</span>: &lfloor;(StatTotal - 10) / 2)&rfloor;
             </div>
         </>
     );
