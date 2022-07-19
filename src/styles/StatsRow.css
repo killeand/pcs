@@ -19,7 +19,7 @@
 }
 
 .statsrow-cont {
-    @apply flex flex-col justify-center;
+    @apply flex flex-col justify-center w-full;
 }
 
 .statsrow-label {

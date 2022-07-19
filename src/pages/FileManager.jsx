@@ -132,7 +132,7 @@ export default function FileManager() {
         <>
             {RenderNewCharModal()}
             <h1>File Manager</h1>
-            <div className="single-container">
+            <div className="main-container">
                 <Button color="yellow" onClick={()=>setNewCharModal(true)}>New Character</Button>
                 <Button as="label" color="yellow">
                     <input type="file" className="hidden h-0" multiple accept=".json" onChange={LoadCharacter} />
@@ -140,10 +140,10 @@ export default function FileManager() {
                 </Button>
             </div>
             <h2>Characters</h2>
-            <div className="single-container">
+            <div className="main-container">
                 {RenderCharacters()}
             </div>
-            <div className="messages-cont">
+            <div className="msg-container">
                 <div>Characters will be saved upon any changes to the list from this page, or periodically every 10 seconds. Upon loading the page again, they should be reloaded. Please note that this file uses localstorage to store the characters, so if you move this file the localstorage will be reset. It is a known flaw with non-server based web applications. To prevent any major losses, make sure you <span className="bi-save" /> save the characters listed as Unsaved.</div>
             </div>
         </>

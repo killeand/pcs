@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+    .base-size {
+        @apply w-full md:w-2/3 lg:w-1/2;
+    }
+}
+
 html, body, #root {
     @apply h-full w-full bg-slate-300 text-black;
 }
@@ -23,9 +29,9 @@ nav a:last-child {
 }
 
 h1 {
-    @apply text-2xl font-bold border-b-2 border-black;
+    @apply text-2xl font-bold border-b-2 border-black base-size;
 }
 
 h2 {
-    @apply text-lg font-bold border-b border-l border-black pl-2;
+    @apply text-lg font-bold border-b border-l border-black pl-2 base-size;
 }

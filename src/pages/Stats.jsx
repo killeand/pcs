@@ -59,7 +59,7 @@ export default function Stats() {
     return (
         <>
             <h1>Ability Scores</h1>
-            <div className="single-container">
+            <div className="main-container">
                 {(charIndex == -1)?(
                     <p>Loading...</p>
                 ):(
@@ -73,7 +73,7 @@ export default function Stats() {
                     </>
                 )}
             </div>
-            <div className="messages-cont">
+            <div className="msg-container">
                 <div><span className="font-bold">Mods Calculation</span>: &lfloor;(StatTotal - 10) / 2)&rfloor;</div>
             </div>
         </>
