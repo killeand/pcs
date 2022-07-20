@@ -1,39 +1,39 @@
-.statsrow-top {
+.abscore-top {
     @apply flex flex-row space-x-1 bg-amber-300 p-1 cursor-pointer rounded-t-md;
 }
 
-.statsrow-bottom {
+.abscore-bottom {
     @apply flex-row justify-evenly bg-white rounded-b-md border-2 border-amber-300;
 }
 
-.statsrow-title {
+.abscore-title {
     @apply flex-grow font-bold pointer-events-none;
 }
 
-.statsrow-total {
+.abscore-total {
     @apply border border-black bg-emerald-100 px-2 pointer-events-none;
 }
 
-.statsrow-mod {
+.abscore-mod {
     @apply border border-black bg-sky-100 px-1 rounded-full pointer-events-none;
 }
 
-.statsrow-cont {
+.abscore-cont {
     @apply flex flex-col justify-center w-full;
 }
 
-.statsrow-label {
+.abscore-label {
     @apply text-center text-xs;
 }
 
-.statsrow-num {
+.abscore-num {
     @apply text-center w-full border border-black bg-white;
 }
 
-.statsrow-cont:first-child > input {
+.abscore-cont:first-child > input {
     @apply rounded-bl-md;
 }
 
-.statsrow-cont:last-child > input {
+.abscore-cont:last-child > input {
     @apply rounded-br-md;
 }

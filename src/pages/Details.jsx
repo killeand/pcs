@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
 import PCSContext from '../components/PCSContext';
-import TextRow from '../components/TextRow';
-import SelectRow from '../components/SelectRow';
-import CheckboxRow from '../components/CheckboxRow';
+import Text from '../components/Text';
+import Select from '../components/Select';
+import CheckBox from '../components/CheckBox';
 import { PF_SIZES, PF_ALIGNMENTS, PF_LANGUAGES } from '../scripts/Pathfinder';
 import '../styles/Page.css';
 
@@ -75,20 +75,20 @@ export default function Details() {
                     <p>Loading...</p>
                 ):(
                     <>
-                        <TextRow title="Name" id="name" value={GetAPI("name")} onChange={(retval)=>SetAPI("name", retval)} />
-                        <TextRow title="Race" id="race" value={GetAPI("race")} onChange={(retval)=>SetAPI("race", retval)} />
-                        <SelectRow title="Size" id="size" value={GetAPI("size")} items={PF_SIZES} arrow="bi-aspect-ratio" onChange={(retval)=>SetAPI("size", retval)} />
-                        <TextRow title="Gender" id="gender" value={GetAPI("gender")} onChange={(retval)=>SetAPI("gender", retval)} />
-                        <TextRow title="Height" id="height" value={GetAPI("height")} onChange={(retval)=>SetAPI("height", retval)} />
-                        <TextRow title="Weight" id="weight" value={GetAPI("weight")} onChange={(retval)=>SetAPI("weight", retval)} />
-                        <TextRow title="Hair" id="hair" value={GetAPI("hair")} onChange={(retval)=>SetAPI("hair", retval)} />
-                        <TextRow title="Eyes" id="eyes" value={GetAPI("eyes")} onChange={(retval)=>SetAPI("eyes", retval)} />
-                        <TextRow title="Skin" id="skin" value={GetAPI("skin")} onChange={(retval)=>SetAPI("skin", retval)} />
-                        <TextRow title="Age" id="age" value={GetAPI("age")} onChange={(retval)=>SetAPI("age", retval)} />
-                        <SelectRow title="Alignment" id="alignment" value={GetAPI("alignment")} items={PF_ALIGNMENTS} arrow="bi-text-indent-left" onChange={(retval)=>SetAPI("alignment", retval)} />
-                        <TextRow title="Deity" id="deity" value={GetAPI("deity")} onChange={(retval)=>SetAPI("deity", retval)} />
-                        <TextRow title="Homeland" id="homeland" value={GetAPI("homeland")} onChange={(retval)=>SetAPI("homeland", retval)} />
-                        <CheckboxRow title="Languages" id="languages" value={GetAPI("languages")} items={PF_LANGUAGES} onChange={(retval)=>SetAPI("languages", retval)} />
+                        <Text title="Name" id="name" value={GetAPI("name")} onChange={(retval)=>SetAPI("name", retval)} />
+                        <Text title="Race" id="race" value={GetAPI("race")} onChange={(retval)=>SetAPI("race", retval)} />
+                        <Select title="Size" id="size" value={GetAPI("size")} items={PF_SIZES} arrow="bi-aspect-ratio" onChange={(retval)=>SetAPI("size", retval)} />
+                        <Text title="Gender" id="gender" value={GetAPI("gender")} onChange={(retval)=>SetAPI("gender", retval)} />
+                        <Text title="Height" id="height" value={GetAPI("height")} onChange={(retval)=>SetAPI("height", retval)} />
+                        <Text title="Weight" id="weight" value={GetAPI("weight")} onChange={(retval)=>SetAPI("weight", retval)} />
+                        <Text title="Hair" id="hair" value={GetAPI("hair")} onChange={(retval)=>SetAPI("hair", retval)} />
+                        <Text title="Eyes" id="eyes" value={GetAPI("eyes")} onChange={(retval)=>SetAPI("eyes", retval)} />
+                        <Text title="Skin" id="skin" value={GetAPI("skin")} onChange={(retval)=>SetAPI("skin", retval)} />
+                        <Text title="Age" id="age" value={GetAPI("age")} onChange={(retval)=>SetAPI("age", retval)} />
+                        <Select title="Alignment" id="alignment" value={GetAPI("alignment")} items={PF_ALIGNMENTS} arrow="bi-text-indent-left" onChange={(retval)=>SetAPI("alignment", retval)} />
+                        <Text title="Deity" id="deity" value={GetAPI("deity")} onChange={(retval)=>SetAPI("deity", retval)} />
+                        <Text title="Homeland" id="homeland" value={GetAPI("homeland")} onChange={(retval)=>SetAPI("homeland", retval)} />
+                        <CheckBox title="Languages" id="languages" value={GetAPI("languages")} items={PF_LANGUAGES} onChange={(retval)=>SetAPI("languages", retval)} />
                     </>
                 )}
             </div>

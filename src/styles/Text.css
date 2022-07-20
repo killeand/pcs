@@ -1,11 +1,11 @@
-.textrow-cont {
+.text-cont {
     @apply flex flex-row items-center;
 }
 
-.textrow-label {
+.text-label {
     @apply flex items-center font-bold bg-amber-300 py-1 px-2 rounded-l-md border-r border-amber-700;
 }
 
-.textrow-input {
+.text-input {
     @apply bg-white border-t-2 border-r-2 border-b-2 border-amber-300 rounded-r-md py-0.5 px-1 flex-grow w-full h-full;
 }

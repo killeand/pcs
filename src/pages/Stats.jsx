@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
 import PCSContext from '../components/PCSContext';
-import StatsRow from '../components/StatsRow';
+import StatsRow from '../components/AbilityScore';
 import '../styles/Page.css';
 
 export default function Stats() {
