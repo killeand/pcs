@@ -1,0 +1,23 @@
+.mn-cont {
+    @apply flex flex-row justify-evenly;
+}
+
+.mn-section {
+    @apply flex flex-col justify-center w-full;
+}
+
+.mn-label {
+    @apply text-center text-xs;
+}
+
+.mn-num {
+    @apply text-center w-full border border-black bg-white;
+}
+
+.mn-section:first-child > input {
+    @apply rounded-l-md;
+}
+
+.mn-section:last-child > input {
+    @apply rounded-r-md;
+}

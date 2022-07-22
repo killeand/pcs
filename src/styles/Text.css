@@ -3,7 +3,7 @@
 }
 
 .text-label {
-    @apply flex items-center font-bold bg-amber-300 py-1 px-2 rounded-l-md border-r border-amber-700;
+    @apply flex items-center font-bold bg-amber-300 py-1 px-2 rounded-l-md border-r border-amber-700 min-w-fit;
 }
 
 .text-input {

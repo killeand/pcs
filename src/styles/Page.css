@@ -11,5 +11,5 @@
 }
 
 .msg-container {
-    @apply flex flex-grow items-end mt-3 italic text-xs base-size;
+    @apply flex flex-col flex-grow justify-end mt-3 italic text-xs base-size;
 }

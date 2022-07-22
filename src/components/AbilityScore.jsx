@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
 import { v1 as uuid } from 'uuid';
+import MultiNumber from './MultiNumber';
 import "../styles/AbilityScore.css";
 
 export default function AbilityScore({title, id, value, className, onChange, ...props}) {
@@ -18,13 +19,9 @@ export default function AbilityScore({title, id, value, className, onChange, ...
             setFormId(uuid());
     }, []);
 
-    function ChangeValue(e, index) {
-        let inputValue = e.target.value;
-        let newValue = [...formValue];
-        newValue[index] = parseInt(inputValue) | 0;
-
-        setFormValue(newValue);
-        if (!_.isNil(onChange)) onChange(newValue);
+    function ChangeValue(value) {
+        setFormValue(value);
+        if (!_.isNil(onChange)) onChange(value);
     }
 
     function OpenClose(e) {
@@ -54,22 +51,7 @@ export default function AbilityScore({title, id, value, className, onChange, ...
                 <div className="abscore-mod">{modifier}</div>
             </div>
             <div className="abscore-bottom hidden">
-                <div className="abscore-cont">
-                    <label htmlFor={`${formId}-base`} className="abscore-label">Base</label>
-                    <input type="number" id={`${formId}-base`} name={`${formId}-base`} value={formValue[0]} className="abscore-num" onChange={(e)=>ChangeValue(e,0)} />
-                </div>
-                <div className="abscore-cont">
-                    <label htmlFor={`${formId}-enh`} className="abscore-label">Enhance</label>
-                    <input type="number" id={`${formId}-enh`} name={`${formId}-enh`} value={formValue[1]} className="abscore-num" onChange={(e)=>ChangeValue(e,1)} />
-                </div>
-                <div className="abscore-cont">
-                    <label htmlFor={`${formId}-misc`} className="abscore-label">Misc</label>
-                    <input type="number" id={`${formId}-misc`} name={`${formId}-misc`} value={formValue[2]} className="abscore-num" onChange={(e)=>ChangeValue(e,2)} />
-                </div>
-                <div className="abscore-cont">
-                    <label htmlFor={`${formId}-temp`} className="abscore-label">Temp</label>
-                    <input type="number" id={`${formId}-temp`} name={`${formId}-temp`} value={formValue[3]} className="abscore-num" onChange={(e)=>ChangeValue(e,3)} />
-                </div>
+                <MultiNumber title={["Base", "Enhance", "Misc", "Temp"]} id={`${id}`} value={formValue} onChange={(retval)=>ChangeValue(retval)} />
             </div>
         </div>
     );

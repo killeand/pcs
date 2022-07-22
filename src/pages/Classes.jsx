@@ -3,6 +3,10 @@ import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
 import PCSContext from '../components/PCSContext';
 import Button from '../components/Button';
+import Label from '../components/Label';
+import Text from '../components/Text';
+import Number from '../components/Number';
+import MultiNumber from '../components/MultiNumber';
 import '../styles/Page.css';
 
 export default function Stats() {
@@ -13,10 +17,6 @@ export default function Stats() {
     let Nav = useNavigate();
     let [ charIndex, setCharIndex ] = useState(-1);
     let [ classList, setClassList ] = useState([]);
-
-    function GetAPI(path) {
-        return _.get(PCSD.files[charIndex].data.classes, path);
-    }
     
     function SetAPI(value) {
         _.assign(PCSD.files[charIndex].data.classes, value);
@@ -77,6 +77,32 @@ export default function Stats() {
         return total;
     }
 
+    function ChangeValue(index, type, value) {
+        let newClasses = [...classList];
+
+        if (type == 0) {
+            newClasses[index].name = value;
+        }
+        if (type == 1) {
+            newClasses[index].level = value;
+        }
+        if (type == 2) {
+            newClasses[index].hd = value[0];
+            newClasses[index].health = value[1];
+            newClasses[index].bab = value[2];
+            newClasses[index].skillnum = value[3];
+        }
+        if (type == 3) {
+            newClasses[index].favclass = value;
+        }
+        if (type == 4) {
+            newClasses[index].saves = value;
+        }
+
+        setClassList(newClasses);
+        SetAPI(newClasses);
+    }
+
     function RenderClasses() {
         if (charIndex == -1)
             return (<p>Loading...</p>);
@@ -86,8 +112,12 @@ export default function Stats() {
         
         return classList.map((item, index) => {
             return (
-                <div key={`classlist${index}`} className="border-2 border-amber-300 rounded-md">
-                    Class {index+1}
+                <div key={`classlist${index}`} className="border-2 border-amber-300 rounded-md p-1 flex flex-col space-y-1">
+                    <Text title="Class Name" id={`class${index+1}name`} value={item.name} onChange={(retval)=>ChangeValue(index, 0, retval)} />
+                    <Number title="Level" id={`class${index+1}level`} value={item.level} onChange={(retval)=>ChangeValue(index, 1, retval)} />
+                    <MultiNumber title={["HD", "Health", "BAB", "Skill Num"]} id={`class${index+1}bs`} value={[item.hd, item.health, item.bab, item.skillnum]} onChange={(retval)=>ChangeValue(index, 2, retval)} />
+                    <MultiNumber title={["Fav Class Health", "Fav Class Skill"]} id={`class${index+1}fc`} value={[item.favclass[0], item.favclass[1]]} onChange={(retval)=>ChangeValue(index, 3, retval)} />
+                    <MultiNumber title={["Fortitude", "Reflex", "Will"]} id={`class${index+1}st`} value={[item.saves[0], item.saves[1], item.saves[2]]} onChange={(retval)=>ChangeValue(index, 4, retval)} />
                 </div>
             );
         });
@@ -98,10 +128,7 @@ export default function Stats() {
             <h1>Classes</h1>
             <div className="main-container">
                 <Button color="yellow" onClick={AddClass}>Add Class</Button>
-                <div className="flex flex-row items-center">
-                    <div className="bg-amber-300 p-1 rounded-l-md border-r border-amber-700 font-bold h-full">Total Class Levels</div>
-                    <div className="flex-grow border-t-2 border-r-2 border-b-2 border-amber-300 p-1 rounded-r-md text-center">{CalculateLevels()}</div>
-                </div>
+                <Label title="Total Class Levels" value={CalculateLevels()} />
             </div>
             <div className="main-container">
                 {RenderClasses()}
