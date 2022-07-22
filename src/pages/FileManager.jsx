@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import _ from 'lodash';
+import { v1 as uuid } from 'uuid';
 import PCSContext from '../components/PCSContext';
 import Button from '../components/Button';
 import Modal from '../components/Modal';
@@ -17,6 +18,7 @@ export default function FileManager() {
     function NewCharacter() {
         let newFiles = [...PCSD.files];
         newFiles.push({
+            _id: uuid(),
             title: newTitle,
             loaded: false,
             saved: false,
@@ -115,7 +117,7 @@ export default function FileManager() {
           
         return PCSD.files.map((files, index) => {
             return (
-                <div key={`char${index}`} className="border border-amber-300 rounded-md p-1 flex flex-row items-center space-x-2">
+                <div key={`character-${files._id}`} className="border border-amber-300 rounded-md p-1 flex flex-row items-center space-x-2">
                     <div className="flex-grow">{files.title}</div>
                     <div className="">{(files.saved)?"Saved":"Unsaved"}</div>
                     <div className="flex flex-row space-x-1">

@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
+import { v1 as uuid } from 'uuid';
 import PCSContext from '../components/PCSContext';
 import Button from '../components/Button';
 import Label from '../components/Label';
 import Text from '../components/Text';
 import Number from '../components/Number';
 import MultiNumber from '../components/MultiNumber';
+import Modal from '../components/Modal';
 import '../styles/Page.css';
 
 export default function Stats() {
@@ -17,9 +19,11 @@ export default function Stats() {
     let Nav = useNavigate();
     let [ charIndex, setCharIndex ] = useState(-1);
     let [ classList, setClassList ] = useState([]);
+    let [ showModal, setShowModal ] = useState(false);
+    let [ removeIndex, setRemoveIndex ] = useState(-1);
     
     function SetAPI(value) {
-        _.assign(PCSD.files[charIndex].data.classes, value);
+        PCSD.files[charIndex].data.classes = value;
         PCSD.files[charIndex].saved = false;
     }
 
@@ -51,6 +55,7 @@ export default function Stats() {
     function AddClass() {
         let newClasses = [...classList];
         newClasses.push({
+            _id: uuid(),
             name: "",
             level: 0,
             hd: 0,
@@ -63,6 +68,16 @@ export default function Stats() {
 
         SetAPI(newClasses);
         setClassList(newClasses);
+    }
+
+    function RemoveClass() {
+        let newClasses = [ ...classList ];
+        newClasses.splice(removeIndex,1);
+
+        SetAPI(newClasses);
+        setClassList(newClasses);
+        setRemoveIndex(-1);
+        setShowModal(false);
     }
 
     function CalculateLevels() {
@@ -103,6 +118,9 @@ export default function Stats() {
         SetAPI(newClasses);
     }
 
+    if (charIndex != -1)
+        console.info("Render", classList, PCSD.files[charIndex].data.classes);
+
     function RenderClasses() {
         if (charIndex == -1)
             return (<p>Loading...</p>);
@@ -112,8 +130,11 @@ export default function Stats() {
         
         return classList.map((item, index) => {
             return (
-                <div key={`classlist${index}`} className="border-2 border-amber-300 rounded-md p-1 flex flex-col space-y-1">
-                    <Text title="Class Name" id={`class${index+1}name`} value={item.name} onChange={(retval)=>ChangeValue(index, 0, retval)} />
+                <div key={`class-${item._id}`} className="border-2 border-amber-300 rounded-md p-1 flex flex-col space-y-1">
+                    <div className="flex flex-row">
+                        <Text title="Class Name" id={`class${index+1}name`} value={item.name} className="flex-grow mr-1" onChange={(retval)=>ChangeValue(index, 0, retval)} />
+                        <Button color="red" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
+                    </div>
                     <Number title="Level" id={`class${index+1}level`} value={item.level} onChange={(retval)=>ChangeValue(index, 1, retval)} />
                     <MultiNumber title={["HD", "Health", "BAB", "Skill Num"]} id={`class${index+1}bs`} value={[item.hd, item.health, item.bab, item.skillnum]} onChange={(retval)=>ChangeValue(index, 2, retval)} />
                     <MultiNumber title={["Fav Class Health", "Fav Class Skill"]} id={`class${index+1}fc`} value={[item.favclass[0], item.favclass[1]]} onChange={(retval)=>ChangeValue(index, 3, retval)} />
@@ -123,8 +144,25 @@ export default function Stats() {
         });
     }
 
+    function RenderRemoveModal() {
+        if (showModal && removeIndex != -1) {
+            return (
+                <Modal className="flex flex-col" title="Confirm Remove?" onClose={()=>{setShowModal(false);setRemoveIndex(-1);}}>
+                    <div className="mt-2 py-2 border-t border-black">
+                        <p>Are you sure you wish to remove the class: <span className="font-bold">{PCSD.files[charIndex].data.classes[removeIndex].name}</span>?</p>
+                        <p>This action is permanent and can only be reverted by re-loading the character data.</p>
+                    </div>
+                    <div className="flex justify-center">
+                        <Button color="red" onClick={RemoveClass}>Confirmed, remove!</Button>
+                    </div>
+                </Modal>
+            );
+        }
+    }
+
     return (
         <>
+            {RenderRemoveModal()}
             <h1>Classes</h1>
             <div className="main-container">
                 <Button color="yellow" onClick={AddClass}>Add Class</Button>
