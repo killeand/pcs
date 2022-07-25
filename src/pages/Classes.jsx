@@ -8,6 +8,7 @@ import Label from '../components/Label';
 import Text from '../components/Text';
 import Number from '../components/Number';
 import MultiNumber from '../components/MultiNumber';
+import Accordian from '../components/Accordian';
 import Modal from '../components/Modal';
 import '../styles/Page.css';
 
@@ -56,7 +57,7 @@ export default function Stats() {
         let newClasses = [...classList];
         newClasses.push({
             _id: uuid(),
-            name: "",
+            name: "Untitled Class",
             level: 0,
             hd: 0,
             health: 0,
@@ -118,9 +119,6 @@ export default function Stats() {
         SetAPI(newClasses);
     }
 
-    if (charIndex != -1)
-        console.info("Render", classList, PCSD.files[charIndex].data.classes);
-
     function RenderClasses() {
         if (charIndex == -1)
             return (<p>Loading...</p>);
@@ -130,7 +128,7 @@ export default function Stats() {
         
         return classList.map((item, index) => {
             return (
-                <div key={`class-${item._id}`} className="border-2 border-amber-300 rounded-md p-1 flex flex-col space-y-1">
+                <Accordian key={`class-${item._id}`} title={item.name} titleElements={<div>{item.level}</div>}>
                     <div className="flex flex-row">
                         <Text title="Class Name" id={`class${index+1}name`} value={item.name} className="flex-grow mr-1" onChange={(retval)=>ChangeValue(index, 0, retval)} />
                         <Button color="red" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
@@ -139,7 +137,7 @@ export default function Stats() {
                     <MultiNumber title={["HD", "Health", "BAB", "Skill Num"]} id={`class${index+1}bs`} value={[item.hd, item.health, item.bab, item.skillnum]} onChange={(retval)=>ChangeValue(index, 2, retval)} />
                     <MultiNumber title={["Fav Class Health", "Fav Class Skill"]} id={`class${index+1}fc`} value={[item.favclass[0], item.favclass[1]]} onChange={(retval)=>ChangeValue(index, 3, retval)} />
                     <MultiNumber title={["Fortitude", "Reflex", "Will"]} id={`class${index+1}st`} value={[item.saves[0], item.saves[1], item.saves[2]]} onChange={(retval)=>ChangeValue(index, 4, retval)} />
-                </div>
+                </Accordian>
             );
         });
     }

@@ -47,12 +47,23 @@ export default function Health() {
 
     function CalculateMaxHealth() {
         let total = 0;
+        let level = 0;
+        let conmod = 0;
+
+        if (_.has(PCSD.files[charIndex].data, "stats")) {
+            let con = PCSD.files[charIndex].data.stats.con;
+            conmod = Math.floor(((con[0] + con[1] + con[2] + con[3]) - 10) / 2);
+        }
 
         if (_.has(PCSD.files[charIndex].data, "classes")) {
             PCSD.files[charIndex].data.classes.forEach((item) => {
                 total += item.health + item.favclass[0];
+                level += item.level;
             });
         }
+
+        total += (level * conmod);
+        if (total <= 0) total = 1;
 
         return total;
     }

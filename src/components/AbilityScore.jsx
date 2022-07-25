@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
 import { v1 as uuid } from 'uuid';
 import MultiNumber from './MultiNumber';
+import Accordian from './Accordian';
 import "../styles/AbilityScore.css";
 
 export default function AbilityScore({title, id, value, className, onChange, ...props}) {
@@ -24,35 +25,12 @@ export default function AbilityScore({title, id, value, className, onChange, ...
         if (!_.isNil(onChange)) onChange(value);
     }
 
-    function OpenClose(e) {
-        let container = e.target;
-        let sibling = container.nextSibling;
-
-        if (container.classList.contains("rounded-b-md")) {
-            container.classList.remove("rounded-b-md");
-            sibling.classList.remove("hidden");
-            sibling.classList.add("flex");
-        }
-        else {
-            container.classList.add("rounded-b-md");
-            sibling.classList.add("hidden");
-            sibling.classList.remove("flex");
-        }
-    }
-
     let stattotal = formValue[0] + formValue[1] + formValue[2] + formValue[3];
     let modifier = Math.floor((stattotal - 10) / 2);
 
     return (
-        <div className={className}>
-            <div className="abscore-top rounded-b-md" onClick={OpenClose}>
-                <div className="abscore-title">{title}</div>
-                <div className="abscore-total">{stattotal}</div>
-                <div className="abscore-mod">{modifier}</div>
-            </div>
-            <div className="abscore-bottom hidden">
-                <MultiNumber title={["Base", "Enhance", "Misc", "Temp"]} id={`${id}`} value={formValue} onChange={(retval)=>ChangeValue(retval)} />
-            </div>
-        </div>
+        <Accordian title={title} titleElements={[<div key={`${id}-stattotal`}>{stattotal}</div>,<div key={`${id}-modifier`}>{modifier}</div>]}>
+            <MultiNumber title={["Base", "Enhance", "Misc", "Temp"]} id={`${id}`} value={formValue} onChange={(retval)=>ChangeValue(retval)} />
+        </Accordian>
     );
 }
