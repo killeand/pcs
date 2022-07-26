@@ -8,13 +8,14 @@ import Details from '../pages/Details';
 import Stats from '../pages/Stats';
 import Classes from '../pages/Classes';
 import Health from '../pages/Health';
+import Saves from '../pages/Saves';
 
 const CHAR_PAGES = [
     {url:"/details",icon:"bi-journal-text",name:"Character Details",component:(<Details />)},
     {url:"/ability-scores",icon:"bi-person-lines-fill",name:"Ability Scores",component:(<Stats />)},
     {url:"/classes",icon:"bi-briefcase",name:"Classes",component:(<Classes />)},
     {url:"/health",icon:"bi-plus-circle",name:"Health",component:(<Health />)},
-    {url:"/saving-throws",icon:"bi-hospital",name:"Saving Throws",component:(<p>blah</p>)},
+    {url:"/saving-throws",icon:"bi-hospital",name:"Saving Throws",component:(<Saves />)},
     {url:"/offense",icon:"bi-lightning",name:"Offensive Stats",component:(<p>blah</p>)},
     {url:"/defense",icon:"bi-shield",name:"Defensive Stats",component:(<p>blah</p>)},
     {url:"/misc-stats",icon:"bi-sliders",name:"Miscellaneous Stats",component:(<p>blah</p>)},

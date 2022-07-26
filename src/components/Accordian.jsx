@@ -29,9 +29,9 @@ export default function Accordian({title, titleElements, className, ...props}) {
     return (
         <div className={className}>
             <div className="accordian-top rounded-b-md" onClick={OpenClose}>
-                <div className="bi-caret-right" />
-                <div className="accordian-title">{title}</div>
-                <div className="accordian-elements">{titleElements}</div>
+                <div className="pointer-events-none bi-caret-right" />
+                <div className="pointer-events-none accordian-title">{title}</div>
+                <div className="pointer-events-none accordian-elements">{titleElements}</div>
             </div>
             <div className="accordian-bottom hidden">
                 {props.children}

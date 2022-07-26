@@ -34,7 +34,6 @@ export default function FileManager() {
         let files = e.target.files;
 
         for (let i = 0; i < files.length; i++) {
-            console.info(files[i].type)
             if (files[i].type.match(/(text)+/gmi)) {
                 let FR = new FileReader();
                 FR.addEventListener("loadend", (e) => {
@@ -42,11 +41,10 @@ export default function FileManager() {
                     let data = null;
 
                     try {
-                        console.log(JSON.parse(decodeURIComponent(atob(results))));
                         data = JSON.parse(decodeURIComponent(atob(results)));
                         if (!_.has(data, "title") || !_.has(data, "data")) throw("Invalid data format");
 
-                        _.assign(data, {loaded:false,saved:true});
+                        _.assign(data, {_id:uuid(),loaded:false,saved:true});
                         PCSD.setFiles([...PCSD.files, data]);
                     }
                     catch(error) {
@@ -73,12 +71,11 @@ export default function FileManager() {
         let SavedClass = {...PCSD.files[index]};
         _.unset(SavedClass, "loaded");
         _.unset(SavedClass, "saved");
-
-        console.log(encodeURIComponent(btoa(JSON.stringify(SavedClass))));
+        _.unset(SavedClass, "_id");
         
         let db = document.createElement("a");
         db.href = `data:text/plain;charset=utf8,${encodeURIComponent(btoa(JSON.stringify(SavedClass)))}`;
-        db.download = `${SavedClass.title}.char`;
+        db.download = `${SavedClass.title}.txt`;
         db.style.display = "none";
         document.body.appendChild(db);
         db.click();
@@ -141,7 +138,7 @@ export default function FileManager() {
             <div className="main-container">
                 <Button color="yellow" onClick={()=>setNewCharModal(true)}>New Character</Button>
                 <Button as="label" color="yellow">
-                    <input type="file" className="hidden h-0" multiple accept=".char" onChange={LoadCharacter} />
+                    <input type="file" className="hidden h-0" multiple accept=".txt" onChange={LoadCharacter} />
                     Load Character
                 </Button>
             </div>
