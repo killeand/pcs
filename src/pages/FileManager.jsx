@@ -34,14 +34,16 @@ export default function FileManager() {
         let files = e.target.files;
 
         for (let i = 0; i < files.length; i++) {
-            if (files[i].type.match(/(json)+/gmi)) {
+            console.info(files[i].type)
+            if (files[i].type.match(/(text)+/gmi)) {
                 let FR = new FileReader();
                 FR.addEventListener("loadend", (e) => {
                     let results = FR.result;
                     let data = null;
 
                     try {
-                        data = JSON.parse(results);
+                        console.log(JSON.parse(decodeURIComponent(atob(results))));
+                        data = JSON.parse(decodeURIComponent(atob(results)));
                         if (!_.has(data, "title") || !_.has(data, "data")) throw("Invalid data format");
 
                         _.assign(data, {loaded:false,saved:true});
@@ -71,10 +73,12 @@ export default function FileManager() {
         let SavedClass = {...PCSD.files[index]};
         _.unset(SavedClass, "loaded");
         _.unset(SavedClass, "saved");
+
+        console.log(encodeURIComponent(btoa(JSON.stringify(SavedClass))));
         
         let db = document.createElement("a");
-        db.href = `data:application/json;charset=utf8,${JSON.stringify(SavedClass)}`;
-        db.download = `${SavedClass.title}.json`;
+        db.href = `data:text/plain;charset=utf8,${encodeURIComponent(btoa(JSON.stringify(SavedClass)))}`;
+        db.download = `${SavedClass.title}.char`;
         db.style.display = "none";
         document.body.appendChild(db);
         db.click();
@@ -137,7 +141,7 @@ export default function FileManager() {
             <div className="main-container">
                 <Button color="yellow" onClick={()=>setNewCharModal(true)}>New Character</Button>
                 <Button as="label" color="yellow">
-                    <input type="file" className="hidden h-0" multiple accept=".json" onChange={LoadCharacter} />
+                    <input type="file" className="hidden h-0" multiple accept=".char" onChange={LoadCharacter} />
                     Load Character
                 </Button>
             </div>
