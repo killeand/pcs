@@ -95,25 +95,44 @@ export default function Saves() {
         SetAPI(path, value);
     }
 
+    function RenderThrow(title, id, index) {
+        if (charIndex == -1) {
+            return (<p>Loading...</p>);
+        }
+
+        return (
+            <Accordian title={title} titleElements={
+                <div className="flex flex-row space-x-1">
+                    <div className="flex flex-col divide-y divide-solid divide-black">
+                        <p className="text-xs m-0 p-0">Base</p>
+                        <p className="text-center m-0 p-0">{base_saves[index]}</p>
+                    </div>
+                    <div className="flex flex-col divide-y divide-solid divide-black">
+                        <p className="text-xs m-0 p-0">Mod</p>
+                        <p className="text-center m-0 p-0">{abi_saves[index]}</p>
+                    </div>
+                    <div className="flex flex-col divide-y divide-solid divide-black">
+                        <p className="text-xs m-0 p-0">Misc</p>
+                        <p className="text-center m-0 p-0">{ttl_saves[index]}</p>
+                    </div>
+                    <div className="flex flex-col divide-y divide-solid divide-black">
+                        <p className="text-xs m-0 p-0">Total</p>
+                        <p className="text-center m-0 p-0">{base_saves[index] + abi_saves[index] + ttl_saves[index]}</p>
+                    </div>
+                </div>
+            }>
+                <MultiNumber title={["Enhance", "Misc", "Temp"]} id={id} value={GetAPI(id)} onChange={(retval) => ChangeValue(id, retval)} />
+            </Accordian>
+        );
+    }
+
     return (
         <>
             <h1>Saving Throws</h1>
             <div className="main-container">
-                {(charIndex == -1)?(
-                    <p>Loading...</p>
-                ):(
-                    <>
-                        <Accordian title="Fortitude" titleElements={[<div key="fort0">{base_saves[0]}</div>,<span key="fort1">+</span>,<div key="fort2">{abi_saves[0]}</div>,<span key="fort3">+</span>,<div key="fort4">{ttl_saves[0]}</div>,<span key="fort5">=</span>,<div key="fort6">{base_saves[0] + abi_saves[0] + ttl_saves[0]}</div>]}>
-                            <MultiNumber title={["Enhance", "Misc", "Temp"]} id="fort" value={GetAPI("fort")} onChange={(retval) => ChangeValue("fort", retval)} />
-                        </Accordian>
-                        <Accordian title="Reflex" titleElements={[<div key="ref0">{base_saves[1]}</div>,<span key="ref1">+</span>,<div key="ref2">{abi_saves[1]}</div>,<span key="ref3">+</span>,<div key="ref4">{ttl_saves[1]}</div>,<span key="ref5">=</span>,<div key="ref6">{base_saves[1] + abi_saves[1] + ttl_saves[1]}</div>]}>
-                            <MultiNumber title={["Enhance", "Misc", "Temp"]} id="ref" value={GetAPI("ref")} onChange={(retval) => ChangeValue("ref", retval)} />
-                        </Accordian>
-                        <Accordian title="Will" titleElements={[<div key="will0">{base_saves[2]}</div>,<span key="will1">+</span>,<div key="will2">{abi_saves[2]}</div>,<span key="will3">+</span>,<div key="will4">{ttl_saves[2]}</div>,<span key="will5">=</span>,<div key="will6">{base_saves[2] + abi_saves[2] + ttl_saves[2]}</div>]}>
-                            <MultiNumber title={["Enhance", "Misc", "Temp"]} id="will" value={GetAPI("will")} onChange={(retval) => ChangeValue("will", retval)} />
-                        </Accordian>
-                    </>
-                )}
+                {RenderThrow("Fortitude", "fort", 0)}
+                {RenderThrow("Reflex", "ref", 1)}
+                {RenderThrow("Will", "will", 2)}
             </div>
         </>
     );
