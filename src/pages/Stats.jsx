@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
 import PCSContext from '../components/PCSContext';
-import StatsRow from '../components/AbilityScore';
+import Accordian from '../components/Accordian';
+import MultiNumber from '../components/MultiNumber';
 import '../styles/Page.css';
 
 export default function Stats() {
@@ -12,6 +13,12 @@ export default function Stats() {
     let PCSD = useContext(PCSContext);
     let Nav = useNavigate();
     let [ charIndex, setCharIndex ] = useState(-1);
+    let [ strValue, setStrValue ] = useState([0,0,0,0]);
+    let [ dexValue, setDexValue ] = useState([0,0,0,0]);
+    let [ conValue, setConValue ] = useState([0,0,0,0]);
+    let [ intValue, setIntValue ] = useState([0,0,0,0]);
+    let [ wisValue, setWisValue ] = useState([0,0,0,0]);
+    let [ chrValue, setChrValue ] = useState([0,0,0,0]);
 
     function GetAPI(path) {
         return _.get(PCSD.files[charIndex].data.stats, path);
@@ -49,29 +56,66 @@ export default function Stats() {
         setCharIndex(tempIndex);
 
         /* ENTER PAGE SPECIFIC CODE HERE */
-
+        setStrValue(PCSD.files[tempIndex].data.stats.str);
+        setDexValue(PCSD.files[tempIndex].data.stats.dex);
+        setConValue(PCSD.files[tempIndex].data.stats.con);
+        setIntValue(PCSD.files[tempIndex].data.stats.int);
+        setWisValue(PCSD.files[tempIndex].data.stats.wis);
+        setChrValue(PCSD.files[tempIndex].data.stats.chr);
         /* ENTER PAGE SPECIFIC CODE HERE */
     }, []);
     /*#########################################################################
     ## CLOSING COMMON PAGE BLOCK FOR API ACCESS
     #########################################################################*/
 
+    let getMod = (val) => Math.floor((val - 10) / 2);
+
+    function ChangeValue(path, value) {
+        if (path=='str')setStrValue(value);
+        if (path=='dex')setDexValue(value);
+        if (path=='con')setConValue(value);
+        if (path=='int')setIntValue(value);
+        if (path=='wis')setWisValue(value);
+        if (path=='chr')setChrValue(value);
+
+        SetAPI(path, value);
+    }
+
+    function RenderStat(title, id) {
+        if (charIndex == -1) {
+            return (<p>Loading...</p>);
+        }
+
+        let stat = _.sum(GetAPI(id));
+
+        return (
+            <Accordian title={title} titleElements={
+                <div className="flex flex-row space-x-1">
+                    <div className="flex flex-col divide-y divide-solid divide-black bg-white rounded-md">
+                        <p className="text-xs m-0 p-0">Total</p>
+                        <p className="text-center m-0 p-0">{stat}</p>
+                    </div>
+                    <div className="flex flex-col divide-y divide-solid divide-black">
+                        <p className="text-xs m-0 p-0">Mod</p>
+                        <p className="text-center m-0 p-0">{getMod(stat)}</p>
+                    </div>
+                </div>
+            }>
+                <MultiNumber title={["Base", "Enhance", "Misc", "Temp"]} id={`${id}`} value={GetAPI(id)} onChange={(retval)=>ChangeValue(id, retval)} />
+            </Accordian>
+        );
+    }
+
     return (
         <>
             <h1>Ability Scores</h1>
             <div className="main-container">
-                {(charIndex == -1)?(
-                    <p>Loading...</p>
-                ):(
-                    <>
-                        <StatsRow title="Strength" id="str" value={GetAPI("str")} onChange={(retval)=>SetAPI("str",retval)} />
-                        <StatsRow title="Dexterity" id="dex" value={GetAPI("dex")} onChange={(retval)=>SetAPI("dex",retval)} />
-                        <StatsRow title="Constitution" id="con" value={GetAPI("con")} onChange={(retval)=>SetAPI("con",retval)} />
-                        <StatsRow title="Intelligence" id="int" value={GetAPI("int")} onChange={(retval)=>SetAPI("int",retval)} />
-                        <StatsRow title="Wisdom" id="wis" value={GetAPI("wis")} onChange={(retval)=>SetAPI("wis",retval)} />
-                        <StatsRow title="Charisma" id="chr" value={GetAPI("chr")} onChange={(retval)=>SetAPI("chr",retval)} />
-                    </>
-                )}
+                {RenderStat("Strength", "str")}
+                {RenderStat("Dexterity", "dex")}
+                {RenderStat("Constitution", "con")}
+                {RenderStat("Intelligence", "int")}
+                {RenderStat("Wisdom", "wis")}
+                {RenderStat("Charisma", "chr")}
             </div>
             <div className="msg-container">
                 <div><span className="font-bold">Mods Calculation</span>: &lfloor;(StatTotal - 10) / 2)&rfloor;</div>
