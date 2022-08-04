@@ -10,6 +10,9 @@ import Classes from '../pages/Classes';
 import Health from '../pages/Health';
 import Saves from '../pages/Saves';
 import Offensive from '../pages/Offensive';
+import Defensive from '../pages/Defensive';
+import Miscellaneous from '../pages/Miscellaneous';
+import Weapons from '../pages/Weapons';
 
 const CHAR_PAGES = [
     {url:"/details",icon:"bi-journal-text",name:"Character Details",component:(<Details />)},
@@ -18,9 +21,9 @@ const CHAR_PAGES = [
     {url:"/health",icon:"bi-plus-circle",name:"Health",component:(<Health />)},
     {url:"/saving-throws",icon:"bi-hospital",name:"Saving Throws",component:(<Saves />)},
     {url:"/offense",icon:"bi-lightning",name:"Offensive Stats",component:(<Offensive />)},
-    {url:"/defense",icon:"bi-shield",name:"Defensive Stats",component:(<p>blah</p>)},
-    {url:"/misc-stats",icon:"bi-sliders",name:"Miscellaneous Stats",component:(<p>blah</p>)},
-    {url:"/weapons",icon:"bi-tornado",name:"Weapons",component:(<p>blah</p>)},
+    {url:"/defense",icon:"bi-shield",name:"Defensive Stats",component:(<Defensive />)},
+    {url:"/misc-stats",icon:"bi-sliders",name:"Miscellaneous Stats",component:(<Miscellaneous />)},
+    {url:"/weapons",icon:"bi-tornado",name:"Weapons",component:(<Weapons />)},
     {url:"/armor",icon:"bi-robot",name:"Armor",component:(<p>blah</p>)},
     {url:"/skills",icon:"bi-plus-slash-minus",name:"Skills",component:(<p>blah</p>)},
     {url:"/exp-wealth",icon:"bi-coin",name:"EXP and Wealth",component:(<p>blah</p>)},

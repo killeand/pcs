@@ -10,6 +10,10 @@
     @apply flex flex-col space-y-1 mt-1 base-size;
 }
 
+.blank-container {
+    @apply flex flex-col border-2 border-amber-300 rounded-md p-1;
+}
+
 .msg-container {
     @apply flex flex-col flex-grow justify-end mt-3 italic text-xs base-size;
 }

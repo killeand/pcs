@@ -12,7 +12,7 @@ import Accordian from '../components/Accordian';
 import Modal from '../components/Modal';
 import '../styles/Page.css';
 
-export default function Stats() {
+export default function Classes() {
     /*#########################################################################
     ## OPENING COMMON PAGE BLOCK FOR API ACCESS
     #########################################################################*/

@@ -61,20 +61,15 @@
             {
                 "name": "",
                 "hit": [
-                    {
-                        "type": "",
-                        "bonus": 0
-                    }
+                    ""
                 ],
                 "dmg": [
-                    {
-                        "type": "",
-                        "bonus": 0
-                    }
+                    ""
                 ],
-                "critical": 0,
-                "range": 0,
+                "critical": "",
+                "range": "",
                 "type": "",
+                "ammo": "",
                 "info": ""
             }
         ],

@@ -35,3 +35,11 @@ h1 {
 h2 {
     @apply text-lg font-bold border-b border-l border-black pl-2 base-size;
 }
+
+fieldset {
+    @apply flex flex-col border-2 border-amber-300 rounded-md p-1;
+}
+
+legend {
+    @apply text-xs px-1 border-2 border-amber-300 rounded-md;
+}

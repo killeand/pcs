@@ -5,9 +5,10 @@ import PCSContext from '../components/PCSContext';
 import Accordian from '../components/Accordian';
 import MultiNumber from '../components/MultiNumber';
 import Label from '../components/Label';
+import Select from '../components/Select';
 import '../styles/Page.css';
 
-export default function Details() {
+export default function Offensive() {
     /*#########################################################################
     ## OPENING COMMON PAGE BLOCK FOR API ACCESS
     #########################################################################*/
@@ -18,6 +19,7 @@ export default function Details() {
     let [ rangeValue, setRangeValue ] = useState([0,0]);
     let [ cmbValue, setCmbValue ] = useState([0,0]);
     let [ cmdValue, setCmdValue ] = useState([0,0]);
+    let [ cmbState, setCmbState ] = useState(0);
 
     function GetAPI(path) {
         return _.get(PCSD.files[charIndex].data.offense, path);
@@ -133,8 +135,14 @@ export default function Details() {
         return (
             <Accordian title={title} titleElements={
                 <div className="flex flex-row space-x-1">
+                    {(id=='cmd')?(
+                        <div className="flex flex-col divide-y divide-solid divide-black">
+                            <p className="text-xs m-0 p-0">Base</p>
+                            <p className="text-center m-0 p-0">10</p>
+                        </div>
+                    ):""}
                     <div className="flex flex-col divide-y divide-solid divide-black">
-                        <p className="text-xs m-0 p-0">Base Att</p>
+                        <p className="text-xs m-0 p-0">BAB</p>
                         <p className="text-center m-0 p-0">{bab}</p>
                     </div>
                     <div className="flex flex-col divide-y divide-solid divide-black">
@@ -155,6 +163,9 @@ export default function Details() {
                     </div>
                 </div>
             }>
+                {(id=='cmb')?(
+                    <Select title="Modifier" id="cmbstate" value={cmbState} items={["Strength","Dexterity"]} onChange={setCmbState} />
+                ):""}
                 <MultiNumber title={["Misc","Temp"]} id={id} value={GetAPI(id)} onChange={(retval)=>ChangeValue(id,retval)} />
             </Accordian>
         );
@@ -166,8 +177,7 @@ export default function Details() {
             <div className="main-container">
                 {RenderOffense("Melee","melee",0,0)}
                 {RenderOffense("Ranged","range",1,1)}
-                {RenderOffense("CMB (str)","cmb",2,0)}
-                {RenderOffense("CMB (dex)","cmb",2,1)}
+                {RenderOffense("CMB","cmb",2,cmbState)}
                 {RenderOffense("CMD","cmd",3,0)}
                 <Label title="Melee Attacks" value={melee_bonus.join(", ")} />
                 <Label title="Ranged Attacks" value={range_bonus.join(", ")} />
