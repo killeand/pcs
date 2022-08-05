@@ -38,7 +38,7 @@ export default function Details() {
         }
 
         if (!_.has(PCSD.files[tempIndex], "data.details")) {
-            _.assign(PCSD.files[index].data, {
+            _.assign(PCSD.files[tempIndex].data, {
                 details: {
                     name: "",
                     race: "",

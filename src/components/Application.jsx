@@ -25,7 +25,7 @@ const CHAR_PAGES = [
     {url:"/defense",icon:"bi-shield",name:"Defensive Stats",component:(<Defensive />)},
     {url:"/misc-stats",icon:"bi-sliders",name:"Miscellaneous Stats",component:(<Miscellaneous />)},
     {url:"/weapons",icon:"bi-tornado",name:"Weapons",component:(<Weapons />)},
-    {url:"/armor",icon:"bi-robot",name:"Armor",component:(<Armors />)},
+    {url:"/armor",icon:"bi-robot",name:"Armors",component:(<Armors />)},
     {url:"/skills",icon:"bi-plus-slash-minus",name:"Skills",component:(<p>blah</p>)},
     {url:"/exp-wealth",icon:"bi-coin",name:"EXP and Wealth",component:(<p>blah</p>)},
     {url:"/feats-abilities",icon:"bi-cloud-haze2",name:"Feats and Abilities",component:(<p>blah</p>)},

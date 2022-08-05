@@ -9,6 +9,8 @@ import "../styles/Page.css";
 export default function FileManager() {
     let PCSD = useContext(PCSContext);
     let [ newCharModal, setNewCharModal ] = useState(false);
+    let [ clearModal, setClearModal ] = useState(false);
+    let [ clearIndex, setClearIndex ] = useState(-1);
     let [ newTitle, setNewTitle ] = useState("");
 
     useEffect(() => {
@@ -59,7 +61,8 @@ export default function FileManager() {
     function ActivateCharacter(index) {
         if (!_.isNil(PCSD.files[index])) {
             let newFiles = PCSD.files.map((file, subindex) => {
-                file.loaded = (index == subindex);
+                if (file.loaded) file.loaded = false;
+                else file.loaded = (index == subindex);
                 return file;
             });
 
@@ -111,6 +114,38 @@ export default function FileManager() {
         }
     }
 
+    function RenderClearDataModal() {
+        function ClearData(path) {
+            _.unset(PCSD.files[clearIndex].data, path);
+        }
+
+        function RenderItem(title, path) {
+            return (
+                <div className="flex flex-row items-center space-x-3 p-1 last:rounded-b-md hover:bg-gradient-to-r hover:from-slate-300 hover:to-white">
+                    <div className="flex-grow">{title}</div>
+                    <Button color="red" className="bi-trash" onClick={()=>ClearData(path)}> Clear</Button>
+                </div>
+            );
+        }
+
+        if (clearModal) {
+            return (
+                <Modal className="flex flex-col space-y-1" title="Clear Data" onClose={()=>{setClearModal(false);setClearIndex(-1);}}>
+                    {RenderItem("Character Details", "detail")}
+                    {RenderItem("Ability Scores", "stats")}
+                    {RenderItem("Classes", "classes")}
+                    {RenderItem("Health", "health")}
+                    {RenderItem("Saving Throws", "saves")}
+                    {RenderItem("Offensive Stats", "offense")}
+                    {RenderItem("Defensive Stats", "defense")}
+                    {RenderItem("Miscellaneous Stats", "miscstats")}
+                    {RenderItem("Weapons", "weapons")}
+                    {RenderItem("Armor", "armors")}
+                </Modal>
+            );
+        }
+    }
+
     function RenderCharacters() {
         if (PCSD.files.length == 0) {
             return (<p>No characters have been loaded or created...</p>);
@@ -120,10 +155,10 @@ export default function FileManager() {
             return (
                 <div key={`character-${files._id}`} className="border border-amber-300 rounded-md p-1 flex flex-row items-center space-x-2">
                     <div className="flex-grow" onClick={()=>console.log(PCSD.files[index])}>{files.title}</div>
-                    <div className="">{(files.saved)?"Saved":"Unsaved"}</div>
                     <div className="flex flex-row space-x-1">
-                        {(files.loaded)?<Button color="disabled">Play</Button>:<Button color="yellow" onClick={()=>ActivateCharacter(index)}>Play</Button>}
-                        <Button color="green" className="bi-save" onClick={()=>SaveCharacter(index)} />
+                        <Button color="white" className="bi-eraser" onClick={()=>{setClearModal(true);setClearIndex(index);}} />
+                        <Button color={(files.loaded)?"white":"blue"} className={(files.loaded)?"text-stone-400 bi-square-fill":"text-white bi-caret-right-fill"} onClick={()=>ActivateCharacter(index)} />
+                        <Button color={(files.saved)?"white":"green"} className={"bi-save-fill " + ((files.saved)?"text-stone-400":"text-white")} onClick={()=>SaveCharacter(index)} />
                         <Button color="red" className="bi-trash" onClick={()=>RemoveCharacter(index)} />
                     </div>
                 </div>
@@ -134,6 +169,7 @@ export default function FileManager() {
     return (
         <>
             {RenderNewCharModal()}
+            {RenderClearDataModal()}
             <h1>File Manager</h1>
             <div className="main-container">
                 <Button color="yellow" onClick={()=>setNewCharModal(true)}>New Character</Button>
@@ -146,8 +182,22 @@ export default function FileManager() {
             <div className="main-container">
                 {RenderCharacters()}
             </div>
-            <div className="msg-container">
-                <div>Characters will be saved upon any changes to the list from this page, or periodically every 10 seconds. Upon loading the page again, they should be reloaded. Please note that this file uses localstorage to store the characters, so if you move this file the localstorage will be reset. It is a known flaw with non-server based web applications. To prevent any major losses, make sure you <span className="bi-save" /> save the characters listed as Unsaved.</div>
+            <div className="msg-container space-y-1">
+                <div className="font-bold">
+                    <Button color="white" className="bi-eraser text-xs px-1 py-0.5" /> - Clear Data
+                </div>
+                <div className="font-bold">
+                    <Button color="white" className="bi-square-fill text-stone-400 text-xs px-1 py-0.5" /> - Disable Character &nbsp;
+                    <Button color="blue" className="bi-caret-right-fill text-white text-xs px-1 py-0.5" /> - Activate Character 
+                </div>
+                <div className="font-bold">
+                    <Button color="white" className="bi-save-fill text-stone-400 text-xs px-1 py-0.5" /> - Character Saved &nbsp;
+                    <Button color="green" className="bi-save-fill text-white text-xs px-1 py-0.5" /> - Character NOT Saved
+                </div>
+                <div className="font-bold">
+                    <Button color="red" className="bi-trash text-xs px-1 py-0.5" /> - Remove Character
+                </div>
+                <div>Characters will be stored upon any changes to the list from this page, or periodically every 10 seconds. Upon loading the page again, they should be reloaded. Please note that this store uses localstorage for the characters, so if you move this web application the localstorage will be reset. It is a known flaw with non-server based web applications. To prevent any major losses, make sure you <Button color="green" className="bi-save-fill text-white text-xs px-1 py-0.5" /> save the characters listed.</div>
             </div>
         </>
     );
