@@ -119,7 +119,7 @@ export default function FileManager() {
         return PCSD.files.map((files, index) => {
             return (
                 <div key={`character-${files._id}`} className="border border-amber-300 rounded-md p-1 flex flex-row items-center space-x-2">
-                    <div className="flex-grow">{files.title}</div>
+                    <div className="flex-grow" onClick={()=>console.log(PCSD.files[index])}>{files.title}</div>
                     <div className="">{(files.saved)?"Saved":"Unsaved"}</div>
                     <div className="flex flex-row space-x-1">
                         {(files.loaded)?<Button color="disabled">Play</Button>:<Button color="yellow" onClick={()=>ActivateCharacter(index)}>Play</Button>}

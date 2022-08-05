@@ -52,7 +52,7 @@ export default function List({title, id, value, className, onChange, ...props}) 
 
         return formValue.map((item, index) => {
             return (
-                <div key={`${id}-${index}`} className="list-item">
+                <div key={`${id}-${index}`} className="list-row">
                     <input type="text" value={item} className="list-input" onChange={(e)=>ChangeValue(e, index)} />
                     <Button color="red" className="bi-trash" onClick={()=>RemoveItem(index)} />
                 </div>

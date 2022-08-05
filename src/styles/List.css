@@ -10,7 +10,7 @@
     @apply flex flex-col space-y-1 p-1 border-r-2 border-b-2 border-l-2 border-amber-300 rounded-b-md;
 }
 
-.list-item {
+.list-row {
     @apply flex flex-row space-x-1 items-center;
 }
 

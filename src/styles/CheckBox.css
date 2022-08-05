@@ -1,24 +1,12 @@
 .checkbox-cont {
-    @apply flex flex-col;
+    @apply flex flex-row relative items-center mr-2 mt-2;
 }
 
-.checkbox-title {
-    @apply flex items-center py-1 px-2 font-bold bg-amber-300 rounded-t-md border-b border-amber-700;
-}
-
-.checkbox-group {
-    @apply flex flex-row flex-wrap flex-grow p-2 border-r-2 border-b-2 border-l-2 border-amber-300 rounded-b-md;
-}
-
-.checkbox-item {
-    @apply flex flex-row relative items-center mr-2 mt-2 w-5/12 md:w-2/5 lg:w-1/5;
-}
-
-.checkbox-check {
+.checkbox-input {
     @apply appearance-none w-full h-4 border-l-2 border-b-2 border-amber-300;
 }
 
-.checkbox-check:checked {
+.checkbox-input:checked {
     @apply bg-gradient-to-r from-amber-300 to-white;
 }
 

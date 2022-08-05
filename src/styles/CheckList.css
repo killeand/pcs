@@ -1,0 +1,11 @@
+.checklist-cont {
+    @apply flex flex-col;
+}
+
+.checklist-title {
+    @apply flex items-center py-1 px-2 font-bold bg-amber-300 rounded-t-md border-b border-amber-700;
+}
+
+.checklist-group {
+    @apply flex flex-row flex-wrap flex-grow p-2 border-r-2 border-b-2 border-l-2 border-amber-300 rounded-b-md;
+}

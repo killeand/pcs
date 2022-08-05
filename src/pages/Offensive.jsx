@@ -133,7 +133,7 @@ export default function Offensive() {
         let sp_ttl = ((id=='cmd')?10:0)+bab+sp_mod+sp_size+totals[index];
 
         return (
-            <Accordian title={title} titleElements={
+            <Accordian title={`${title}${(id=='cmb')?((cmbState)?" (Dex)":" (Str)"):""}`} titleElements={
                 <div className="flex flex-row space-x-1">
                     {(id=='cmd')?(
                         <div className="flex flex-col divide-y divide-solid divide-black">

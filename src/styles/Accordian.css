@@ -1,9 +1,9 @@
 .accordian-top {
-    @apply flex flex-row space-x-1 bg-amber-300 p-1 cursor-pointer rounded-t-md;
+    @apply flex flex-row space-x-1 bg-amber-300 p-1 cursor-pointer rounded-t-md border-b border-amber-700;
 }
 
 .accordian-bottom {
-    @apply flex flex-col space-y-1 p-1 bg-white rounded-b-md border-2 border-amber-300;
+    @apply flex flex-col space-y-1 p-1 bg-white rounded-b-md border-l-2 border-b-2 border-r-2 border-amber-700;
 }
 
 .accordian-title {

@@ -76,14 +76,16 @@ export default function Defensive() {
                     ac_penalty += item.penalty;
                     spellfail += item.spellfail;
 
-                    if (item.maxdex != -1) {
-                        if (maxdex > item.maxdex) maxdex = item.maxdex;
+                    if (item.maxdex >= 0) {
+                        if (maxdex < 0) maxdex = item.maxdex;
+                        else if (maxdex > item.maxdex) maxdex = item.maxdex;
                     }
                 }
             });
         }
 
-        if (maxdex != -1) actual_dex = (dexmod > maxdex)?maxdex:dexmod;
+        if (maxdex >= 0) actual_dex = (dexmod > maxdex)?maxdex:dexmod;
+        else actual_dex = dexmod;
 
         final_ac = 10 + total_ac + actual_dex + size + _.sum(defValues);
         final_touch = 10 + actual_dex + size + defValues[0] + defValues[2] + defValues[3];

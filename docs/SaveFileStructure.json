@@ -142,32 +142,16 @@
         },
         "abilities": {
             "feats": [
-                {
-                    "name": "",
-                    "ref": "",
-                    "info": ""
-                }
+                ""
             ],
             "features": [
-                {
-                    "name": "",
-                    "ref": "",
-                    "info": ""
-                }
+                ""
             ],
             "racial": [
-                {
-                    "name": "",
-                    "ref": "",
-                    "info": ""
-                }
+                ""
             ],
             "misc": [
-                {
-                    "name": "",
-                    "ref": "",
-                    "info": ""
-                }
+                ""
             ]
         },
         "equipment": [

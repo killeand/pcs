@@ -98,13 +98,13 @@ export default function Weapons() {
         return wepList.map((item, index) => {
             return (
                 <Accordian key={`class-${item._id}`} title={item.name}>
-                    <div className="flex flex-row">
-                        <Text title="Name" id={`wep${index}name`} value={item.name} className="flex-grow mr-1" onChange={(retval)=>ChangeValue(index, "name", retval)} />
+                    <div className="flex flex-row space-x-1">
+                        <Text title="Name" id={`wep${index}name`} value={item.name} className="flex-grow" onChange={(retval)=>ChangeValue(index, "name", retval)} />
                         <Button color="red" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
                     </div>
                     <div className="flex flex-row space-x-1">
-                        <List title="To Hit" id="hit" value={item.hit} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "hit", retval)} />
-                        <List title="Damage" id="dmg" value={item.dmg} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "dmg", retval)} />
+                        <List title="To Hit" id={`wep${index}hit`} value={item.hit} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "hit", retval)} />
+                        <List title="Damage" id={`wep${index}dmg`} value={item.dmg} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "dmg", retval)} />
                     </div>
                     <div className="flex flex-row space-x-1">
                         <Text title="Crit" id={`wep${index}crit`} value={item.critical} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "critical", retval)} />
@@ -114,7 +114,7 @@ export default function Weapons() {
                         <Text title="Type" id={`wep${index}type`} value={item.type} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "type", retval)} />
                         <Text title="Ammo" id={`wep${index}ammo`} value={item.ammo} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "ammo", retval)} />
                     </div>
-                    <TextArea title="Notes" id={`web${index}info`} value={item.info} onChange={(retval)=>ChangeValue(index, "info", retval)} />
+                    <TextArea title="Notes" id={`wep${index}info`} value={item.info} onChange={(retval)=>ChangeValue(index, "info", retval)} />
                 </Accordian>
             );
         });
