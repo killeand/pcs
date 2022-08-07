@@ -3,10 +3,11 @@ import _ from 'lodash';
 import { v1 as uuid } from 'uuid';
 import '../styles/Text.css';
 
-export default function Number({title, id, value, className, onChange, ...props}) {
+export default function Number({title, id, value, min, className, onChange, ...props}) {
     if (_.isNil(title)) title = "Number";
     if (_.isNil(id)) id = "";
     if (_.isNil(value)) value = 0;
+    if (_.isNil(min)) min = -5000;
     if (_.isNil(className)) className = "";
     if (_.isNil(onChange)) console.warn("In order to get the number, you need to assign something to onChange...");
     
@@ -28,7 +29,7 @@ export default function Number({title, id, value, className, onChange, ...props}
     return (
         <div className={`text-cont ${className}`}>
             <label htmlFor={formId} className="text-label">{title}</label>
-            <input type="number" id={formId} name={formId} value={formValue} className="text-input" onChange={ChangeValue} />
+            <input type="number" id={formId} name={formId} value={formValue} min={min} className="text-input" onChange={ChangeValue} />
         </div>
     );
 }

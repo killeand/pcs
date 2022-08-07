@@ -102,12 +102,12 @@ export default function Armors() {
                         <Button color="red" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
                     </div>
                     <div className="flex flex-row space-x-1">
-                        <Number title="AC" id={`arm${index}ac`} value={item.ac} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "ac", retval)} />
-                        <Number title="Max Dex" id={`arm${index}max`} value={item.maxdex} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "maxdex", retval)} />
+                        <Number title="AC" id={`arm${index}ac`} value={item.ac} min={0} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "ac", retval)} />
+                        <Number title="Max Dex" id={`arm${index}max`} value={item.maxdex} min={-1} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "maxdex", retval)} />
                     </div>
                     <div className="flex flex-row space-x-1">
-                        <Number title="Penalty" id={`arm${index}pen`} value={item.penalty} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "penalty", retval)} />
-                        <Number title="Spell Fail" id={`arm${index}fail`} value={item.spellfail} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "spellfail", retval)} />
+                        <Number title="Penalty" id={`arm${index}pen`} value={item.penalty} min={0} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "penalty", retval)} />
+                        <Number title="Spell Fail" id={`arm${index}fail`} value={item.spellfail} min={0} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "spellfail", retval)} />
                     </div>
                     <TextArea title="Notes" id={`arm${index}info`} value={item.info} onChange={(retval)=>ChangeValue(index, "info", retval)} />
                 </Accordian>

@@ -166,7 +166,7 @@ export default function Offensive() {
                 {(id=='cmb')?(
                     <Select title="Modifier" id="cmbstate" value={cmbState} items={["Strength","Dexterity"]} onChange={setCmbState} />
                 ):""}
-                <MultiNumber title={["Misc","Temp"]} id={id} value={GetAPI(id)} onChange={(retval)=>ChangeValue(id,retval)} />
+                <MultiNumber title={["Misc","Temp"]} id={id} value={GetAPI(id)} min={[-100,-100]} onChange={(retval)=>ChangeValue(id,retval)} />
             </Accordian>
         );
     }

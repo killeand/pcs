@@ -101,7 +101,7 @@ export default function Stats() {
                     </div>
                 </div>
             }>
-                <MultiNumber title={["Base", "Enhance", "Misc", "Temp"]} id={`${id}`} value={GetAPI(id)} onChange={(retval)=>ChangeValue(id, retval)} />
+                <MultiNumber title={["Base", "Enhance", "Misc", "Temp"]} id={`${id}`} value={GetAPI(id)} min={[0,0,-100,-100]} onChange={(retval)=>ChangeValue(id, retval)} />
             </Accordian>
         );
     }

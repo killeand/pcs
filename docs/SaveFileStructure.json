@@ -85,16 +85,10 @@
             }
         ],
         "skills": {
-            "acro": [false,0,0],
             "appr": [false,0,0],
+            "acro": [false,0,0],
             "bluf": [false,0,0],
             "clim": [false,0,0],
-            "craf": [
-                {
-                    "name": "",
-                    "stats": [false,0,0]
-                }
-            ],
             "dipl": [false,0,0],
             "disd": [false,0,0],
             "disg": [false,0,0],
@@ -103,26 +97,8 @@
             "hana": [false,0,0],
             "heal": [false,0,0],
             "inti": [false,0,0],
-            "know": [
-                {
-                    "name": "",
-                    "stats": [false,0,0]
-                }
-            ],
             "ling": [false,0,0],
-            "perf": [
-                {
-                    "name": "",
-                    "stats": [false,0,0]
-                }
-            ],
             "perc": [false,0,0],
-            "prof": [
-                {
-                    "name": "",
-                    "stats": [false,0,0]
-                }
-            ],
             "ride": [false,0,0],
             "senm": [false,0,0],
             "sleh": [false,0,0],
@@ -131,6 +107,32 @@
             "surv": [false,0,0],
             "swim": [false,0,0],
             "usmd": [false,0,0]
+        },
+        "custskills": {
+            "craf": [
+                {
+                    "name": "",
+                    "stats": [false,0,0]
+                }
+            ],
+            "know": [
+                {
+                    "name": "",
+                    "stats": [false,0,0]
+                }
+            ],
+            "perf": [
+                {
+                    "name": "",
+                    "stats": [false,0,0]
+                }
+            ],
+            "prof": [
+                {
+                    "name": "",
+                    "stats": [false,0,0]
+                }
+            ]
         },
         "exp": [0,0],
         "wealth": {

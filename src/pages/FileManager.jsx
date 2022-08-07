@@ -97,8 +97,8 @@ export default function FileManager() {
     function RenderNewCharModal() {
         if (newCharModal) {
             return (
-                <Modal className="flex flex-col" title="Create New Character" onClose={()=>{setNewCharModal(false);setNewTitle("");}}>
-                    <div className="flex flex-row items-center mt-2 py-2 border-t border-black">
+                <Modal className="flex flex-col p-1 space-y-1" title="Create New Character" onClose={()=>{setNewCharModal(false);setNewTitle("");}}>
+                    <div className="flex flex-row items-center">
                         <label htmlFor="title" className="font-bold mr-2">New Title</label>
                         <input type="text" id="title" name="title" value={newTitle} placeholder="Enter new name..." className="flex-grow border rounded-md p-1" onChange={(e)=>setNewTitle(e.target.value)} />
                     </div>
@@ -131,7 +131,7 @@ export default function FileManager() {
         if (clearModal) {
             return (
                 <Modal className="flex flex-col space-y-1" title="Clear Data" onClose={()=>{setClearModal(false);setClearIndex(-1);}}>
-                    {RenderItem("Character Details", "detail")}
+                    {RenderItem("Character Details", "details")}
                     {RenderItem("Ability Scores", "stats")}
                     {RenderItem("Classes", "classes")}
                     {RenderItem("Health", "health")}
@@ -141,6 +141,8 @@ export default function FileManager() {
                     {RenderItem("Miscellaneous Stats", "miscstats")}
                     {RenderItem("Weapons", "weapons")}
                     {RenderItem("Armor", "armors")}
+                    {RenderItem("Skills", "skills")}
+                    {RenderItem("Custom Skills", "custskills")}
                 </Modal>
             );
         }

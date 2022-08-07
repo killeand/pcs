@@ -61,7 +61,7 @@ export default function Details() {
         setCharIndex(tempIndex);
 
         /* ENTER PAGE SPECIFIC CODE HERE */
-
+        
         /* ENTER PAGE SPECIFIC CODE HERE */
     }, []);
     /*#########################################################################

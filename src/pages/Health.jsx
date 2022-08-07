@@ -89,13 +89,13 @@ export default function Health() {
                     <p>Loading...</p>
                 ):(
                     <>
-                        <div className="flex flex-row">
-                            <Label title="Max Health" value={CalculateMaxHealth()} className="flex-grow mr-2" />
-                            <Label title="Current Health" value={CalculateCurrentHealth()} className="flex-grow" />
+                        <div className="flex flex-row space-x-1">
+                            <Label title="Max Health" value={CalculateMaxHealth()} className="w-1/2" />
+                            <Label title="Current Health" value={CalculateCurrentHealth()} className="w-1/2" />
                         </div>
                         <fieldset>
                             <legend>Wounds and Bonuses</legend>
-                            <MultiNumber title={["Wounds", "Non-Lethal", "Misc", "Temp"]} id="health" value={healthValues} onChange={ChangeValue} />
+                            <MultiNumber title={["Wounds", "Non-Lethal", "Misc", "Temp"]} id="health" value={healthValues} min={[0,0,-1000,-1000]} onChange={ChangeValue} />
                         </fieldset>
                     </>
                 )}

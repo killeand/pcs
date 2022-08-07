@@ -109,7 +109,7 @@ export default function Miscellaneous() {
                         </div>
                     </div>
                 }>
-                    <MultiNumber title={["Walk","Run","Swim","Climb","Fly"]} id="speed" value={GetAPI("speed")} onChange={(retval)=>ChangeValue("speed",retval)} />
+                    <MultiNumber title={["Walk","Run","Swim","Climb","Fly"]} id="speed" value={GetAPI("speed")} min={[0,0,0,0,0]} onChange={(retval)=>ChangeValue("speed",retval)} />
                 </Accordian>
                 <Accordian title="Initiative" titleElements={
                     <div className="flex flex-row space-x-1">
@@ -127,11 +127,11 @@ export default function Miscellaneous() {
                         </div>
                     </div>
                 }>
-                    <Number title="Misc" id="init" value={GetAPI("init")} onChange={(retval)=>ChangeValue("init",retval)} />
+                    <Number title="Misc" id="init" value={GetAPI("init")} min={0} onChange={(retval)=>ChangeValue("init",retval)} />
                 </Accordian>
                 <fieldset>
                     <legend>Resistances</legend>
-                    <MultiNumber title={["Acid","Cold","Elec","Fire","Sonic"]} id="resist" value={GetAPI("resist")} onChange={(retval)=>ChangeValue("resist",retval)} />
+                    <MultiNumber title={["Acid","Cold","Elec","Fire","Sonic"]} id="resist" value={GetAPI("resist")} min={[0,0,0,0,0]} onChange={(retval)=>ChangeValue("resist",retval)} />
                 </fieldset>
                 <Text title="DR" id="dr" value={GetAPI("dr")} onChange={(retval)=>ChangeValue("dr",retval)} />
                 <Text title="SR" id="sr" value={GetAPI("sr")} onChange={(retval)=>ChangeValue("sr",retval)} />

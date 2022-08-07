@@ -171,7 +171,7 @@ export default function Defensive() {
                 </Accordian>
                 <fieldset>
                     <legend>AC Bonuses</legend>
-                    <MultiNumber title={["Dodge","Natural","Misc","Temp"]} id="bonuses" value={defValues} onChange={ChangeValue} />
+                    <MultiNumber title={["Dodge","Natural","Misc","Temp"]} id="bonuses" value={defValues} min={[0,0,-100,-100]} onChange={ChangeValue} />
                 </fieldset>
                 <Label title="Armor Check Penalty" value={ac_penalty} />
                 <Label title="Maximum Dex" value={(maxdex!=-1)?maxdex:"N/A"} />

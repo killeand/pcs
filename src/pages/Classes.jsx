@@ -58,7 +58,7 @@ export default function Classes() {
         newClasses.push({
             _id: uuid(),
             name: "Untitled Class",
-            level: 0,
+            level: 1,
             hd: 0,
             health: 0,
             bab: 0,
@@ -133,10 +133,10 @@ export default function Classes() {
                         <Text title="Class Name" id={`class${index+1}name`} value={item.name} className="flex-grow mr-1" onChange={(retval)=>ChangeValue(index, 0, retval)} />
                         <Button color="red" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
                     </div>
-                    <Number title="Level" id={`class${index+1}level`} value={item.level} onChange={(retval)=>ChangeValue(index, 1, retval)} />
-                    <MultiNumber title={["HD", "Health", "BAB", "Skill Num"]} id={`class${index+1}bs`} value={[item.hd, item.health, item.bab, item.skillnum]} onChange={(retval)=>ChangeValue(index, 2, retval)} />
-                    <MultiNumber title={["Fav Class Health", "Fav Class Skill"]} id={`class${index+1}fc`} value={[item.favclass[0], item.favclass[1]]} onChange={(retval)=>ChangeValue(index, 3, retval)} />
-                    <MultiNumber title={["Fortitude", "Reflex", "Will"]} id={`class${index+1}st`} value={[item.saves[0], item.saves[1], item.saves[2]]} onChange={(retval)=>ChangeValue(index, 4, retval)} />
+                    <Number title="Level" id={`class${index+1}level`} value={item.level} min={1} onChange={(retval)=>ChangeValue(index, 1, retval)} />
+                    <MultiNumber title={["HD", "Health", "BAB", "Skill Num"]} id={`class${index+1}bs`} value={[item.hd, item.health, item.bab, item.skillnum]} min={[0,0,0,0]} onChange={(retval)=>ChangeValue(index, 2, retval)} />
+                    <MultiNumber title={["Fav Class Health", "Fav Class Skill"]} id={`class${index+1}fc`} value={[item.favclass[0], item.favclass[1]]} min={[0,0]} onChange={(retval)=>ChangeValue(index, 3, retval)} />
+                    <MultiNumber title={["Fortitude", "Reflex", "Will"]} id={`class${index+1}st`} value={[item.saves[0], item.saves[1], item.saves[2]]} min={[0,0,0]} onChange={(retval)=>ChangeValue(index, 4, retval)} />
                 </Accordian>
             );
         });
@@ -145,8 +145,8 @@ export default function Classes() {
     function RenderRemoveModal() {
         if (showModal && removeIndex != -1) {
             return (
-                <Modal className="flex flex-col" title="Confirm Remove?" onClose={()=>{setShowModal(false);setRemoveIndex(-1);}}>
-                    <div className="mt-2 py-2 border-t border-black">
+                <Modal className="flex flex-col space-y-1 p-1" title="Confirm Remove?" onClose={()=>{setShowModal(false);setRemoveIndex(-1);}}>
+                    <div>
                         <p>Are you sure you wish to remove the class: <span className="font-bold">{PCSD.files[charIndex].data.classes[removeIndex].name}</span>?</p>
                         <p>This action is permanent and can only be reverted by re-loading the character data.</p>
                     </div>

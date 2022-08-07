@@ -14,6 +14,7 @@ import Defensive from '../pages/Defensive';
 import Miscellaneous from '../pages/Miscellaneous';
 import Weapons from '../pages/Weapons';
 import Armors from '../pages/Armors';
+import Skills from '../pages/Skills';
 
 const CHAR_PAGES = [
     {url:"/details",icon:"bi-journal-text",name:"Character Details",component:(<Details />)},
@@ -26,7 +27,7 @@ const CHAR_PAGES = [
     {url:"/misc-stats",icon:"bi-sliders",name:"Miscellaneous Stats",component:(<Miscellaneous />)},
     {url:"/weapons",icon:"bi-tornado",name:"Weapons",component:(<Weapons />)},
     {url:"/armor",icon:"bi-robot",name:"Armors",component:(<Armors />)},
-    {url:"/skills",icon:"bi-plus-slash-minus",name:"Skills",component:(<p>blah</p>)},
+    {url:"/skills",icon:"bi-plus-slash-minus",name:"Skills",component:(<Skills />)},
     {url:"/exp-wealth",icon:"bi-coin",name:"EXP and Wealth",component:(<p>blah</p>)},
     {url:"/feats-abilities",icon:"bi-cloud-haze2",name:"Feats and Abilities",component:(<p>blah</p>)},
     {url:"/equipment",icon:"bi-check2-square",name:"Equipment",component:(<p>blah</p>)},
