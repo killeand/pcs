@@ -224,7 +224,7 @@ export default function Skills() {
             return (
                 <div key={item.k} className="rounded-md border-2 border-amber-300">
                     <div className="flex flex-row p-1 items-center">
-                        <div className="font-bold flex-grow">{item.v} {((item.f&1)==1)?"*":""} {((item.f&2)==2)?"†":""} ({PF_STATS_SHORT[item.s]})</div>
+                        <div className="font-bold flex-grow">{item.v} {((item.f&1)==1)?"*":""} {((item.f&2)==2)?<>&dagger;</>:""} ({PF_STATS_SHORT[item.s]})</div>
                         <Button color="green" className="text-xs bi-plus-square" onClick={()=>AddCSkill(item.k)} />
                     </div>
                     <div className="grid grid-cols-12 gap-1 text-xs bg-amber-300">
@@ -262,8 +262,11 @@ export default function Skills() {
                 {RenderCSkills()}
             </div>
             <div className="msg-container">
-                <div><span className="text-bold">*</span> Armor Check Penalty (subtracts {ac_penalty})</div>
-                <div><span className="text-bold">†</span> Cannot Use Untrained</div>
+                <div><span className="font-bold">*</span>: Armor Check Penalty (subtracts {ac_penalty})</div>
+                <div><span className="font-bold">&dagger;</span>: Cannot Use Untrained</div>
+                <div><span className="font-bold">Total Skills</span>: Sum of((Class Skill # + INT Mod) * Class Level) + FC Skill Total (min 1 per level)</div>
+                <div><span className="font-bold">Used Skills</span>: Sum of(Skill Ranks + Custom Skill Ranks)</div>
+                <div><span className="font-bold">Total Points in Skill</span>: Ranks + Ability Mod + Misc + (If Class and Rank == 3) - (If STR or DEX == Armor Check Penalty)</div>
             </div>
             
         </>

@@ -35,7 +35,7 @@ export default function SkillRow({title, id, value, className, onChange, ...prop
     return (
         <div className={`sr-cont ${className}`}>
             <div className="col-span-1 sr-center"><input type="checkbox" checked={formValue[0]} onChange={(e)=>ChangeValue(e.target.checked, 0)} /></div>
-            <div className="col-span-3 sr-label">{formValue[1]} {((value[0]&1)==1)?"*":""} {((value[0]&2)==2)?"†":""}</div>
+            <div className="col-span-3 sr-label">{formValue[1]} {((value[0]&1)==1)?"*":""} {((value[0]&2)==2)?<>&dagger;</>:""}</div>
             <div className="col-span-2 sr-label text-right">{PF_STATS_SHORT[value[2]]}</div>
             <div className="col-span-1 sr-input sr-center">{(((value[0]&2)==2)&&formValue[2]<=0)?"-":total}</div>
             <div className="col-span-2 sr-input"><input type="number" min={0} value={formValue[2]} onChange={(e)=>ChangeValue(parseInt(e.target.value), 2)} /></div>

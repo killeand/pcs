@@ -130,7 +130,7 @@ export default function FileManager() {
 
         if (clearModal) {
             return (
-                <Modal className="flex flex-col space-y-1" title="Clear Data" onClose={()=>{setClearModal(false);setClearIndex(-1);}}>
+                <Modal className="flex flex-col space-y-1 max-h-80 overflow-y-scroll" title="Clear Data" onClose={()=>{setClearModal(false);setClearIndex(-1);}}>
                     {RenderItem("Character Details", "details")}
                     {RenderItem("Ability Scores", "stats")}
                     {RenderItem("Classes", "classes")}
@@ -143,6 +143,8 @@ export default function FileManager() {
                     {RenderItem("Armor", "armors")}
                     {RenderItem("Skills", "skills")}
                     {RenderItem("Custom Skills", "custskills")}
+                    {RenderItem("Experience", "exp")}
+                    {RenderItem("Wealth", "wealth")}
                 </Modal>
             );
         }
