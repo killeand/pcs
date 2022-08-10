@@ -102,10 +102,8 @@ export default function ExpWealth() {
             <h1>Experience and Wealth</h1>
             <h2 className="mt-2">Experience</h2>
             <div className="main-container">
-                <div className="flex flex-row space-x-1">
-                    <Number title="Current XP" id="xp" value={xp[0]} min={0} className="w-1/2" onChange={(retval)=>ChangeExp(0, retval)} />
-                    <Label title="Next Level" className="w-1/2" value={next_level} />
-                </div>
+                <Number title="Current XP" id="xp" value={xp[0]} min={0} onChange={(retval)=>ChangeExp(0, retval)} />
+                <Label title="Next Level" value={next_level} />
                 <Select title="Progression" id="progress" value={xp[1]} items={["Slow","Medium","Fast"]} onChange={(retval)=>ChangeExp(1, retval)} />
                 <Label title="Current Level" value={level_index} />
             </div>

@@ -3,7 +3,7 @@
 }
 
 .accordian-bottom {
-    @apply flex flex-col space-y-1 p-1 bg-white rounded-b-md border-l-2 border-b-2 border-r-2 border-amber-700;
+    @apply flex-col space-y-1 p-1 bg-white rounded-b-md border-l-2 border-b-2 border-r-2 border-amber-700;
 }
 
 .accordian-title {

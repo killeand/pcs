@@ -97,7 +97,7 @@ export default function Weapons() {
         
         return wepList.map((item, index) => {
             return (
-                <Accordian key={`class-${item._id}`} title={item.name}>
+                <Accordian key={`wep-${item._id}`} title={item.name}>
                     <div className="flex flex-row space-x-1">
                         <Text title="Name" id={`wep${index}name`} value={item.name} className="flex-grow" onChange={(retval)=>ChangeValue(index, "name", retval)} />
                         <Button color="red" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />

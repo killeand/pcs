@@ -47,6 +47,7 @@ export default function FileManager() {
                         if (!_.has(data, "title") || !_.has(data, "data")) throw("Invalid data format");
 
                         _.assign(data, {_id:uuid(),loaded:false,saved:true});
+                        console.log(PCSD.files, data);
                         PCSD.setFiles([...PCSD.files, data]);
                     }
                     catch(error) {
@@ -145,6 +146,8 @@ export default function FileManager() {
                     {RenderItem("Custom Skills", "custskills")}
                     {RenderItem("Experience", "exp")}
                     {RenderItem("Wealth", "wealth")}
+                    {RenderItem("Abilities", "abilities")}
+                    {RenderItem("Equipment", "equipment")}
                 </Modal>
             );
         }

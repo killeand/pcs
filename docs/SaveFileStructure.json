@@ -28,6 +28,7 @@
         "health": [0,0,0,0],
         "classes": [
             {
+                "_id": "",
                 "name": "",
                 "level": 0,
                 "hd": 0,
@@ -59,6 +60,7 @@
         },
         "weapons": [
             {
+                "_id": "",
                 "name": "",
                 "hit": [
                     ""
@@ -75,6 +77,7 @@
         ],
         "armors": [
             {
+                "_id": "",
                 "name": "",
                 "active": false,
                 "ac": 0,
@@ -111,24 +114,28 @@
         "custskills": {
             "craf": [
                 {
+                    "_id": "",
                     "name": "",
                     "stats": [false,0,0]
                 }
             ],
             "know": [
                 {
+                    "_id": "",
                     "name": "",
                     "stats": [false,0,0]
                 }
             ],
             "perf": [
                 {
+                    "_id": "",
                     "name": "",
                     "stats": [false,0,0]
                 }
             ],
             "prof": [
                 {
+                    "_id": "",
                     "name": "",
                     "stats": [false,0,0]
                 }
@@ -158,6 +165,7 @@
         },
         "equipment": [
             {
+                "_id": "",
                 "name": "",
                 "ref": "",
                 "num": 0,
@@ -167,7 +175,8 @@
         ],
         "spellbook": [
             {
-                "class": 0,
+                "_id": "",
+                "class_id": "",
                 "score": 0,
                 "stats": [
                     [0,0,0],
@@ -180,12 +189,16 @@
                     [0,0,0],
                     [0,0,0],
                     [0,0,0]
+                ],
+                "book": [
+                    ""
                 ]
             }
         ],
         "notes": [
             {
-                "title": "",
+                "_id": "",
+                "name": "",
                 "info": ""
             }
         ]

@@ -16,6 +16,10 @@ import Weapons from '../pages/Weapons';
 import Armors from '../pages/Armors';
 import Skills from '../pages/Skills';
 import ExpWealth from '../pages/ExpWealth';
+import Abilities from '../pages/Abilities';
+import Equipment from '../pages/Equipment';
+import Spellbook from '../pages/Spellbook';
+import Notes from '../pages/Notes';
 
 const CHAR_PAGES = [
     {url:"/details",icon:"bi-journal-text",name:"Character Details",component:(<Details />)},
@@ -30,10 +34,10 @@ const CHAR_PAGES = [
     {url:"/armor",icon:"bi-robot",name:"Armors",component:(<Armors />)},
     {url:"/skills",icon:"bi-plus-slash-minus",name:"Skills",component:(<Skills />)},
     {url:"/exp-wealth",icon:"bi-coin",name:"EXP and Wealth",component:(<ExpWealth />)},
-    {url:"/feats-abilities",icon:"bi-cloud-haze2",name:"Feats and Abilities",component:(<p>blah</p>)},
-    {url:"/equipment",icon:"bi-check2-square",name:"Equipment",component:(<p>blah</p>)},
-    {url:"/spellbook",icon:"bi-book",name:"Spellbook",component:(<p>blah</p>)},
-    {url:"/notes",icon:"bi-body-text",name:"Notes",component:(<p>blah</p>)},
+    {url:"/feats-abilities",icon:"bi-cloud-haze2",name:"Feats and Abilities",component:(<Abilities />)},
+    {url:"/equipment",icon:"bi-check2-square",name:"Equipment",component:(<Equipment />)},
+    {url:"/spellbook",icon:"bi-book",name:"Spellbook",component:(<Spellbook />)},
+    {url:"/notes",icon:"bi-body-text",name:"Notes",component:(<Notes />)},
 ];
 
 export default function Application() {

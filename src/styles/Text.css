@@ -3,9 +3,17 @@
 }
 
 .text-label {
-    @apply flex items-center font-bold bg-amber-300 py-1 px-2 rounded-l-md border-r border-amber-700 min-w-fit h-full;
+    @apply flex items-center;
+    @apply font-bold;
+    @apply bg-amber-300;
+    @apply py-1 px-2;
+    @apply rounded-l-md border-r border-amber-700;
+    @apply min-w-fit h-full;
 }
 
 .text-input {
-    @apply bg-white border-t-2 border-r-2 border-b-2 border-amber-300 rounded-r-md py-0.5 px-1 flex-grow w-full h-full;
+    @apply bg-white;
+    @apply border-t-2 border-r-2 border-b-2 border-amber-300 rounded-r-md;
+    @apply py-0.5 px-1;
+    @apply flex flex-row space-x-1 flex-grow w-full h-full;
 }
