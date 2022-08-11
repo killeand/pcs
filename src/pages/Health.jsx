@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import PCSContext from '../components/PCSContext';
 import Label from '../components/Label';
 import MultiNumber from '../components/MultiNumber';
+import Accordian from '../components/Accordian';
 import '../styles/Page.css';
 
 export default function Health() {
@@ -81,24 +82,21 @@ export default function Health() {
         SetAPI(value);
     }
 
+    if (charIndex == -1) {
+        return (<p>Loading...</p>);
+    }
+
     return (
         <>
             <h1>Health</h1>
             <div className="main-container">
-                {(charIndex == -1)?(
-                    <p>Loading...</p>
-                ):(
-                    <>
-                        <div className="flex flex-row space-x-1">
-                            <Label title="Max Health" value={CalculateMaxHealth()} className="w-1/2" />
-                            <Label title="Current Health" value={CalculateCurrentHealth()} className="w-1/2" />
-                        </div>
-                        <fieldset>
-                            <legend>Wounds and Bonuses</legend>
-                            <MultiNumber title={["Wounds", "Non-Lethal", "Misc", "Temp"]} id="health" value={healthValues} min={[0,0,-1000,-1000]} onChange={ChangeValue} />
-                        </fieldset>
-                    </>
-                )}
+                <div className="flex flex-row space-x-1">
+                    <Label title="Max Health" value={CalculateMaxHealth()} className="w-1/2" />
+                    <Label title="Current Health" value={CalculateCurrentHealth()} className="w-1/2" />
+                </div>
+                <Accordian title="Wounds and Bonuses">
+                    <MultiNumber title={["Wounds", "Non-Lethal", "Misc", "Temp"]} id="health" value={healthValues} min={[0,0,-1000,-1000]} onChange={ChangeValue} />
+                </Accordian>
             </div>
             <div className="msg-container">
                 <div><span className="font-bold">Note:</span> Wounds and Non-Lethal subtract from the total health, while Misc and Temp add to the total.</div>

@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import PCSContext from '../components/PCSContext';
 import Text from '../components/Text';
 import Select from '../components/Select';
-import CheckList from '../components/CheckList';
-import Button from '../components/Button';
+import List from '../components/List';
 import { PF_SIZES, PF_ALIGNMENTS, PF_LANGUAGES } from '../scripts/Pathfinder';
 import '../styles/Page.css';
 
@@ -90,7 +89,7 @@ export default function Details() {
                 <Select title="Alignment" id="alignment" value={GetAPI("alignment")} items={PF_ALIGNMENTS} arrow="bi-text-indent-left" onChange={(retval)=>SetAPI("alignment", retval)} />
                 <Text title="Deity" id="deity" value={GetAPI("deity")} onChange={(retval)=>SetAPI("deity", retval)} />
                 <Text title="Homeland" id="homeland" value={GetAPI("homeland")} onChange={(retval)=>SetAPI("homeland", retval)} />
-                <CheckList title="Languages" id="languages" value={GetAPI("languages")} items={PF_LANGUAGES} onChange={(retval)=>SetAPI("languages", retval)} />
+                <List title="Languages" id="languages" value={GetAPI("languages")} onChange={(retval)=>SetAPI("languages",retval)} />
             </div>
         </>
     );

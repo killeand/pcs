@@ -129,12 +129,11 @@ export default function Miscellaneous() {
                 }>
                     <Number title="Misc" id="init" value={GetAPI("init")} min={0} onChange={(retval)=>ChangeValue("init",retval)} />
                 </Accordian>
-                <fieldset>
-                    <legend>Resistances</legend>
+                <Accordian title="Resistances">
                     <MultiNumber title={["Acid","Cold","Elec","Fire","Sonic"]} id="resist" value={GetAPI("resist")} min={[0,0,0,0,0]} onChange={(retval)=>ChangeValue("resist",retval)} />
-                </fieldset>
-                <Text title="DR" id="dr" value={GetAPI("dr")} onChange={(retval)=>ChangeValue("dr",retval)} />
-                <Text title="SR" id="sr" value={GetAPI("sr")} onChange={(retval)=>ChangeValue("sr",retval)} />
+                    <Text title="DR" id="dr" value={GetAPI("dr")} onChange={(retval)=>ChangeValue("dr",retval)} />
+                    <Text title="SR" id="sr" value={GetAPI("sr")} onChange={(retval)=>ChangeValue("sr",retval)} />
+                </Accordian>
             </div>
             <div className="msg-container">
                 <div><span className="font-bold">Speeds</span>: Base speed is your walk speed. All other values are automatically derived (exception is fly) unless you override the value.</div>

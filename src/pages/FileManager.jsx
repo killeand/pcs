@@ -47,7 +47,6 @@ export default function FileManager() {
                         if (!_.has(data, "title") || !_.has(data, "data")) throw("Invalid data format");
 
                         _.assign(data, {_id:uuid(),loaded:false,saved:true});
-                        console.log(PCSD.files, data);
                         PCSD.setFiles([...PCSD.files, data]);
                     }
                     catch(error) {
@@ -161,7 +160,7 @@ export default function FileManager() {
         return PCSD.files.map((files, index) => {
             return (
                 <div key={`character-${files._id}`} className="border border-amber-300 rounded-md p-1 flex flex-row items-center space-x-2">
-                    <div className="flex-grow" onClick={()=>console.log(PCSD.files[index])}>{files.title}</div>
+                    <div className="flex-grow" onClick={()=>console.info(PCSD.files[index])}>{files.title}</div>
                     <div className="flex flex-row space-x-1">
                         <Button color="white" className="bi-eraser" onClick={()=>{setClearModal(true);setClearIndex(index);}} />
                         <Button color={(files.loaded)?"white":"blue"} className={(files.loaded)?"text-stone-400 bi-square-fill":"text-white bi-caret-right-fill"} onClick={()=>ActivateCharacter(index)} />
