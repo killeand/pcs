@@ -18,6 +18,10 @@ export default function TextArea({title, id, value, className, onChange, ...prop
             setFormId(uuid());
     }, []);
 
+    useEffect(() => {
+        setFormValue(value);
+    }, [value]);
+
     function ChangeValue(e) {
         let newValue = e.target.value;
 

@@ -19,6 +19,10 @@ export default function Number({title, id, value, min, className, onChange, ...p
             setFormId(uuid());
     }, []);
 
+    useEffect(() => {
+        setFormValue(value);
+    }, [value]);
+
     function ChangeValue(e) {
         let newValue = parseInt(e.target.value) | 0;
 

@@ -20,6 +20,10 @@ export default function List({title, id, value, className, onChange, ...props}) 
             setFormId(uuid());
     }, []);
 
+    useEffect(() => {
+        setFormValue(value);
+    }, [value]);
+
     function ChangeValue(e, index) {
         let tempValue = e.target.value;
         let newValue = [...formValue];

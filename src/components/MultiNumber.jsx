@@ -19,6 +19,10 @@ export default function MultiNumber({title, id, value, min, className, onChange,
             setFormId(uuid());
     }, []);
 
+    useEffect(() => {
+        setFormValue(value);
+    }, [value]);
+
     function ChangeValue(e, index) {
         let inputValue = e.target.value;
         let newValue = [...formValue];

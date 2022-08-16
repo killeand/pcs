@@ -20,6 +20,10 @@ export default function Select({title, id, value, items, arrow, className, onCha
             setFormId(uuid());
     }, []);
 
+    useEffect(() => {
+        setFormValue(value);
+    }, [value]);
+
     function ChangeValue(e) {
         let newValue = e.target.selectedIndex;
 

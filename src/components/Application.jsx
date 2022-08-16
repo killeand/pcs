@@ -20,24 +20,25 @@ import Abilities from '../pages/Abilities';
 import Equipment from '../pages/Equipment';
 import Spellbook from '../pages/Spellbook';
 import Notes from '../pages/Notes';
+import Tools from '../pages/Tools';
 
 const CHAR_PAGES = [
-    {url:"/details",icon:"bi-journal-text",name:"Character Details",component:(<Details />)},
-    {url:"/ability-scores",icon:"bi-person-lines-fill",name:"Ability Scores",component:(<Stats />)},
-    {url:"/classes",icon:"bi-briefcase",name:"Classes",component:(<Classes />)},
-    {url:"/health",icon:"bi-plus-circle",name:"Health",component:(<Health />)},
-    {url:"/saving-throws",icon:"bi-hospital",name:"Saving Throws",component:(<Saves />)},
-    {url:"/offense",icon:"bi-lightning",name:"Offensive Stats",component:(<Offensive />)},
-    {url:"/defense",icon:"bi-shield",name:"Defensive Stats",component:(<Defensive />)},
-    {url:"/misc-stats",icon:"bi-sliders",name:"Miscellaneous Stats",component:(<Miscellaneous />)},
-    {url:"/weapons",icon:"bi-tornado",name:"Weapons",component:(<Weapons />)},
-    {url:"/armor",icon:"bi-robot",name:"Armors",component:(<Armors />)},
-    {url:"/skills",icon:"bi-plus-slash-minus",name:"Skills",component:(<Skills />)},
-    {url:"/exp-wealth",icon:"bi-coin",name:"EXP and Wealth",component:(<ExpWealth />)},
-    {url:"/feats-abilities",icon:"bi-cloud-haze2",name:"Feats and Abilities",component:(<Abilities />)},
-    {url:"/equipment",icon:"bi-check2-square",name:"Equipment",component:(<Equipment />)},
-    {url:"/spellbook",icon:"bi-book",name:"Spellbook",component:(<Spellbook />)},
-    {url:"/notes",icon:"bi-body-text",name:"Notes",component:(<Notes />)},
+    {url:"details",icon:"bi-journal-text",name:"Character Details",component:(<Details />)},
+    {url:"ability-scores",icon:"bi-person-lines-fill",name:"Ability Scores",component:(<Stats />)},
+    {url:"classes",icon:"bi-briefcase",name:"Classes",component:(<Classes />)},
+    {url:"health",icon:"bi-plus-circle",name:"Health",component:(<Health />)},
+    {url:"saving-throws",icon:"bi-hospital",name:"Saving Throws",component:(<Saves />)},
+    {url:"offense",icon:"bi-lightning",name:"Offensive Stats",component:(<Offensive />)},
+    {url:"defense",icon:"bi-shield",name:"Defensive Stats",component:(<Defensive />)},
+    {url:"misc-stats",icon:"bi-sliders",name:"Miscellaneous Stats",component:(<Miscellaneous />)},
+    {url:"weapons",icon:"bi-tornado",name:"Weapons",component:(<Weapons />)},
+    {url:"armor",icon:"bi-robot",name:"Armors",component:(<Armors />)},
+    {url:"skills",icon:"bi-plus-slash-minus",name:"Skills",component:(<Skills />)},
+    {url:"exp-wealth",icon:"bi-coin",name:"EXP and Wealth",component:(<ExpWealth />)},
+    {url:"feats-abilities",icon:"bi-cloud-haze2",name:"Feats and Abilities",component:(<Abilities />)},
+    {url:"equipment",icon:"bi-check2-square",name:"Equipment",component:(<Equipment />)},
+    {url:"spellbook",icon:"bi-book",name:"Spellbook",component:(<Spellbook />)},
+    {url:"notes",icon:"bi-body-text",name:"Notes",component:(<Notes />)},
 ];
 
 export default function Application() {
@@ -75,6 +76,8 @@ export default function Application() {
             });
         }
 
+        menu.push(<Link key={`menu${menu.length + 1}`} className="bi-tools" to="/tools" onClick={HideMobileNav}> Tools</Link>);
+
         return menu;
     }
 
@@ -98,9 +101,10 @@ export default function Application() {
                 </header>
                 <main className="flex flex-col flex-grow">
                     <Routes>
-                        <Route path="/" element={<FileManager />} />
+                        <Route index element={<FileManager />} />
+                        <Route path="tools/*" element={<Tools />} />
                         {RenderRoutes()}
-                        <Route path="/404" element={<p>Page not found</p>} />
+                        <Route path="404" element={<p>Page not found</p>} />
                         <Route path="*" element={<Navigate to="/404" />} />
                     </Routes>
                 </main>
