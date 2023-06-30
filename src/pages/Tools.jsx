@@ -1,16 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import _ from 'lodash';
 import Button from '../components/Button';
 import Accordian from '../components/Accordian';
 import Number from '../components/Number';
-import Text from '../components/Text';
-import TextArea from '../components/TextArea';
-import MultiNumber from '../components/MultiNumber';
 import Select from '../components/Select';
 import Label from '../components/Label';
 import { RandomNum } from '../scripts/Utilities';
-import { ORA_DESC_V, ORA_DESC_N, ORA_MOT_V, ORA_MOT_N, ORA_BEAR, ORA_FOCUS, ORA_FATE, ORA_RELAT, ORA_MOOD } from '../scripts/Oracle';
 import '../styles/Page.css';
 
 export default function Tools(props) {
@@ -21,7 +17,6 @@ export default function Tools(props) {
         switch (true) {
             case CheckPath("dice"): return <DiceRoller />; break;
             case CheckPath("stats"): return <StatsRoller />; break;
-            case CheckPath("oracle"): return <Oracle />; break;
             default: return (<p>Please select a tool from the buttons above...</p>);
         }
     }
@@ -32,7 +27,6 @@ export default function Tools(props) {
             <div className="base-size flex flex-row justify-evenly my-2">
                 <Button as={Link} to="/tools/dice">Dice Roller</Button>
                 <Button as={Link} to="/tools/stats">Stats Roller</Button>
-                <Button as={Link} to="/tools/oracle">Game Oracle</Button>
             </div>
             {RenderRoutes()}
         </>
@@ -344,155 +338,4 @@ function StatsRoller() {
             </div>
         </>
     );
-}
-
-function Oracle() {
-    /*
-    let [ wofResult, setWofResult ] = useState("");
-    let [ npccDesc, setNpccDesc ] = useState("");
-    let [ npccPower, setNpccPower ] = useState("");
-    let [ npccMot1, setNpccMot1 ] = useState("");
-    let [ npccMot2, setNpccMot2 ] = useState("");
-    let [ npccMot3, setNpccMot3 ] = useState("");
-    let [ npccRelat, setNpccRelat ] = useState(3);
-    let [ npccMood, setNpccMood ] = useState(-1);
-
-    function RollWof(woftype) {
-        let diff = [[5,15,20,50,80,85,95],[2,6,16,50,84,94,98],[1,2,20,50,80,98,99]];
-        let mroll = RandomNum(1,100);
-        let uroll = RandomNum(0,16);
-
-        if (mroll <= diff[woftype][0]) setWofResult("No, and unexpectedly " + ORA_FATE[uroll]);
-        else if (mroll <= diff[woftype][1]) setWofResult("No, but");
-        else if (mroll <= diff[woftype][2]) setWofResult("No, and");
-        else if (mroll <= diff[woftype][3]) setWofResult("No");
-        else if (mroll <= diff[woftype][4]) setWofResult("Yes");
-        else if (mroll <= diff[woftype][5]) setWofResult("Yes, and");
-        else if (mroll <= diff[woftype][6]) setWofResult("Yes, but");
-        else setWofResult("Yes, and unexpectedly " + ORA_FATE[uroll]);
-    }
-
-    function RollNpcc(npcctype) {
-        if (npcctype == -1) {
-            setNpccDesc("");
-            setNpccPower("");
-            setNpccMot1("");
-            setNpccMot2("");
-            setNpccMot3("");
-            return;
-        }
-
-        if (npcctype == 1 || npcctype == 0) setNpccDesc(ORA_DESC_V[RandomNum(0,99)] + " " + ORA_DESC_N[RandomNum(0,99)]);
-        if (npcctype == 2 || npcctype == 0) {
-            let pow = RandomNum(1,100);
-
-            if (pow <= 5) setNpccPower("Much Weaker");
-            else if (pow <= 20) setNpccPower("Slightly Weaker");
-            else if (pow <= 80) setNpccPower("Comparable");
-            else if (pow <= 95) setNpccPower("Slightly Stronger");
-            else setNpccPower("Much Stronger");
-        }
-        if (npcctype == 3 || npcctype == 0) setNpccMot1(ORA_MOT_V[RandomNum(0,99)] + " " + ORA_MOT_N[RandomNum(0,99)]);
-        if (npcctype == 4 || npcctype == 0) setNpccMot2(ORA_MOT_V[RandomNum(0,99)] + " " + ORA_MOT_N[RandomNum(0,99)]);
-        if (npcctype == 5 || npcctype == 0) setNpccMot3(ORA_MOT_V[RandomNum(0,99)] + " " + ORA_MOT_N[RandomNum(0,99)]);
-    }
-
-    function RollMood() {
-        let roll = RandomNum(1,100);
-        let matrix = [
-            [1,6,16,31,70,85],
-            [2,8,20,40,76,89],
-            [3,11,25,55,82,93],
-            [5,15,30,60,85,95],
-            [7,18,46,76,90,97],
-            [11,24,61,81,93,98],
-            [15,30,69,84,94,99]
-        ];
-
-        for (let i = 0; i < 6; i++) {
-            if (roll <= matrix[npccRelat][i]) {
-                setNpccMood(i);
-                return;
-            }
-        }
-
-        setNpccMood(6);
-    }
-
-    function RenderWof() {
-        if (!_.isEmpty(wofResult)) {
-            return (<Label title="Result" value={wofResult} />);
-        }
-    }
-
-    function RenderNpcc() {
-        if (!_.isEmpty(npccDesc)) {
-            return (
-                <>
-                    <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
-                        <Button color="gray" className={`bi-dice-${RandomNum(1,6)}`} onClick={()=>RollNpcc(1)} />
-                        <Label title="Description" value={npccDesc} className="flex-grow" />
-                    </div>
-                    <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
-                        <Button color="gray" className={`bi-dice-${RandomNum(1,6)}`} onClick={()=>RollNpcc(2)} />
-                        <Label title="Power" value={npccPower} className="flex-grow" />
-                    </div>
-                    <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
-                        <Button color="gray" className={`bi-dice-${RandomNum(1,6)}`} onClick={()=>RollNpcc(3)} />
-                        <Label title="Motivation" value={npccMot1} className="flex-grow" />
-                    </div>
-                    <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
-                        <Button color="gray" className={`bi-dice-${RandomNum(1,6)}`} onClick={()=>RollNpcc(4)} />
-                        <Label title="Motivation" value={npccMot2} className="flex-grow" />
-                    </div>
-                    <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
-                        <Button color="gray" className={`bi-dice-${RandomNum(1,6)}`} onClick={()=>RollNpcc(5)} />
-                        <Label title="Motivation" value={npccMot3} className="flex-grow" />
-                    </div>
-                </>
-            );
-        }
-    }
-
-    function RenderAttitude() {
-        if (npccMood != -1) {
-            return (<Label title="Attitude" value={ORA_MOOD[npccMood]} />);
-        }
-    }
-
-    return (
-        <>
-            <h2>Game Oracle</h2>
-            <div className="main-container">
-                <Accordian title="Loom of Fate">
-                    <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
-                        <Button color="blue" className="md:w-1/3" onClick={()=>RollWof(0)}>To Knowledge</Button>
-                        <Button color="red" className="md:w-1/3" onClick={()=>RollWof(1)}>To Conflict</Button>
-                        <Button color="gray" className="md:w-1/3" onClick={()=>RollWof(2)}>To Endings</Button>
-                    </div>
-                    {RenderWof()}
-                </Accordian>
-                <Accordian title="NPC Character">
-                    <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
-                        <Button color="blue" className="md:w-1/2" onClick={()=>RollNpcc(0)}>Roll All</Button>
-                        <Button color="red" className="md:w-1/2" onClick={()=>RollNpcc(-1)}>Clear</Button>
-                    </div>
-                    {RenderNpcc()}
-                </Accordian>
-                <Accordian title="NPC Attitude">
-                    <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
-                        <Button color="blue" onClick={()=>{setNpccRelat(RandomNum(0,6));setNpccMood(-1);}}>Random Relation</Button>
-                        <Select title="Relation" value={npccRelat} items={ORA_RELAT} className="flex-grow" onChange={(retval)=>{setNpccRelat(retval);setNpccMood(-1);}} />
-                        <Button color="blue" onClick={RollMood}>Roll</Button>
-                    </div>
-                    {RenderAttitude()}
-                </Accordian>
-                <Accordian title="NPC Conversation">
-                    
-                </Accordian>
-            </div>
-        </>
-    );
-    */
-    return (<p>Oracle not available</p>);
 }

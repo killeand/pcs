@@ -3,7 +3,7 @@ module.exports = {
     theme: {},
     plugins: [require('daisyui')],
     daisyui: {
-        themes: ["fantasy", "synthwave"]
+        themes: ["light", "dark", "synthwave", "forest", "fantasy", "winter"]
     }
   }
   

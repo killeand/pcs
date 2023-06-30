@@ -1,6 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { HashRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
 import _ from 'lodash';
+import { themeChange } from 'theme-change';
+import Button from './Button';
 import PCSContext from './PCSContext';
 import IconicIcon from '../images/iconic';
 import FileManager from '../pages/FileManager';
@@ -43,6 +45,8 @@ const CHAR_PAGES = [
 
 export default function Application() {
     let PCSD = useContext(PCSContext);
+
+    useEffect(() => themeChange(false), []);
 
     function ToggleNav() {
         let navbar = document.getElementsByTagName("nav")[0];
@@ -109,8 +113,16 @@ export default function Application() {
                     </Routes>
                 </main>
             </div>
-            <footer className="text-center">
-                Pathfinder Character Sheet
+            <footer className="flex flex-col">
+                <div className="font-bold text-center">Theme Changer</div>
+                <div className="join join-vertical md:join-horizontal justify-center">
+                    <Button data-set-theme="light" data-act-class="ACTIVECLASS" className="join-item">Light</Button>
+                    <Button data-set-theme="dark" data-act-class="ACTIVECLASS" className="join-item">Dark</Button>
+                    <Button data-set-theme="synthwave" data-act-class="ACTIVECLASS" className="join-item">Synthwave</Button>
+                    <Button data-set-theme="forest" data-act-class="ACTIVECLASS" className="join-item">Forest</Button>
+                    <Button data-set-theme="fantasy" data-act-class="ACTIVECLASS" className="join-item">Fantasy</Button>
+                    <Button data-set-theme="winter" data-act-class="ACTIVECLASS" className="join-item">Winter</Button>
+                </div>
             </footer>
         </HashRouter>
     );

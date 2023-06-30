@@ -37,14 +37,14 @@ export default function FileManager() {
         let files = e.target.files;
 
         for (let i = 0; i < files.length; i++) {
-            if (files[i].type.match(/(text)+/gmi)) {
+            if (files[i].type.match(/(json)+/gmi)) {
                 let FR = new FileReader();
                 FR.addEventListener("loadend", (e) => {
                     let results = FR.result;
                     let data = null;
 
                     try {
-                        data = JSON.parse(decodeURIComponent(atob(results)));
+                        data = JSON.parse(decodeURIComponent(results));
                         if (!_.has(data, "title") || !_.has(data, "data")) throw("Invalid data format");
 
                         _.assign(data, {_id:ulid(),loaded:false,saved:true});
@@ -78,8 +78,8 @@ export default function FileManager() {
         _.unset(SavedClass, "_id");
         
         let db = document.createElement("a");
-        db.href = `data:text/plain;charset=utf8,${encodeURIComponent(btoa(JSON.stringify(SavedClass)))}`;
-        db.download = `${SavedClass.title}.txt`;
+        db.href = `data:application/json;charset=utf8,${encodeURIComponent(JSON.stringify(SavedClass, null, '\t'))}`;
+        db.download = `${SavedClass.title}.json`;
         db.style.display = "none";
         document.body.appendChild(db);
         db.click();
@@ -185,7 +185,7 @@ export default function FileManager() {
             <div className="main-container">
                 <Button color="primary" onClick={()=>setNewCharModal(true)}>New Character</Button>
                 <Button as="label" color="primary">
-                    <input type="file" className="hidden h-0" multiple accept=".txt" onChange={LoadCharacter} />
+                    <input type="file" className="hidden h-0" multiple accept=".json" onChange={LoadCharacter} />
                     Load Character
                 </Button>
             </div>
