@@ -1,15 +1,15 @@
 .select-cont {
-    @apply relative flex flex-row items-center;
+    @apply relative grid grid-cols-10;
 }
 
 .select-label {
-    @apply flex items-center font-bold bg-amber-300 py-1 px-2 rounded-l-md border-r border-amber-700;
+    @apply col-span-2 text-center font-bold bg-primary text-primary-content py-1 px-2 rounded-l-md border-r border-primary;
 }
 
 .select-input {
-    @apply appearance-none bg-white border-t-2 border-b-2 border-amber-300 py-0.5 px-1 flex-grow w-full border-r-2 rounded-r-md;
+    @apply appearance-none bg-base-100 border-t-2 border-b-2 border-primary py-0.5 px-1 col-span-8 w-full border-r-2 rounded-r-md;
 }
 
 .select-end {
-    @apply absolute right-2 pointer-events-none;
+    @apply absolute top-1 right-2 pointer-events-none;
 }

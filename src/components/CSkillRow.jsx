@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
-import { v1 as uuid } from 'uuid';
+import { ulid } from 'ulidx';
 import Button from './Button';
 import '../styles/SkillRow.css';
 
-export default function CSkillRow({title, id, value, className, onChange, onDelete, ...props}) {
-    if (_.isNil(title)) title = "New Skill";
-    if (_.isNil(id)) id = "";
-    if (_.isNil(value)) value = [0,0,false,0,0]; // flags, modval, class, rank, misc
-    if (_.isNil(className)) className = "";
-    if (_.isNil(onChange)) console.warn("In order to get the Skill Value, you need to assign something to onChange...");
-    if (_.isNil(onDelete)) console.warn("onDelete must be set or items cannot be removed...");
+export default function CSkillRow({title, id, value, className, onChange, onDelete}) {
+    title = title || "New Skill";
+    id = id || "";
+    value = value || [0,0,false,0,0]; // flags, modval, class, rank, misc
+    className = className || "";
+    if (!onChange) console.warn("In order to get the Skill Value, you need to assign something to onChange...");
+    if (!onDelete) console.warn("onDelete must be set or items cannot be removed...");
     
     let [ formValue, setFormValue ] = useState([value[2],title,value[3],value[4]]);
     let [ formId, setFormId ] = useState(id);
 
     useEffect(() => {
         if (_.isEmpty(formId))
-            setFormId(uuid());
+            setFormId(ulid());
     }, []);
 
     function ChangeValue(value, index) {
@@ -25,7 +25,7 @@ export default function CSkillRow({title, id, value, className, onChange, onDele
         newValue[index] = value;
 
         setFormValue(newValue);
-        if (!_.isNil(onChange)) onChange(newValue);
+        if (onChange) onChange(newValue);
     }
 
     let total = ((formValue[0]&&(formValue[2]>0))?3:0) + formValue[2] + value[1] + formValue[3];
@@ -40,7 +40,7 @@ export default function CSkillRow({title, id, value, className, onChange, onDele
             <div className="col-span-2 sr-input"><input type="number" min={0} value={formValue[2]} onChange={(e)=>ChangeValue(parseInt(e.target.value), 2)} /></div>
             <div className="col-span-1 sr-input sr-center">{value[1]}</div>
             <div className="col-span-2 sr-input"><input type="number" value={formValue[3]} onChange={(e)=>ChangeValue(parseInt(e.target.value), 3)} /></div>
-            <div className="col-span-1 sr-center"><Button color="red" className="bi-trash text-xs px-1 py-0.5" onClick={onDelete} /></div>
+            <div className="col-span-1 sr-center"><Button color="error" className="bi-trash text-xs px-1 py-0.5" onClick={onDelete} /></div>
         </div>
     );
 }

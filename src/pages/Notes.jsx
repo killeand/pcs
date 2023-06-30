@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
-import { v1 as uuid } from 'uuid';
+import { ulid } from 'ulidx';
 import PCSContext from '../components/PCSContext';
 import Button from '../components/Button';
 import Text from '../components/Text';
@@ -54,7 +54,7 @@ export default function Notes() {
     function AddNote() {
         let newNotes = [...noteList];
         newNotes.push({
-            _id: uuid(),
+            _id: ulid(),
             name: "New Note",
             info: ""
         });
@@ -93,7 +93,7 @@ export default function Notes() {
                 <Accordian key={`note-${item._id}`} title={item.name}>
                     <div className="flex flex-row space-x-1">
                         <Text title="Name" id={`note${index}name`} value={item.name} className="flex-grow" onChange={(retval)=>ChangeValue(index, "name", retval)} />
-                        <Button color="red" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
+                        <Button color="error" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
                     </div>
                     <TextArea title="Notes" id={`note${index}info`} value={item.info} onChange={(retval)=>ChangeValue(index, "info", retval)} />
                 </Accordian>
@@ -110,7 +110,7 @@ export default function Notes() {
                         <p>This action is permanent and can only be reverted by re-loading the character data.</p>
                     </div>
                     <div className="flex justify-center">
-                        <Button color="red" onClick={RemoveNote}>Confirmed, remove!</Button>
+                        <Button color="error" onClick={RemoveNote}>Confirmed, remove!</Button>
                     </div>
                 </Modal>
             );
@@ -122,7 +122,7 @@ export default function Notes() {
             {RenderRemoveModal()}
             <h1>Notes</h1>
             <div className="main-container">
-                <Button color="yellow" onClick={AddNote}>Add Note</Button>
+                <Button color="primary" onClick={AddNote}>Add Note</Button>
             </div>
             <div className="main-container">
                 {RenderNotes()}

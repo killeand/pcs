@@ -1,19 +1,7 @@
-.list-cont {
-    @apply flex flex-col;
-}
-
-.list-title {
-    @apply flex items-center py-1 pl-2 pr-1 font-bold bg-amber-300 rounded-t-md border-b border-amber-700;
-}
-
-.list-box {
-    @apply flex flex-col space-y-1 p-1 border-r-2 border-b-2 border-l-2 border-amber-300 rounded-b-md;
-}
-
 .list-row {
     @apply flex flex-row space-x-1 items-center;
 }
 
 .list-input {
-    @apply bg-white border border-black rounded-md py-0.5 px-1 flex-grow w-full h-full;
+    @apply bg-base-100 border border-primary rounded-md py-0.5 px-1 flex-grow w-full h-full;
 }

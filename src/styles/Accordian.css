@@ -1,9 +1,9 @@
 .accordian-top {
-    @apply flex flex-row space-x-1 bg-amber-300 p-1 cursor-pointer rounded-t-md border-b border-amber-700;
+    @apply flex flex-row space-x-1 bg-primary text-primary-content p-1 cursor-pointer rounded-t-md border-b border-primary;
 }
 
 .accordian-bottom {
-    @apply flex-col space-y-1 p-1 bg-white rounded-b-md border-l-2 border-b-2 border-r-2 border-amber-700;
+    @apply flex-col space-y-1 p-1 bg-base-100 rounded-b-md border-l-2 border-b-2 border-r-2 border-primary;
 }
 
 .accordian-title {
@@ -15,5 +15,5 @@
 }
 
 .accordian-elements > div {
-    @apply border border-black px-1 pointer-events-none rounded-md even:bg-sky-100 odd:bg-emerald-100;
+    @apply border border-black px-1 pointer-events-none rounded-md even:bg-accent even:text-accent-content odd:bg-secondary odd:text-secondary-content;
 }

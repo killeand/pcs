@@ -3,9 +3,9 @@
 }
 
 .textarea-label {
-    @apply flex items-center py-1 px-2 font-bold bg-amber-300 rounded-t-md border-b border-amber-700;
+    @apply flex items-center py-1 px-2 font-bold bg-primary text-primary-content rounded-t-md border-b border-primary;
 }
 
 .textarea-box {
-    @apply flex flex-row flex-wrap flex-grow p-1 border-r-2 border-b-2 border-l-2 border-amber-300 rounded-b-md;
+    @apply flex flex-row flex-wrap flex-grow p-1 border-r-2 border-b-2 border-l-2 border-primary rounded-b-md;
 }

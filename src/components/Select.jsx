@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
-import { v1 as uuid } from 'uuid';
+import { ulid } from 'ulidx';
 import '../styles/Select.css';
 
-export default function Select({title, id, value, items, arrow, className, onChange, ...props}) {
-    if (_.isNil(title)) title = "Select";
-    if (_.isNil(id)) id = "";
-    if (_.isNil(value)) value = 0;
-    if (_.isNil(items)) items = [];
-    if (_.isNil(arrow)) arrow = "bi-caret-down";
-    if (_.isNil(className)) className = "";
-    if (_.isNil(onChange)) console.warn("In order to get the index, you need to assign something to onChange...");
+export default function Select({title, id, value, items, arrow, className, onChange}) {
+    title = title || "Select";
+    id = id || "";
+    value = value || 0;
+    items = items || [];
+    arrow = arrow || "bi-caret-down";
+    className = className || "";
+    if (!onChange) console.warn("In order to get the index, you need to assign something to onChange...");
 
     let [ formValue, setFormValue ] = useState(value);
     let [ formId, setFormId ] = useState(id);
 
     useEffect(() => {
         if (_.isEmpty(formId))
-            setFormId(uuid());
+            setFormId(ulid());
     }, []);
 
     useEffect(() => {
@@ -28,7 +28,7 @@ export default function Select({title, id, value, items, arrow, className, onCha
         let newValue = e.target.selectedIndex;
 
         setFormValue(newValue);
-        if (!_.isNil(onChange)) onChange(newValue);
+        if (onChange) onChange(newValue);
     }
 
     function RenderItems() {

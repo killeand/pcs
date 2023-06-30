@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
-import { v1 as uuid } from 'uuid';
+import { ulid } from 'ulidx';
 import '../styles/Text.css';
 
-export default function Number({title, id, value, min, className, onChange, ...props}) {
-    if (_.isNil(title)) title = "Number";
-    if (_.isNil(id)) id = "";
-    if (_.isNil(value)) value = 0;
-    if (_.isNil(min)) min = -5000;
-    if (_.isNil(className)) className = "";
-    if (_.isNil(onChange)) console.warn("In order to get the number, you need to assign something to onChange...");
+export default function Number({title, id, value, min, className, onChange}) {
+    title = title || "Number";
+    id = id || "";
+    value = value || 0;
+    min = min || -5000;
+    className = className || "";
+    if (!onChange) console.warn("In order to get the number, you need to assign something to onChange...");
     
     let [ formValue, setFormValue ] = useState(value);
     let [ formId, setFormId ] = useState(id);
 
     useEffect(() => {
         if (_.isEmpty(formId))
-            setFormId(uuid());
+            setFormId(ulid());
     }, []);
 
     useEffect(() => {
@@ -27,7 +27,7 @@ export default function Number({title, id, value, min, className, onChange, ...p
         let newValue = parseInt(e.target.value) | 0;
 
         setFormValue(newValue);
-        if (!_.isNil(onChange)) onChange(newValue);
+        if (onChange) onChange(newValue);
     }
 
     return (

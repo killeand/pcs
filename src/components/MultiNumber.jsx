@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
-import { v1 as uuid } from 'uuid';
+import { ulid } from 'ulidx';
 import "../styles/MultiNumber.css";
 
-export default function MultiNumber({title, id, value, min, className, onChange, ...props}) {
-    if (_.isNil(title)) title = ["Num 1", "Num 2", "Num 3", "Num 4"];
-    if (_.isNil(id)) id = "";
-    if (_.isNil(value)) value = new Array(title.length);
-    if (_.isNil(min)) min = new Array(title.length);
-    if (_.isNil(className)) className = "";
-    if (_.isNil(onChange)) console.warn("In order to get the number array, you need to assign something to onChange...");
+export default function MultiNumber({title, id, value, min, className, onChange}) {
+    title = title || ["Num 1", "Num 2", "Num 3", "Num 4"];
+    id = id || "";
+    value = value || new Array(title.length);
+    min = min || new Array(title.length);
+    className = className || "";
+    if (!onChange) console.warn("In order to get the number array, you need to assign something to onChange...");
 
     let [ formValue, setFormValue ] = useState(value);
     let [ formId, setFormId ] = useState(id);
 
     useEffect(() => {
         if (_.isEmpty(formId))
-            setFormId(uuid());
+            setFormId(ulid());
     }, []);
 
     useEffect(() => {
@@ -29,7 +29,7 @@ export default function MultiNumber({title, id, value, min, className, onChange,
         newValue[index] = parseInt(inputValue) | 0;
 
         setFormValue(newValue);
-        if (!_.isNil(onChange)) onChange(newValue);
+        if (onChange) onChange(newValue);
     }
 
     function RenderSections() {

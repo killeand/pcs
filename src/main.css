@@ -9,7 +9,7 @@
 }
 
 html, body, #root {
-    @apply h-full w-full bg-slate-300 text-black;
+    @apply h-full w-full bg-base-300 text-base-content;
 }
 
 #root {
@@ -17,29 +17,29 @@ html, body, #root {
 }
 
 header, main, footer {
-    @apply bg-white rounded-xl border border-black drop-shadow-md p-2 m-1;
+    @apply bg-base-100 rounded-xl border border-black drop-shadow-md p-2 m-1;
 }
 
 nav a {
-    @apply flex-grow px-2 py-1 hover:bg-gradient-to-r from-white to-slate-300;
+    @apply flex-grow px-2 py-1 hover:bg-gradient-to-r from-base-100 to-accent;
 }
 
 nav a:last-child {
-    @apply rounded-b-xl;
+    @apply rounded-b-xl md:rounded-none;
 }
 
 h1 {
-    @apply text-2xl font-bold border-b-2 border-black base-size;
+    @apply text-2xl font-bold border-b-2 border-primary base-size;
 }
 
 h2 {
-    @apply text-lg font-bold border-b border-l border-black pl-2 base-size;
+    @apply text-lg font-bold border-b border-l border-primary pl-2 base-size;
 }
 
 fieldset {
-    @apply flex flex-col border-2 border-amber-300 rounded-md p-1;
+    @apply flex flex-col border-2 border-primary rounded-md p-1;
 }
 
 legend {
-    @apply text-xs px-1 border-2 border-amber-300 rounded-md;
+    @apply text-xs px-1 border-2 border-primary rounded-md;
 }

@@ -1,42 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import _ from 'lodash';
 import '../styles/Accordian.css';
 
-export default function Accordian({title, titleElements, className, ...props}) {
-    if (_.isNil(title)) title = "Accordian";
-    if (_.isNil(className)) className = "";
+export default function Accordian({title, titleElements, className, children}) {
+    title = title || "Accordian";
+    className = className || "";
+
+    const [opened, setOpened] = useState(false);
+    const caretstyle = (opened) ? "bi-caret-down" : "bi-caret-right";
+    const topstyle = (opened) ? "" : "rounded-b-md";
+    const bottomstyle = (opened) ? "flex" : "hidden";
 
     function OpenClose(e) {
-        let container = e.target;
-        let sibling = container.nextSibling;
-
-        if (container.tagName != "BUTTON") {
-            if (container.classList.contains("rounded-b-md")) {
-                container.classList.remove("rounded-b-md");
-                container.querySelector(".bi-caret-right").classList.add("bi-caret-down");
-                container.querySelector(".bi-caret-right").classList.remove("bi-caret-right");
-                sibling.classList.remove("hidden");
-                sibling.classList.add("flex");
-            }
-            else {
-                container.classList.add("rounded-b-md");
-                container.querySelector(".bi-caret-down").classList.add("bi-caret-right");
-                container.querySelector(".bi-caret-down").classList.remove("bi-caret-down");
-                sibling.classList.add("hidden");
-                sibling.classList.remove("flex");
-            }
-        }
+        if (e.target.tagName != "BUTTON")
+            setOpened(!opened);
     }
 
     return (
         <div className={className}>
-            <div className="accordian-top rounded-b-md" onClick={OpenClose}>
-                <div className="pointer-events-none bi-caret-right" />
+            <div className={`accordian-top ${topstyle}`} onClick={OpenClose}>
+                <div className={`pointer-events-none ${caretstyle}`} />
                 <div className="pointer-events-none accordian-title">{title}</div>
                 <div className="pointer-events-none accordian-elements">{titleElements}</div>
             </div>
-            <div className="accordian-bottom hidden">
-                {props.children}
+            <div className={`accordian-bottom ${bottomstyle}`}>
+                {children}
             </div>
         </div>
     );

@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
-import { v1 as uuid } from 'uuid';
+import { ulid } from 'ulidx';
 import { PF_STATS_SHORT, PF_GETMOD } from '../scripts/Pathfinder';
 import '../styles/SkillRow.css';
 
-export default function SkillRow({title, id, value, className, onChange, ...props}) {
-    if (_.isNil(title)) title = "New Skill";
-    if (_.isNil(id)) id = "";
-    if (_.isNil(value)) value = [0,0,0,0,false,0,0]; // flags, penalty, mod, modval, class, rank, misc
-    if (_.isNil(className)) className = "";
-    if (_.isNil(onChange)) console.warn("In order to get the Skill Value, you need to assign something to onChange...");
+export default function SkillRow({title, id, value, className, onChange}) {
+    title = title || "New Skill";
+    id = id || "";
+    value = value || [0,0,0,0,false,0,0]; // flags, penalty, mod, modval, class, rank, misc
+    className = className || "";
+    if (!onChange) console.warn("In order to get the Skill Value, you need to assign something to onChange...");
     
     let [ formValue, setFormValue ] = useState([value[4],title,value[5],value[6]]);
     let [ formId, setFormId ] = useState(id);
 
     useEffect(() => {
         if (_.isEmpty(formId))
-            setFormId(uuid());
+            setFormId(ulid());
     }, []);
 
     function ChangeValue(value, index) {
@@ -24,7 +24,7 @@ export default function SkillRow({title, id, value, className, onChange, ...prop
         newValue[index] = value;
 
         setFormValue(newValue);
-        if (!_.isNil(onChange)) onChange(newValue);
+        if (onChange) onChange(newValue);
     }
 
     let total = ((formValue[0]&&(formValue[2]>0))?3:0) + formValue[2] + value[3] + formValue[3];

@@ -1,34 +1,17 @@
 import React from 'react';
-import _ from 'lodash';
 
-export default function Button(props) {
-    let classProp = (_.has(props, "className")) ? props.className : "";
-    let newType = (_.has(props, "as")) ? props.as : null;
-    let newProps = _.cloneDeep(props);
-    _.unset(newProps, "className");
-    _.unset(newProps, "as");
-
-    if (_.has(newProps, "color")) {
-        switch(newProps.color) {
-            case "red": classProp += " bg-gradient-to-b from-red-100 to-red-400 hover:from-white hover:to-red-300"; break;
-            case "green": classProp += " bg-gradient-to-b from-emerald-100 to-emerald-400 hover:from-white hover:to-emerald-300"; break;
-            case "blue": classProp += " bg-gradient-to-b from-blue-100 to-blue-400 hover:from-white hover:to-blue-300"; break;
-            case "gray": classProp += " bg-gradient-to-b from-gray-100 to-gray-400 hover:from-white hover:to-gray-300"; break;
-            case "yellow": classProp += " bg-gradient-to-b from-amber-100 to-amber-400 hover:from-white hover:to-amber-300"; break;
-            case "purple": classProp += " bg-gradient-to-b from-purple-100 to-purple-400 hover:from-white hover:to-purple-300"; break;
-            case "white": classProp += " bg-gradient-to-b from-white to-gray-300 hover:from-gray-100 hover:to-gray-400"; break;
-            case "disabled": classProp += " bg-gradient-to-b from-gray-100 to-gray-400 text-gray-600"; break;
-            default: classProp += " bg-gradient-to-b from-slate-100 to-slate-400 hover:from-white hover:to-slate-300";
-        }
-    }
-    else {
-        classProp += " bg-gradient-to-b from-slate-100 to-slate-400 hover:from-white hover:to-slate-300";
+export default function Button({ className, as, color, ...props }) {
+    const colorClasses = {
+        primary: "from-primary to-primary-focus text-primary-content hover:from-secondary hover:to-secondary-focus hover:text-secondary-content",
+        secondary: "from-secondary to-secondary-focus text-secondary-content hover:from-neutral hover:to-neutral-focus hover:text-neutral-content",
+        success: "from-base-300 to-success text-success-content hover:from-success hover:to-base-300",
+        error: "from-base-300 to-error text-error-content hover:from-error hover:to-base-300",
+        disabled: "from-base-100 to-base-300 text-base-content",
+        default: "from-primary to-primary-focus text-primary-content hover:from-secondary hover:to-secondary-focus hover:text-secondary-content"
     }
 
-    if (newType != null) {
-        return React.createElement(newType, {...newProps, className:classProp + " px-2 py-1 rounded-xl border font-bold text-center"}, props.children);
-    }
-    else {
-        return React.createElement("button", {...newProps, className:classProp + " px-2 py-1 rounded-xl border font-bold text-center"}, props.children);
-    }
+    let classes = `${className || ""} bg-gradient-to-br px-2 py-1 rounded-xl font-bold text-center ${colorClasses[color] || colorClasses.default}`;
+    let Output = as || "button";
+
+    return <Output className={classes} {...props} />
 }

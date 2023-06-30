@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
-import { v1 as uuid } from 'uuid';
+import { ulid } from 'ulidx';
 import PCSContext from '../components/PCSContext';
 import Accordian from '../components/Accordian';
 import Button from '../components/Button';
@@ -82,7 +82,7 @@ export default function Spellbook() {
     function AddBook() {
         let newBooks = [...book];
         newBooks.push({
-            _id: uuid(),
+            _id: ulid(),
             class_id: "",
             score: 0,
             stats: [
@@ -137,7 +137,7 @@ export default function Spellbook() {
                 <Accordian key={item._id} title={`${classlist[classindex].name}'s Spellbook`}>
                     <div className="flex flex-row space-x-1">
                         <Select title="Class" id={`sb-${item._id}-class`} value={classindex} items={classlist.map((cli)=>cli.name)} className="flex-grow" onChange={(retval)=>ChangeBook(index, "class_id", classlist[retval]._id)} />
-                        <Button color="red" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
+                        <Button color="error" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
                     </div>
                     <div className="flex flex-row space-x-1">
                         <Select title="Stat" id={`sb-${item._id}-score`} value={item.score} items={["Intelligence","Wisdom","Charisma"]} className="w-2/3" onChange={(retval)=>ChangeBook(index, "score", retval)} />
@@ -196,7 +196,22 @@ export default function Spellbook() {
                         <p>This action is permanent and can only be reverted by re-loading the character data.</p>
                     </div>
                     <div className="flex justify-center">
-                        <Button color="red" onClick={RemoveBook}>Confirmed, remove!</Button>
+                        <Button color="error" onClick={RemoveBook}>Confirmed, remove!</Button>
+                    </div>
+                </Modal>
+            );
+        }
+    }
+
+    function RenderClassModal() {
+        if (classlist.length == 0) {
+            return (
+                <Modal className="flex flex-col space-y-1 p-1" title="Error with Spellbook" onClose={()=>Nav("/classes")}>
+                    <div>
+                        <p>In order to create a Spellbook, you need to have a class available. Please visit the Classes page and create a new spell casting class, then return to this page.</p>
+                    </div>
+                    <div className="flex justify-center">
+                        <Button color="error" onClick={()=>Nav("/classes")}>Confirmed, go to Classes!</Button>
                     </div>
                 </Modal>
             );
@@ -209,9 +224,10 @@ export default function Spellbook() {
     return (
         <>
             {RenderRemoveModal()}
+            {RenderClassModal()}
             <h1>Spellbook</h1>
             <div className="main-container">
-                <Button color="yellow" onClick={AddBook}>Add Spellbook</Button>
+                <Button color="primary" onClick={AddBook}>Add Spellbook</Button>
                 {RenderBooks()}
             </div>
             <div className="msg-container">

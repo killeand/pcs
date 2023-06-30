@@ -1,7 +1,9 @@
 module.exports = {
-    mode: "jit",
     content: ["./src/**/*.{html,css,js,jsx}"],
     theme: {},
-    plugins: [],
+    plugins: [require('daisyui')],
+    daisyui: {
+        themes: ["fantasy", "synthwave"]
+    }
   }
   

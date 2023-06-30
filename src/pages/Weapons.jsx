@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
-import { v1 as uuid } from 'uuid';
+import { ulid } from 'ulidx';
 import PCSContext from '../components/PCSContext';
 import Button from '../components/Button';
 import Text from '../components/Text';
@@ -55,7 +55,7 @@ export default function Weapons() {
     function AddWep() {
         let newWeps = [...wepList];
         newWeps.push({
-            _id: uuid(),
+            _id: ulid(),
             name: "New Weapon",
             hit: [],
             dmg: [],
@@ -100,7 +100,7 @@ export default function Weapons() {
                 <Accordian key={`wep-${item._id}`} title={item.name}>
                     <div className="flex flex-row space-x-1">
                         <Text title="Name" id={`wep${index}name`} value={item.name} className="flex-grow" onChange={(retval)=>ChangeValue(index, "name", retval)} />
-                        <Button color="red" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
+                        <Button color="error" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
                     </div>
                     <div className="flex flex-row space-x-1">
                         <List title="To Hit" id={`wep${index}hit`} value={item.hit} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "hit", retval)} />
@@ -129,7 +129,7 @@ export default function Weapons() {
                         <p>This action is permanent and can only be reverted by re-loading the character data.</p>
                     </div>
                     <div className="flex justify-center">
-                        <Button color="red" onClick={RemoveWep}>Confirmed, remove!</Button>
+                        <Button color="error" onClick={RemoveWep}>Confirmed, remove!</Button>
                     </div>
                 </Modal>
             );
@@ -141,7 +141,7 @@ export default function Weapons() {
             {RenderRemoveModal()}
             <h1>Weapons</h1>
             <div className="main-container">
-                <Button color="yellow" onClick={AddWep}>Add Weapon</Button>
+                <Button color="primary" onClick={AddWep}>Add Weapon</Button>
             </div>
             <div className="main-container">
                 {RenderWeps()}

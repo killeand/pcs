@@ -1,19 +1,22 @@
 .text-cont {
-    @apply flex flex-row items-center;
+    /* @apply flex flex-row items-center; */
+    @apply grid grid-cols-10
 }
 
 .text-label {
-    @apply flex items-center;
+    /* @apply flex items-center; */
+    @apply col-span-2 text-center;
     @apply font-bold;
-    @apply bg-amber-300;
+    @apply bg-primary text-primary-content;
     @apply py-1 px-2;
-    @apply rounded-l-md border-r border-amber-700;
+    @apply rounded-l-md border-r border-primary;
     @apply min-w-fit h-full;
 }
 
 .text-input {
-    @apply bg-white;
-    @apply border-t-2 border-r-2 border-b-2 border-amber-300 rounded-r-md;
+    @apply col-span-8;
+    @apply bg-base-100;
+    @apply border-t-2 border-r-2 border-b-2 border-primary rounded-r-md;
     @apply py-0.5 px-1;
     @apply flex flex-row space-x-1 flex-grow w-full h-full;
 }

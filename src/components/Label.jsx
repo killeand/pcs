@@ -1,10 +1,9 @@
-import _ from 'lodash';
 import '../styles/Text.css';
 
-export default function Label({title, value, className, ...props}) {
-    if (_.isNil(title)) title = "Text";
-    if (_.isNil(value)) value = "";
-    if (_.isNil(className)) className = "";
+export default function Label({title, value, className}) {
+    title = title || "Text";
+    value = value || ((value == 0) ? 0 : "");
+    className = className || "";
 
     return (
         <div className={`text-cont ${className}`}>

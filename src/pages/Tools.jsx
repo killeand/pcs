@@ -10,6 +10,7 @@ import MultiNumber from '../components/MultiNumber';
 import Select from '../components/Select';
 import Label from '../components/Label';
 import { RandomNum } from '../scripts/Utilities';
+import { ORA_DESC_V, ORA_DESC_N, ORA_MOT_V, ORA_MOT_N, ORA_BEAR, ORA_FOCUS, ORA_FATE, ORA_RELAT, ORA_MOOD } from '../scripts/Oracle';
 import '../styles/Page.css';
 
 export default function Tools(props) {
@@ -113,11 +114,11 @@ function DiceRoller() {
             <div className="main-container">
                 <Accordian title="Presets">
                     <div className="flex justify-evenly">
-                        <Button color="green" onClick={()=>SetPreset(1,5)}>1d20</Button>
-                        <Button color="green" onClick={()=>SetPreset(3,1)}>3d6</Button>
-                        <Button color="green" onClick={()=>SetPreset(4,1)}>4d6</Button>
-                        <Button color="green" onClick={()=>SetPreset(5,1)}>5d6</Button>
-                        <Button color="green" onClick={()=>SetPreset(1,6)}>1d100</Button>
+                        <Button color="secondary" onClick={()=>SetPreset(1,5)}>1d20</Button>
+                        <Button color="secondary" onClick={()=>SetPreset(3,1)}>3d6</Button>
+                        <Button color="secondary" onClick={()=>SetPreset(4,1)}>4d6</Button>
+                        <Button color="secondary" onClick={()=>SetPreset(5,1)}>5d6</Button>
+                        <Button color="secondary" onClick={()=>SetPreset(1,6)}>1d100</Button>
                     </div>
                 </Accordian>
                 <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
@@ -147,8 +148,8 @@ function DiceRoller() {
                     </fieldset>
                 </Accordian>
                 <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
-                    <Button color="green" className="md:w-1/2" onClick={Roll}>Roll</Button>
-                    <Button color="red" className="md:w-1/2" onClick={Reset}>Reset</Button>
+                    <Button color="success" className="md:w-1/2" onClick={Roll}>Roll</Button>
+                    <Button color="error" className="md:w-1/2" onClick={Reset}>Reset</Button>
                 </div>
                 <Label title="Result" value={result} />
                 <fieldset>
@@ -267,8 +268,8 @@ function StatsRoller() {
                         return (
                             <div key={`pools-${index}`} className="flex flex-row space-x-1">
                                 <Label title={index+1} value={val} className="flex-grow" />
-                                <Button color={(poolpoints==0)?"disabled":"blue"} className="bi-caret-up-fill" onClick={()=>PoolChange(true,index)} />
-                                <Button color={(val<=3)?"disabled":"red"} className="bi-caret-down-fill" onClick={()=>PoolChange(false,index)} />
+                                <Button color={(poolpoints==0)?"disabled":"success"} className="bi-caret-up-fill" onClick={()=>PoolChange(true,index)} />
+                                <Button color={(val<=3)?"disabled":"error"} className="bi-caret-down-fill" onClick={()=>PoolChange(false,index)} />
                             </div>
                         );
                     })}
@@ -305,15 +306,15 @@ function StatsRoller() {
     function RenderFinal() {
         if (points != -1)
             return (
-                <fieldset>
+                <fieldset className="space-y-1">
                     <legend>Final Points</legend>
                     <Label title="Points" value={points} />
                     {(stats.map((val,index)=>{
                         return (
                             <div key={`final-${index}`} className="flex flex-row space-x-1">
                                 <Label title={index+1} value={val} className="flex-grow" />
-                                <Button color={(points==0)?"disabled":"blue"} className="bi-caret-up-fill" onClick={()=>PointChange(true,index)} />
-                                <Button color={(val<=7)?"disabled":"red"} className="bi-caret-down-fill" onClick={()=>PointChange(false,index)} />
+                                <Button color={(points==0)?"disabled":"success"} className="bi-caret-up-fill" onClick={()=>PointChange(true,index)} />
+                                <Button color={(val<=7)?"disabled":"error"} className="bi-caret-down-fill" onClick={()=>PointChange(false,index)} />
                             </div>
                         );
                     }))}
@@ -327,15 +328,15 @@ function StatsRoller() {
             <div className="main-container">
                 <Accordian title="Generation Presets">
                     <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
-                        <Button color="green" className="md:w-1/2" onClick={()=>ResetGen(0)}>Standard (4d6)</Button>
-                        <Button color="green" className="md:w-1/2" onClick={()=>ResetGen(1)}>Classic (3d6)</Button>
+                        <Button color="secondary" className="md:w-1/2" onClick={()=>ResetGen(0)}>Standard (4d6)</Button>
+                        <Button color="secondary" className="md:w-1/2" onClick={()=>ResetGen(1)}>Classic (3d6)</Button>
                     </div>
                     <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
-                        <Button color="green" className="md:w-1/2" onClick={()=>ResetGen(2)}>Heroic (2d6+6)</Button>
-                        <Button color="green" className="md:w-1/2" onClick={()=>ResetGen(3)}>Dice Pool (24d6 split)</Button>
+                        <Button color="secondary" className="md:w-1/2" onClick={()=>ResetGen(2)}>Heroic (2d6+6)</Button>
+                        <Button color="secondary" className="md:w-1/2" onClick={()=>ResetGen(3)}>Dice Pool (24d6 split)</Button>
                     </div>
                     <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
-                        <Button color="green" className="md:w-1/2" onClick={()=>ResetGen(4)}>Purchase</Button>
+                        <Button color="secondary" className="md:w-1/2" onClick={()=>ResetGen(4)}>Purchase</Button>
                     </div>
                 </Accordian>
                 {RenderGenerator()}
@@ -346,27 +347,152 @@ function StatsRoller() {
 }
 
 function Oracle() {
-    let [ output, setOutput ] = useState("");
+    /*
+    let [ wofResult, setWofResult ] = useState("");
+    let [ npccDesc, setNpccDesc ] = useState("");
+    let [ npccPower, setNpccPower ] = useState("");
+    let [ npccMot1, setNpccMot1 ] = useState("");
+    let [ npccMot2, setNpccMot2 ] = useState("");
+    let [ npccMot3, setNpccMot3 ] = useState("");
+    let [ npccRelat, setNpccRelat ] = useState(3);
+    let [ npccMood, setNpccMood ] = useState(-1);
 
-    useEffect(() => {
-        let vals = [];
-        let final = "";
+    function RollWof(woftype) {
+        let diff = [[5,15,20,50,80,85,95],[2,6,16,50,84,94,98],[1,2,20,50,80,98,99]];
+        let mroll = RandomNum(1,100);
+        let uroll = RandomNum(0,16);
 
-        for (let i = 0; i < 1000000; i++) {
-            let out = RandomNum(1,6) + RandomNum(1,6) + RandomNum(1,6);
+        if (mroll <= diff[woftype][0]) setWofResult("No, and unexpectedly " + ORA_FATE[uroll]);
+        else if (mroll <= diff[woftype][1]) setWofResult("No, but");
+        else if (mroll <= diff[woftype][2]) setWofResult("No, and");
+        else if (mroll <= diff[woftype][3]) setWofResult("No");
+        else if (mroll <= diff[woftype][4]) setWofResult("Yes");
+        else if (mroll <= diff[woftype][5]) setWofResult("Yes, and");
+        else if (mroll <= diff[woftype][6]) setWofResult("Yes, but");
+        else setWofResult("Yes, and unexpectedly " + ORA_FATE[uroll]);
+    }
 
-            if (_.isNil(vals[out]))
-                vals[out] = 0;
-
-            vals[out] += 1;
+    function RollNpcc(npcctype) {
+        if (npcctype == -1) {
+            setNpccDesc("");
+            setNpccPower("");
+            setNpccMot1("");
+            setNpccMot2("");
+            setNpccMot3("");
+            return;
         }
 
-        _.forIn(vals, (v,k) => {
-            if (!_.isNil(v))
-                final += `(${k})\t\t${v}\n`;
-        });
+        if (npcctype == 1 || npcctype == 0) setNpccDesc(ORA_DESC_V[RandomNum(0,99)] + " " + ORA_DESC_N[RandomNum(0,99)]);
+        if (npcctype == 2 || npcctype == 0) {
+            let pow = RandomNum(1,100);
 
-        setOutput(final);
-    },[])
-    return (<pre>{output}</pre>);
+            if (pow <= 5) setNpccPower("Much Weaker");
+            else if (pow <= 20) setNpccPower("Slightly Weaker");
+            else if (pow <= 80) setNpccPower("Comparable");
+            else if (pow <= 95) setNpccPower("Slightly Stronger");
+            else setNpccPower("Much Stronger");
+        }
+        if (npcctype == 3 || npcctype == 0) setNpccMot1(ORA_MOT_V[RandomNum(0,99)] + " " + ORA_MOT_N[RandomNum(0,99)]);
+        if (npcctype == 4 || npcctype == 0) setNpccMot2(ORA_MOT_V[RandomNum(0,99)] + " " + ORA_MOT_N[RandomNum(0,99)]);
+        if (npcctype == 5 || npcctype == 0) setNpccMot3(ORA_MOT_V[RandomNum(0,99)] + " " + ORA_MOT_N[RandomNum(0,99)]);
+    }
+
+    function RollMood() {
+        let roll = RandomNum(1,100);
+        let matrix = [
+            [1,6,16,31,70,85],
+            [2,8,20,40,76,89],
+            [3,11,25,55,82,93],
+            [5,15,30,60,85,95],
+            [7,18,46,76,90,97],
+            [11,24,61,81,93,98],
+            [15,30,69,84,94,99]
+        ];
+
+        for (let i = 0; i < 6; i++) {
+            if (roll <= matrix[npccRelat][i]) {
+                setNpccMood(i);
+                return;
+            }
+        }
+
+        setNpccMood(6);
+    }
+
+    function RenderWof() {
+        if (!_.isEmpty(wofResult)) {
+            return (<Label title="Result" value={wofResult} />);
+        }
+    }
+
+    function RenderNpcc() {
+        if (!_.isEmpty(npccDesc)) {
+            return (
+                <>
+                    <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
+                        <Button color="gray" className={`bi-dice-${RandomNum(1,6)}`} onClick={()=>RollNpcc(1)} />
+                        <Label title="Description" value={npccDesc} className="flex-grow" />
+                    </div>
+                    <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
+                        <Button color="gray" className={`bi-dice-${RandomNum(1,6)}`} onClick={()=>RollNpcc(2)} />
+                        <Label title="Power" value={npccPower} className="flex-grow" />
+                    </div>
+                    <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
+                        <Button color="gray" className={`bi-dice-${RandomNum(1,6)}`} onClick={()=>RollNpcc(3)} />
+                        <Label title="Motivation" value={npccMot1} className="flex-grow" />
+                    </div>
+                    <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
+                        <Button color="gray" className={`bi-dice-${RandomNum(1,6)}`} onClick={()=>RollNpcc(4)} />
+                        <Label title="Motivation" value={npccMot2} className="flex-grow" />
+                    </div>
+                    <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
+                        <Button color="gray" className={`bi-dice-${RandomNum(1,6)}`} onClick={()=>RollNpcc(5)} />
+                        <Label title="Motivation" value={npccMot3} className="flex-grow" />
+                    </div>
+                </>
+            );
+        }
+    }
+
+    function RenderAttitude() {
+        if (npccMood != -1) {
+            return (<Label title="Attitude" value={ORA_MOOD[npccMood]} />);
+        }
+    }
+
+    return (
+        <>
+            <h2>Game Oracle</h2>
+            <div className="main-container">
+                <Accordian title="Loom of Fate">
+                    <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
+                        <Button color="blue" className="md:w-1/3" onClick={()=>RollWof(0)}>To Knowledge</Button>
+                        <Button color="red" className="md:w-1/3" onClick={()=>RollWof(1)}>To Conflict</Button>
+                        <Button color="gray" className="md:w-1/3" onClick={()=>RollWof(2)}>To Endings</Button>
+                    </div>
+                    {RenderWof()}
+                </Accordian>
+                <Accordian title="NPC Character">
+                    <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
+                        <Button color="blue" className="md:w-1/2" onClick={()=>RollNpcc(0)}>Roll All</Button>
+                        <Button color="red" className="md:w-1/2" onClick={()=>RollNpcc(-1)}>Clear</Button>
+                    </div>
+                    {RenderNpcc()}
+                </Accordian>
+                <Accordian title="NPC Attitude">
+                    <div className="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-1">
+                        <Button color="blue" onClick={()=>{setNpccRelat(RandomNum(0,6));setNpccMood(-1);}}>Random Relation</Button>
+                        <Select title="Relation" value={npccRelat} items={ORA_RELAT} className="flex-grow" onChange={(retval)=>{setNpccRelat(retval);setNpccMood(-1);}} />
+                        <Button color="blue" onClick={RollMood}>Roll</Button>
+                    </div>
+                    {RenderAttitude()}
+                </Accordian>
+                <Accordian title="NPC Conversation">
+                    
+                </Accordian>
+            </div>
+        </>
+    );
+    */
+    return (<p>Oracle not available</p>);
 }

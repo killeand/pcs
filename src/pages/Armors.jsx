@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
-import { v1 as uuid } from 'uuid';
+import { ulid } from 'ulidx';
 import PCSContext from '../components/PCSContext';
 import Button from '../components/Button';
 import Text from '../components/Text';
@@ -55,7 +55,7 @@ export default function Armors() {
     function AddArm() {
         let newArms = [...armList];
         newArms.push({
-            _id: uuid(),
+            _id: ulid(),
             name: "New Armor",
             active: false,
             ac: 0,
@@ -96,10 +96,10 @@ export default function Armors() {
         
         return armList.map((item, index) => {
             return (
-                <Accordian key={`arm-${item._id}`} title={item.name} titleElements={<Button color={(item.active)?"green":"gray"} className={`pointer-events-auto ${(item.active)?"bi-check-square":"bi-square"}`} onClick={()=>ChangeValue(index, "active", !item.active)} />}>
+                <Accordian key={`arm-${item._id}`} title={item.name} titleElements={<Button color={(item.active)?"success":"disabled"} className={`pointer-events-auto ${(item.active)?"bi-check-square":"bi-square"}`} onClick={()=>ChangeValue(index, "active", !item.active)} />}>
                     <div className="flex flex-row space-x-1">
                         <Text title="Name" id={`arm${index}name`} value={item.name} className="flex-grow" onChange={(retval)=>ChangeValue(index, "name", retval)} />
-                        <Button color="red" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
+                        <Button color="error" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
                     </div>
                     <div className="flex flex-row space-x-1">
                         <Number title="AC" id={`arm${index}ac`} value={item.ac} min={0} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "ac", retval)} />
@@ -124,7 +124,7 @@ export default function Armors() {
                         <p>This action is permanent and can only be reverted by re-loading the character data.</p>
                     </div>
                     <div className="flex justify-center">
-                        <Button color="red" onClick={RemoveArm}>Confirmed, remove!</Button>
+                        <Button color="error" onClick={RemoveArm}>Confirmed, remove!</Button>
                     </div>
                 </Modal>
             );
@@ -136,7 +136,7 @@ export default function Armors() {
             {RenderRemoveModal()}
             <h1>Armors</h1>
             <div className="main-container">
-                <Button color="yellow" onClick={AddArm}>Add Armor</Button>
+                <Button color="primary" onClick={AddArm}>Add Armor</Button>
             </div>
             <div className="main-container">
                 {RenderArms()}

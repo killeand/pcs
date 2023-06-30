@@ -91,8 +91,8 @@ export default function Application() {
         <HashRouter>
             <div className="flex flex-col md:flex-row flex-grow">
                 <header className="p-0 min-w-fit">
-                    <div className="p-2 flex flex-row justify-between items-center bg-gradient-to-b from-yellow-800 to-white rounded-xl">
-                        <img src={IconicIcon} className="rounded-full border border-black max-h-10 md:mx-auto" />
+                    <div className="p-2 flex flex-row justify-between items-center bg-gradient-to-b from-primary to-base-100 rounded-xl md:rounded-b-none">
+                        <img src={IconicIcon} className="rounded-full border border-primary max-h-10 md:mx-auto" />
                         <div className="bi-list text-3xl inline md:hidden" onClick={ToggleNav} />
                     </div>
                     <nav className="md:flex flex-col hidden">

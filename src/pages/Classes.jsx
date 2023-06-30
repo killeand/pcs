@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
-import { v1 as uuid } from 'uuid';
+import { ulid } from 'ulidx';
 import PCSContext from '../components/PCSContext';
 import Button from '../components/Button';
 import Label from '../components/Label';
@@ -56,7 +56,7 @@ export default function Classes() {
     function AddClass() {
         let newClasses = [...classList];
         newClasses.push({
-            _id: uuid(),
+            _id: ulid(),
             name: "Untitled Class",
             level: 1,
             hd: 0,
@@ -131,7 +131,7 @@ export default function Classes() {
                 <Accordian key={`class-${item._id}`} title={item.name} titleElements={<div>{item.level}</div>}>
                     <div className="flex flex-row">
                         <Text title="Class Name" id={`class${index+1}name`} value={item.name} className="flex-grow mr-1" onChange={(retval)=>ChangeValue(index, 0, retval)} />
-                        <Button color="red" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
+                        <Button color="error" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
                     </div>
                     <Number title="Level" id={`class${index+1}level`} value={item.level} min={1} onChange={(retval)=>ChangeValue(index, 1, retval)} />
                     <MultiNumber title={["HD", "Health", "BAB", "Skill Num"]} id={`class${index+1}bs`} value={[item.hd, item.health, item.bab, item.skillnum]} min={[0,0,0,0]} onChange={(retval)=>ChangeValue(index, 2, retval)} />
@@ -151,7 +151,7 @@ export default function Classes() {
                         <p>This action is permanent and can only be reverted by re-loading the character data.</p>
                     </div>
                     <div className="flex justify-center">
-                        <Button color="red" onClick={RemoveClass}>Confirmed, remove!</Button>
+                        <Button color="error" onClick={RemoveClass}>Confirmed, remove!</Button>
                     </div>
                 </Modal>
             );
@@ -163,7 +163,7 @@ export default function Classes() {
             {RenderRemoveModal()}
             <h1>Classes</h1>
             <div className="main-container">
-                <Button color="yellow" onClick={AddClass}>Add Class</Button>
+                <Button color="primary" onClick={AddClass}>Add Class</Button>
                 <Label title="Total Class Levels" value={CalculateLevels()} />
             </div>
             <div className="main-container">

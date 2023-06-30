@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
-import { v1 as uuid } from 'uuid';
+import { ulid } from 'ulidx';
 import '../styles/TextArea.css';
 
-export default function TextArea({title, id, value, className, onChange, ...props}) {
-    if (_.isNil(title)) title = "Text Area";
-    if (_.isNil(id)) id = "";
-    if (_.isNil(value)) value = "";
-    if (_.isNil(className)) className = "";
-    if (_.isNil(onChange)) console.warn("In order to get the text, you need to assign something to onChange...");
+export default function TextArea({title, id, value, className, onChange}) {
+    title = title || "Text Area";
+    id = id || "";
+    value = value || ((value == 0) ? 0 : "");
+    className = className || "";
+    if (!onChange) console.warn("In order to get the text, you need to assign something to onChange...");
     
     let [ formValue, setFormValue ] = useState(value);
     let [ formId, setFormId ] = useState(id);
 
     useEffect(() => {
         if (_.isEmpty(formId))
-            setFormId(uuid());
+            setFormId(ulid());
     }, []);
 
     useEffect(() => {
@@ -26,7 +26,7 @@ export default function TextArea({title, id, value, className, onChange, ...prop
         let newValue = e.target.value;
 
         setFormValue(newValue);
-        if (!_.isNil(onChange)) onChange(newValue);
+        if (onChange) onChange(newValue);
     }
 
     return (

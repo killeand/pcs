@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
-import { v1 as uuid } from 'uuid';
+import { ulid } from 'ulidx';
 import Button from './Button';
 import Accordian from './Accordian';
 import '../styles/List.css';
 
-export default function List({title, id, value, className, onChange, ...props}) {
-    if (_.isNil(title)) title = "List";
-    if (_.isNil(id)) id = "";
-    if (_.isNil(value)) value = [];
-    if (_.isNil(className)) className = "";
-    if (_.isNil(onChange)) console.warn("In order to get the list, you need to assign something to onChange...");
+export default function List({title, id, value, className, onChange}) {
+    title = title || "List";
+    id = id || "";
+    value = value || [];
+    className = className || "";
+    if (!onChange) console.warn("In order to get the list, you need to assign something to onChange...");
     
     let [ formValue, setFormValue ] = useState(value);
     let [ formId, setFormId ] = useState(id);
 
     useEffect(() => {
         if (_.isEmpty(formId))
-            setFormId(uuid());
+            setFormId(ulid());
     }, []);
 
     useEffect(() => {
@@ -30,7 +30,7 @@ export default function List({title, id, value, className, onChange, ...props}) 
         newValue[index] = tempValue;
 
         setFormValue(newValue);
-        if (!_.isNil(onChange)) onChange(newValue);
+        if (onChange) onChange(newValue);
     }
 
     function AddItem() {
@@ -38,7 +38,7 @@ export default function List({title, id, value, className, onChange, ...props}) 
         newValue.push("");
 
         setFormValue(newValue);
-        if (!_.isNil(onChange)) onChange(newValue);
+        if (onChange) onChange(newValue);
     }
 
     function RemoveItem(index) {
@@ -46,7 +46,7 @@ export default function List({title, id, value, className, onChange, ...props}) 
         newValue.splice(index, 1);
 
         setFormValue(newValue);
-        if (!_.isNil(onChange)) onChange(newValue);
+        if (onChange) onChange(newValue);
     }
 
     function RenderItems() {
@@ -58,7 +58,7 @@ export default function List({title, id, value, className, onChange, ...props}) 
             return (
                 <div key={`${id}-${index}`} className="list-row">
                     <input type="text" value={item} className="list-input" onChange={(e)=>ChangeValue(e, index)} />
-                    <Button color="red" className="bi-trash" onClick={()=>RemoveItem(index)} />
+                    <Button color="error" className="bi-trash" onClick={()=>RemoveItem(index)} />
                 </div>
             );
         });
@@ -67,7 +67,7 @@ export default function List({title, id, value, className, onChange, ...props}) 
     return (
         <Accordian title={title} titleElements={[
             <div key={`${id}-size`} className="flex items-center">{formValue.length}</div>,
-            <Button key={`${id}-add`} color="green" className="bi-plus-circle pointer-events-auto" onClick={AddItem} />
+            <Button key={`${id}-add`} color="success" className="bi-plus-circle pointer-events-auto" onClick={AddItem} />
         ]} className={className}>
             {RenderItems()}
         </Accordian>

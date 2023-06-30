@@ -115,7 +115,7 @@ export default function Saves() {
                         <p className="text-xs m-0 p-0">Misc</p>
                         <p className="text-center m-0 p-0">{ttl_saves[index]}</p>
                     </div>
-                    <div className="flex flex-col divide-y divide-solid divide-black bg-white rounded-md">
+                    <div className="flex flex-col divide-y divide-solid divide-black bg-base-300 text-base-content rounded-md">
                         <p className="text-xs m-0 p-0">Total</p>
                         <p className="text-center m-0 p-0">{base_saves[index] + abi_saves[index] + ttl_saves[index]}</p>
                     </div>

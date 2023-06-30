@@ -11,7 +11,7 @@
 }
 
 .mn-num {
-    @apply text-center w-full border border-black bg-white;
+    @apply text-center w-full border border-primary bg-base-100;
 }
 
 .mn-section:first-child > input {

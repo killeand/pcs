@@ -91,7 +91,7 @@ export default function Stats() {
         return (
             <Accordian title={title} titleElements={
                 <div className="flex flex-row space-x-1">
-                    <div className="flex flex-col divide-y divide-solid divide-black bg-white rounded-md">
+                    <div className="flex flex-col divide-y divide-solid divide-black bg-base-300 text-base-content rounded-md">
                         <p className="text-xs m-0 p-0">Total</p>
                         <p className="text-center m-0 p-0">{stat}</p>
                     </div>

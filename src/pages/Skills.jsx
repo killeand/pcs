@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
-import { v1 as uuid } from 'uuid';
+import { ulid } from 'ulidx';
 import PCSContext from '../components/PCSContext';
 import SkillRow from '../components/SkillRow';
 import CSkillRow from '../components/CSkillRow';
@@ -121,7 +121,7 @@ export default function Skills() {
         let newCSkills = [...cSkills];
 
         newCSkills[index][1].push({
-            _id: uuid(),
+            _id: ulid(),
             name: "New Skill",
             stats: [false,0,0]
         });
@@ -222,12 +222,12 @@ export default function Skills() {
     function RenderCSkills() {
         return PF_CUST_SKILLS.map((item)=>{
             return (
-                <div key={item.k} className="rounded-md border-2 border-amber-300">
+                <div key={item.k} className="rounded-md border-2 border-primary">
                     <div className="flex flex-row p-1 items-center">
                         <div className="font-bold flex-grow">{item.v} {((item.f&1)==1)?"*":""} {((item.f&2)==2)?<>&dagger;</>:""} ({PF_STATS_SHORT[item.s]})</div>
-                        <Button color="green" className="text-xs bi-plus-square" onClick={()=>AddCSkill(item.k)} />
+                        <Button color="success" className="text-xs bi-plus-square" onClick={()=>AddCSkill(item.k)} />
                     </div>
-                    <div className="grid grid-cols-12 gap-1 text-xs bg-amber-300">
+                    <div className="grid grid-cols-12 gap-1 text-xs bg-primary text-primary-content">
                         <div className="col-start-6 col-span-1 text-center">TTL</div>
                         <div className="col-span-2 text-center">Ranks</div>
                         <div className="col-span-1 text-center">Mod</div>
@@ -249,8 +249,8 @@ export default function Skills() {
                 <Label title="Total Ranks" value={ttl_ranks} />
                 <Label title="Used Ranks" value={use_ranks} />
             </div>
-            <div className="main-container space-y-0 rounded-md border-2 border-amber-300">
-                <div className="grid grid-cols-12 gap-1 text-xs bg-amber-300 rounded-t-sm">
+            <div className="main-container space-y-0 rounded-md border-2 border-primary">
+                <div className="grid grid-cols-12 gap-1 text-xs bg-primary text-primary-content rounded-t-sm">
                     <div className="col-start-7 col-span-1 text-center">TTL</div>
                     <div className="col-span-2 text-center">Ranks</div>
                     <div className="col-span-1 text-center">Mod</div>

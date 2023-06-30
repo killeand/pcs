@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
-import { v1 as uuid } from 'uuid';
+import { ulid } from 'ulidx';
 import PCSContext from '../components/PCSContext';
 import Button from '../components/Button';
 import Text from '../components/Text';
@@ -62,7 +62,7 @@ export default function Equipment() {
     function AddQuip() {
         let newQuip = [...quipList];
         newQuip.push({
-            _id: uuid(),
+            _id: ulid(),
             name: "New Item",
             ref: "",
             num: 0,
@@ -104,7 +104,7 @@ export default function Equipment() {
                 <Accordian key={`class-${item._id}`} title={item.name} titleElements={<div>{item.num}</div>}>
                     <div className="flex flex-row space-x-1">
                         <Text title="Name" id={`quip${index}name`} value={item.name} className="flex-grow" onChange={(retval)=>ChangeValue(index, "name", retval)} />
-                        <Button color="red" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
+                        <Button color="error" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
                     </div>
                     <Text title="Ref" id={`quip${index}ref`} value={item.ref} onChange={(retval)=>ChangeValue(index, "ref", retval)} />
                     <div className="flex flex-row space-x-1">
@@ -126,7 +126,7 @@ export default function Equipment() {
                         <p>This action is permanent and can only be reverted by re-loading the character data.</p>
                     </div>
                     <div className="flex justify-center">
-                        <Button color="red" onClick={RemoveQuip}>Confirmed, remove!</Button>
+                        <Button color="error" onClick={RemoveQuip}>Confirmed, remove!</Button>
                     </div>
                 </Modal>
             );
@@ -138,7 +138,7 @@ export default function Equipment() {
             {RenderRemoveModal()}
             <h1>Equipment</h1>
             <div className="main-container">
-                <Button color="yellow" onClick={AddQuip}>Add Item</Button>
+                <Button color="primary" onClick={AddQuip}>Add Item</Button>
                 <Label title="Total Weight" value={total_weight} />
                 {RenderQuip()}
             </div>
