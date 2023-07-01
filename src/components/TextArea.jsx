@@ -6,7 +6,7 @@ import '../styles/TextArea.css';
 export default function TextArea({title, id, value, className, onChange}) {
     title = title || "Text Area";
     id = id || "";
-    value = value || ((value == 0) ? 0 : "");
+    value = value || ((value === "0") ? "0" : "");
     className = className || "";
     if (!onChange) console.warn("In order to get the text, you need to assign something to onChange...");
     

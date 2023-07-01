@@ -6,7 +6,7 @@ import '../styles/Text.css';
 export default function Text({title, id, value, placeholder, className, onChange}) {
     title = title || "Text";
     id = id || "";
-    value = value || ((value == 0) ? 0 : "");
+    value = value || ((value === "0") ? "0" : "");
     className = className || "";
     if (!onChange) console.warn("In order to get the text, you need to assign something to onChange...");
     

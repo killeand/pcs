@@ -2,7 +2,7 @@ import '../styles/Text.css';
 
 export default function Label({title, value, className}) {
     title = title || "Text";
-    value = value || ((value == 0) ? 0 : "");
+    value = value || ((value === "0") ? "0" : "");
     className = className || "";
 
     return (
