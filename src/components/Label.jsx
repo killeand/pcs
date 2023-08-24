@@ -1,14 +1,13 @@
+import { BGCOLORS, BORDERCOLORS } from '../scripts/Utilities';
 import '../styles/Text.css';
 
-export default function Label({title, value, className}) {
-    title = title || "Text";
-    value = value || ((value === "0") ? "0" : "");
-    className = className || "";
+export default function Label({title, value, color, className, innerClass, outerClass}) {
+    //value = value || ((value === "0") ? "0" : "");
 
     return (
-        <div className={`text-cont ${className}`}>
-            <div className="text-label">{title}</div>
-            <div className="text-input">{value}</div>
+        <div className={`text-cont ${className || ""} ${outerClass || ""}`}>
+            <div className={`text-label lg-title ${BGCOLORS[color] || BGCOLORS.default} ${BORDERCOLORS[color] || BORDERCOLORS.default}`}>{title || "Label"}</div>
+            <div className={`text-input ${BORDERCOLORS[color] || BORDERCOLORS.default} ${innerClass || ""}`}>{value || ""}</div>
         </div>
     );
 }

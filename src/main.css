@@ -29,11 +29,23 @@ nav a:last-child {
 }
 
 h1 {
-    @apply text-2xl font-bold border-b-2 border-primary base-size;
+    @apply text-xl font-bold border-base-content border-b-2 leading-3 my-1;
 }
 
 h2 {
     @apply text-lg font-bold border-b border-l border-primary pl-2 base-size;
+}
+
+.lg-title {
+    @apply text-lg font-bold p-1;
+}
+
+.xl-title {
+    @apply text-xl font-bold p-1;
+}
+
+.2xl-title {
+    @apply text-2xl font-bold p-1;
 }
 
 fieldset {

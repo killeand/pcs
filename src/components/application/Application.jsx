@@ -2,27 +2,28 @@ import React, { useContext, useEffect } from 'react';
 import { HashRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
 import _ from 'lodash';
 import { themeChange } from 'theme-change';
-import Button from './Button';
+import Button from '../Button';
 import PCSContext from './PCSContext';
-import IconicIcon from '../images/iconic';
-import FileManager from '../pages/FileManager';
-import Details from '../pages/Details';
-import Stats from '../pages/Stats';
-import Classes from '../pages/Classes';
-import Health from '../pages/Health';
-import Saves from '../pages/Saves';
-import Offensive from '../pages/Offensive';
-import Defensive from '../pages/Defensive';
-import Miscellaneous from '../pages/Miscellaneous';
-import Weapons from '../pages/Weapons';
-import Armors from '../pages/Armors';
-import Skills from '../pages/Skills';
-import ExpWealth from '../pages/ExpWealth';
-import Abilities from '../pages/Abilities';
-import Equipment from '../pages/Equipment';
-import Spellbook from '../pages/Spellbook';
-import Notes from '../pages/Notes';
-import Tools from '../pages/Tools';
+import IconicIcon from '../../images/iconic';
+import FileManager from '../../pages/FileManager';
+import Details from '../../pages/Details';
+import Stats from '../../pages/Stats';
+import Classes from '../../pages/Classes';
+import Health from '../../pages/Health';
+import Saves from '../../pages/Saves';
+import Offensive from '../../pages/Offensive';
+import Defensive from '../../pages/Defensive';
+import Miscellaneous from '../../pages/Miscellaneous';
+import Weapons from '../../pages/Weapons';
+import Armors from '../../pages/Armors';
+import Skills from '../../pages/Skills';
+import ExpWealth from '../../pages/ExpWealth';
+import Abilities from '../../pages/Abilities';
+import Equipment from '../../pages/Equipment';
+import Spellbook from '../../pages/Spellbook';
+import Notes from '../../pages/Notes';
+import Tools from '../../pages/Tools';
+import CompTest from '../../pages/CompTest';
 
 const CHAR_PAGES = [
     {url:"details",icon:"bi-journal-text",name:"Character Details",component:(<Details />)},
@@ -81,6 +82,7 @@ export default function Application() {
         }
 
         menu.push(<Link key={`menu${menu.length + 1}`} className="bi-tools" to="/tools" onClick={HideMobileNav}> Tools</Link>);
+        menu.push(<Link key={`menu${menu.length + 2}`} className="bi-tools" to="/test" onClick={HideMobileNav}> Tests</Link>);
 
         return menu;
     }
@@ -107,6 +109,7 @@ export default function Application() {
                     <Routes>
                         <Route index element={<FileManager />} />
                         <Route path="tools/*" element={<Tools />} />
+                        <Route path="test" element={<CompTest />} />
                         {RenderRoutes()}
                         <Route path="404" element={<p>Page not found</p>} />
                         <Route path="*" element={<Navigate to="/404" />} />

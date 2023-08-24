@@ -3,5 +3,5 @@
 }
 
 .list-input {
-    @apply bg-base-100 border border-primary rounded-md py-0.5 px-1 flex-grow w-full h-full;
+    @apply border rounded-md py-0.5 px-1 flex-grow w-full h-full;
 }

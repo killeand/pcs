@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { BGCOLORS, BORDERCOLORS } from '../scripts/Utilities';
 import '../styles/Accordian.css';
 
-export default function Accordian({title, titleElements, className, children}) {
-    title = title || "Accordian";
-    className = className || "";
-
+export default function Accordian({title, titleElements, color, className, innerClass, outerClass, children}) {
     const [opened, setOpened] = useState(false);
     const caretstyle = (opened) ? "bi-caret-down" : "bi-caret-right";
     const topstyle = (opened) ? "" : "rounded-b-md";
@@ -16,13 +14,13 @@ export default function Accordian({title, titleElements, className, children}) {
     }
 
     return (
-        <div className={className}>
-            <div className={`accordian-top ${topstyle}`} onClick={OpenClose}>
+        <div className={`${className || ""} ${outerClass || ""}`}>
+            <div className={`accordian-top ${topstyle} ${BGCOLORS[color] || BGCOLORS.default} ${BORDERCOLORS[color] || BORDERCOLORS.default}`} onClick={OpenClose}>
                 <div className={`pointer-events-none ${caretstyle}`} />
-                <div className="pointer-events-none accordian-title">{title}</div>
-                <div className="pointer-events-none accordian-elements">{titleElements}</div>
+                <div className={`pointer-events-none flex-grow lg-title`}>{title || "Accordian"}</div>
+                <div className={`pointer-events-none accordian-elements`}>{titleElements}</div>
             </div>
-            <div className={`accordian-bottom ${bottomstyle}`}>
+            <div className={`${innerClass || ""} accordian-bottom ${bottomstyle} ${BORDERCOLORS[color] || BORDERCOLORS.default}`}>
                 {children}
             </div>
         </div>

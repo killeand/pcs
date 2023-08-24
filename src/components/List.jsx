@@ -4,16 +4,13 @@ import { ulid } from 'ulidx';
 import Button from './Button';
 import Accordian from './Accordian';
 import '../styles/List.css';
+import { BORDERCOLORS } from '../scripts/Utilities';
 
-export default function List({title, id, value, className, onChange}) {
-    title = title || "List";
-    id = id || "";
-    value = value || [];
-    className = className || "";
+export default function List({title, id, value, color, className, innerClass, outerClass, onChange}) {
     if (!onChange) console.warn("In order to get the list, you need to assign something to onChange...");
     
-    let [ formValue, setFormValue ] = useState(value);
-    let [ formId, setFormId ] = useState(id);
+    let [ formValue, setFormValue ] = useState(value || []);
+    let [ formId, setFormId ] = useState(id || "");
 
     useEffect(() => {
         if (_.isEmpty(formId))
@@ -21,7 +18,7 @@ export default function List({title, id, value, className, onChange}) {
     }, []);
 
     useEffect(() => {
-        setFormValue(value);
+        setFormValue(value || []);
     }, [value]);
 
     function ChangeValue(e, index) {
@@ -57,18 +54,18 @@ export default function List({title, id, value, className, onChange}) {
         return formValue.map((item, index) => {
             return (
                 <div key={`${id}-${index}`} className="list-row">
-                    <input type="text" value={item} className="list-input" onChange={(e)=>ChangeValue(e, index)} />
-                    <Button color="error" className="bi-trash" onClick={()=>RemoveItem(index)} />
+                    <input type="text" value={item} className={`list-input ${BORDERCOLORS[color] || BORDERCOLORS.default}`} onChange={(e)=>ChangeValue(e, index)} />
+                    <Button color="error" className="bi-trash border border-black" onClick={()=>RemoveItem(index)} />
                 </div>
             );
         });
     }
 
     return (
-        <Accordian title={title} titleElements={[
+        <Accordian title={title || "List"} titleElements={[
             <div key={`${id}-size`} className="flex items-center">{formValue.length}</div>,
-            <Button key={`${id}-add`} color="success" className="bi-plus-circle pointer-events-auto" onClick={AddItem} />
-        ]} className={className}>
+            <Button key={`${id}-add`} color="success" className="bi-plus-circle pointer-events-auto border border-black" onClick={AddItem} />
+        ]} className={className || ""} outerClass={outerClass || ""} innerClass={innerClass || ""} color={color}>
             {RenderItems()}
         </Accordian>
     );

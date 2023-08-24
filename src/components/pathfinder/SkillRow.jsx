@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
 import { ulid } from 'ulidx';
-import Button from './Button';
-import '../styles/SkillRow.css';
+import { PF_STATS_SHORT } from '../../scripts/Pathfinder';
+import '../../styles/SkillRow.css';
 
-export default function CSkillRow({title, id, value, className, onChange, onDelete}) {
+export default function SkillRow({title, id, value, className, onChange}) {
     title = title || "New Skill";
     id = id || "";
-    value = value || [0,0,false,0,0]; // flags, modval, class, rank, misc
+    value = value || [0,0,0,0,false,0,0]; // flags, penalty, mod, modval, class, rank, misc
     className = className || "";
     if (!onChange) console.warn("In order to get the Skill Value, you need to assign something to onChange...");
-    if (!onDelete) console.warn("onDelete must be set or items cannot be removed...");
     
-    let [ formValue, setFormValue ] = useState([value[2],title,value[3],value[4]]);
+    let [ formValue, setFormValue ] = useState([value[4],title,value[5],value[6]]);
     let [ formId, setFormId ] = useState(id);
 
     useEffect(() => {
@@ -28,19 +27,20 @@ export default function CSkillRow({title, id, value, className, onChange, onDele
         if (onChange) onChange(newValue);
     }
 
-    let total = ((formValue[0]&&(formValue[2]>0))?3:0) + formValue[2] + value[1] + formValue[3];
+    let total = ((formValue[0]&&(formValue[2]>0))?3:0) + formValue[2] + value[3] + formValue[3];
             
+    if ((value[0]&1)==1) total -= value[1];
     if (((value[0]&2)==2)&&formValue[2]<=0) total = 0;
 
     return (
         <div className={`sr-cont ${className}`}>
             <div className="col-span-1 sr-center"><input type="checkbox" checked={formValue[0]} onChange={(e)=>ChangeValue(e.target.checked, 0)} /></div>
-            <div className="col-span-4 sr-input"><input type="text" value={formValue[1]} onChange={(e)=>ChangeValue(e.target.value, 1)} /></div>
+            <div className="col-span-3 sr-label">{formValue[1]} {((value[0]&1)==1)?"*":""} {((value[0]&2)==2)?<>&dagger;</>:""}</div>
+            <div className="col-span-2 sr-label text-right">{PF_STATS_SHORT[value[2]]}</div>
             <div className="col-span-1 sr-input sr-center">{(((value[0]&2)==2)&&formValue[2]<=0)?"-":total}</div>
             <div className="col-span-2 sr-input"><input type="number" min={0} value={formValue[2]} onChange={(e)=>ChangeValue(parseInt(e.target.value), 2)} /></div>
-            <div className="col-span-1 sr-input sr-center">{value[1]}</div>
+            <div className="col-span-1 sr-input sr-center">{value[3]}</div>
             <div className="col-span-2 sr-input"><input type="number" value={formValue[3]} onChange={(e)=>ChangeValue(parseInt(e.target.value), 3)} /></div>
-            <div className="col-span-1 sr-center"><Button color="error" className="bi-trash text-xs px-1 py-0.5" onClick={onDelete} /></div>
         </div>
     );
 }

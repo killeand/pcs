@@ -1,5 +1,5 @@
 .mn-cont {
-    @apply flex flex-row justify-evenly;
+    @apply flex flex-row justify-evenly border rounded-md divide-x;
 }
 
 .mn-section {
@@ -7,17 +7,33 @@
 }
 
 .mn-label {
-    @apply text-center text-xs;
+    @apply text-center
 }
 
 .mn-num {
-    @apply text-center w-full border border-primary bg-base-100;
+    @apply text-center w-full rounded-none;
 }
 
-.mn-section:first-child > input {
+.mn-section:first-child {
     @apply rounded-l-md;
 }
 
-.mn-section:last-child > input {
+.mn-section:last-child {
     @apply rounded-r-md;
+}
+
+.mn-section:first-child>label {
+    @apply rounded-tl-md;
+}
+
+.mn-section:last-child>label {
+    @apply rounded-tr-md;
+}
+
+.mn-section:first-child>input {
+    @apply rounded-bl-md;
+}
+
+.mn-section:last-child>input {
+    @apply rounded-br-md;
 }
