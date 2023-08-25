@@ -6,7 +6,7 @@ import PCSContext from '../components/application/PCSContext';
 import Button from '../components/Button';
 import Text from '../components/Text';
 import Accordian from '../components/Accordian';
-import Modal from '../components/Modal';
+import Modal, { MODAL_TYPE } from '../components/Modal';
 import TextArea from '../components/TextArea';
 import '../styles/Page.css';
 
@@ -18,7 +18,6 @@ export default function Notes() {
     let Nav = useNavigate();
     let [ charIndex, setCharIndex ] = useState(-1);
     let [ noteList, setNoteList ] = useState([]);
-    let [ showModal, setShowModal ] = useState(false);
     let [ removeIndex, setRemoveIndex ] = useState(-1);
     
     function SetAPI(value) {
@@ -63,14 +62,20 @@ export default function Notes() {
         setNoteList(newNotes);
     }
 
-    function RemoveNote() {
-        let newNotes = [ ...noteList ];
-        newNotes.splice(removeIndex,1);
+    function AskRemove(noteIndex) {
+        setRemoveIndex(noteIndex);
+        window.removenote.showModal();
+    }
 
-        SetAPI(newNotes);
-        setNoteList(newNotes);
-        setRemoveIndex(-1);
-        setShowModal(false);
+    function RemoveNote(dialogValue) {
+        if (dialogValue === "ok") {
+            let newNotes = [...noteList];
+            newNotes.splice(removeIndex, 1);
+
+            SetAPI(newNotes);
+            setNoteList(newNotes);
+            setRemoveIndex(-1);
+        }
     }
 
     function ChangeValue(index, type, value) {
@@ -92,34 +97,17 @@ export default function Notes() {
             return (
                 <Accordian key={`note-${item._id}`} title={item.name}>
                     <div className="flex flex-row space-x-1">
-                        <Text title="Name" id={`note${index}name`} value={item.name} className="flex-grow" onChange={(retval)=>ChangeValue(index, "name", retval)} />
-                        <Button color="error" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
+                        <Text title="Name" id={`note${index}name`} value={item.name} className="flex-grow" color="secondary" onChange={(retval)=>ChangeValue(index, "name", retval)} />
+                        <Button color="error" className="bi-trash" onClick={()=>AskRemove(index)} />
                     </div>
-                    <TextArea title="Notes" id={`note${index}info`} value={item.info} onChange={(retval)=>ChangeValue(index, "info", retval)} />
+                    <TextArea title="Notes" id={`note${index}info`} value={item.info} color="secondary" onChange={(retval)=>ChangeValue(index, "info", retval)} />
                 </Accordian>
             );
         });
     }
 
-    function RenderRemoveModal() {
-        if (showModal && removeIndex != -1) {
-            return (
-                <Modal className="flex flex-col" title="Confirm Remove?" onClose={()=>{setShowModal(false);setRemoveIndex(-1);}}>
-                    <div className="mt-2 py-2 border-t border-black">
-                        <p>Are you sure you wish to remove the note: <span className="font-bold">{PCSD.files[charIndex].data.notes[removeIndex].name}</span>?</p>
-                        <p>This action is permanent and can only be reverted by re-loading the character data.</p>
-                    </div>
-                    <div className="flex justify-center">
-                        <Button color="error" onClick={RemoveNote}>Confirmed, remove!</Button>
-                    </div>
-                </Modal>
-            );
-        }
-    }
-
     return (
         <>
-            {RenderRemoveModal()}
             <h1>Notes</h1>
             <div className="main-container">
                 <Button color="primary" onClick={AddNote}>Add Note</Button>
@@ -127,6 +115,10 @@ export default function Notes() {
             <div className="main-container">
                 {RenderNotes()}
             </div>
+            <Modal id="removenote" title="Confirm Remove?" color="warning" type={MODAL_TYPE.okcancel} onClose={(RetVal) => RemoveNote(RetVal)}>
+                <p>Are you sure you wish to remove this note?</p>
+                <p>This action is permanent and can only be reverted by re-loading the character data.</p>
+            </Modal>
         </>
     );
 }

@@ -15,12 +15,7 @@ export default function MultiNumber({ title, id, value, min, max, color, classNa
     if (title.length != value.length || title.length != min.length || title.length != max.length) throw new Error("The properties of title, value, min, and max must be of the same Array dimension");
 
     let [ formValue, setFormValue ] = useState(value);
-    let [ formId, setFormId ] = useState(id || "");
-
-    useEffect(() => {
-        if (_.isEmpty(formId))
-            setFormId(ulid());
-    }, []);
+    let [ formId, setFormId ] = useState(id || ulid());
 
     useEffect(() => {
         if (JSON.stringify(new Array(title.length).fill(0)) != JSON.stringify(value.filter((i)=>(i==0))))
@@ -42,7 +37,7 @@ export default function MultiNumber({ title, id, value, min, max, color, classNa
         for (let i = 0; i < title.length; i++) {
             retval.push(
                 <div key={`${formId}-section${i}`} className={`mn-section ${innerClass || ""} ${BORDERCOLORS[color] || BORDERCOLORS.default}`}>
-                    <label htmlFor={`${formId}-form${i}`} className={`mn-label lg-title ${BGCOLORS[color] || BGCOLORS.default}`}>{title[i]}</label>
+                    <label htmlFor={`${formId}-form${i}`} className={`mn-label lg-title ${BGCOLORS[color] || BGCOLORS.default}`}>{(title[i]==0)?"0":title[i] || "Number"}</label>
                     <input type="number" id={`${formId}-form${i}`} name={`${formId}-form${i}`} value={formValue[i]} min={min[i]} max={max[i]} className="mn-num" onChange={(e)=>ChangeValue(e,i)} />
                 </div>
             );

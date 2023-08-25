@@ -109,10 +109,10 @@ export default function ExpWealth() {
             </div>
             <h2 className="mt-2">Wealth</h2>
             <div className="main-container">
-                <Label title="Platinum" value={<MultiNumber title={["Carried","Stored"]} id="platinum" value={GetWealth("plat")} min={[0,0]} onChange={(retval)=>ChangeWealth("plat",retval)} />} />
-                <Label title="Gold" value={<MultiNumber title={["Carried","Stored"]} id="gold" value={GetWealth("gold")} min={[0,0]} onChange={(retval)=>ChangeWealth("gold",retval)} />} />
-                <Label title="Silver" value={<MultiNumber title={["Carried","Stored"]} id="silver" value={GetWealth("silv")} min={[0,0]} onChange={(retval)=>ChangeWealth("silv",retval)} />} />
-                <Label title="Copper" value={<MultiNumber title={["Carried","Stored"]} id="copper" value={GetWealth("copp")} min={[0,0]} onChange={(retval)=>ChangeWealth("copp",retval)} />} />
+                <Label title="Platinum" value={<MultiNumber title={["Carried","Stored"]} id="platinum" value={GetWealth("plat")} min={[0,0]} max={[99999999,99999999]} className="flex-grow" color="secondary" onChange={(retval)=>ChangeWealth("plat",retval)} />} />
+                <Label title="Gold" value={<MultiNumber title={["Carried","Stored"]} id="gold" value={GetWealth("gold")} min={[0,0]} max={[99999999,99999999]} className="flex-grow" color="secondary" onChange={(retval)=>ChangeWealth("gold",retval)} />} />
+                <Label title="Silver" value={<MultiNumber title={["Carried","Stored"]} id="silver" value={GetWealth("silv")} min={[0,0]} max={[99999999,99999999]} className="flex-grow" color="secondary" onChange={(retval)=>ChangeWealth("silv",retval)} />} />
+                <Label title="Copper" value={<MultiNumber title={["Carried","Stored"]} id="copper" value={GetWealth("copp")} min={[0,0]} max={[99999999,99999999]} className="flex-grow" color="secondary" onChange={(retval)=>ChangeWealth("copp",retval)} />} />
                 <TextArea title="Other (in gp)" id="other" value={GetWealth("othe")} onChange={(retval)=>ChangeWealth("othe",retval)} />
             </div>
         </>

@@ -170,7 +170,7 @@ export default function Defensive() {
                     </div>
                 </Accordian>
                 <Accordian title="AC Bonuses">
-                    <MultiNumber title={["Dodge","Natural","Misc","Temp"]} id="bonuses" value={defValues} min={[0,0,-100,-100]} onChange={ChangeValue} />
+                    <MultiNumber title={["Dodge","Natural","Misc","Temp"]} id="bonuses" value={defValues} min={[0,0,-100,-100]} max={[100,100,100,100]} color="secondary" onChange={ChangeValue} />
                 </Accordian>
                 <Label title="Armor Check Penalty" value={ac_penalty} />
                 <Label title="Maximum Dex" value={(maxdex!=-1)?maxdex:"N/A"} />

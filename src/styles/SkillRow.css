@@ -14,7 +14,7 @@
 }
 
 .sr-input {
-    @apply border border-primary;
+    @apply border;
 }
 
 .sr-input input[type=number] {

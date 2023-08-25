@@ -9,7 +9,7 @@ import Text from '../components/Text';
 import Number from '../components/Number';
 import MultiNumber from '../components/MultiNumber';
 import Accordian from '../components/Accordian';
-import Modal from '../components/Modal';
+import Modal, {MODAL_TYPE} from '../components/Modal';
 import '../styles/Page.css';
 
 export default function Classes() {
@@ -20,7 +20,6 @@ export default function Classes() {
     let Nav = useNavigate();
     let [ charIndex, setCharIndex ] = useState(-1);
     let [ classList, setClassList ] = useState([]);
-    let [ showModal, setShowModal ] = useState(false);
     let [ removeIndex, setRemoveIndex ] = useState(-1);
     
     function SetAPI(value) {
@@ -71,14 +70,22 @@ export default function Classes() {
         setClassList(newClasses);
     }
 
-    function RemoveClass() {
-        let newClasses = [ ...classList ];
-        newClasses.splice(removeIndex,1);
+    function AskRemove(classIndex) {
+        setRemoveIndex(classIndex);
+        window.removeclass.showModal();
+    }
 
-        SetAPI(newClasses);
-        setClassList(newClasses);
+    function RemoveClass(dialogValue) {
+        if (dialogValue === "ok") {
+            let newClasses = [...classList];
+            newClasses.splice(removeIndex, 1);
+
+            SetAPI(newClasses);
+            setClassList(newClasses);
+            setRemoveIndex(-1);
+        }
+
         setRemoveIndex(-1);
-        setShowModal(false);
     }
 
     function CalculateLevels() {
@@ -130,37 +137,20 @@ export default function Classes() {
             return (
                 <Accordian key={`class-${item._id}`} title={item.name} titleElements={<div>{item.level}</div>}>
                     <div className="flex flex-row">
-                        <Text title="Class Name" id={`class${index+1}name`} value={item.name} className="flex-grow mr-1" onChange={(retval)=>ChangeValue(index, 0, retval)} />
-                        <Button color="error" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
+                        <Text title="Class Name" id={`class${index+1}name`} value={item.name} className="flex-grow mr-1" color="secondary" onChange={(retval)=>ChangeValue(index, 0, retval)} />
+                        <Button color="error" className="bi-trash" onClick={()=>AskRemove(index)} />
                     </div>
-                    <Number title="Level" id={`class${index+1}level`} value={item.level} min={1} onChange={(retval)=>ChangeValue(index, 1, retval)} />
-                    <MultiNumber title={["HD", "Health", "BAB", "Skill Num"]} id={`class${index+1}bs`} value={[item.hd, item.health, item.bab, item.skillnum]} min={[0,0,0,0]} onChange={(retval)=>ChangeValue(index, 2, retval)} />
-                    <MultiNumber title={["Fav Class Health", "Fav Class Skill"]} id={`class${index+1}fc`} value={[item.favclass[0], item.favclass[1]]} min={[0,0]} onChange={(retval)=>ChangeValue(index, 3, retval)} />
-                    <MultiNumber title={["Fortitude", "Reflex", "Will"]} id={`class${index+1}st`} value={[item.saves[0], item.saves[1], item.saves[2]]} min={[0,0,0]} onChange={(retval)=>ChangeValue(index, 4, retval)} />
+                    <Number title="Level" id={`class${index + 1}level`} value={item.level} min={1} max={20} color="secondary" onChange={(retval)=>ChangeValue(index, 1, retval)} />
+                    <MultiNumber title={["HD", "Health", "BAB", "Skill Num"]} id={`class${index+1}bs`} value={[item.hd, item.health, item.bab, item.skillnum]} min={[0,0,0,0]} max={[100,5000,20,20]} color="secondary" onChange={(retval)=>ChangeValue(index, 2, retval)} />
+                    <MultiNumber title={["Fav Class Health", "Fav Class Skill"]} id={`class${index+1}fc`} value={[item.favclass[0], item.favclass[1]]} min={[0,0]} max={[20,20]} color="secondary" onChange={(retval)=>ChangeValue(index, 3, retval)} />
+                    <MultiNumber title={["Fortitude", "Reflex", "Will"]} id={`class${index+1}st`} value={[item.saves[0], item.saves[1], item.saves[2]]} min={[0,0,0]} max={[20,20,20]} color="secondary" onChange={(retval)=>ChangeValue(index, 4, retval)} />
                 </Accordian>
             );
         });
     }
 
-    function RenderRemoveModal() {
-        if (showModal && removeIndex != -1) {
-            return (
-                <Modal className="flex flex-col space-y-1 p-1" title="Confirm Remove?" onClose={()=>{setShowModal(false);setRemoveIndex(-1);}}>
-                    <div>
-                        <p>Are you sure you wish to remove the class: <span className="font-bold">{PCSD.files[charIndex].data.classes[removeIndex].name}</span>?</p>
-                        <p>This action is permanent and can only be reverted by re-loading the character data.</p>
-                    </div>
-                    <div className="flex justify-center">
-                        <Button color="error" onClick={RemoveClass}>Confirmed, remove!</Button>
-                    </div>
-                </Modal>
-            );
-        }
-    }
-
     return (
         <>
-            {RenderRemoveModal()}
             <h1>Classes</h1>
             <div className="main-container">
                 <Button color="primary" onClick={AddClass}>Add Class</Button>
@@ -169,6 +159,10 @@ export default function Classes() {
             <div className="main-container">
                 {RenderClasses()}
             </div>
+            <Modal id="removeclass" title="Confirm Remove?" color="warning" type={MODAL_TYPE.okcancel} onClose={(RetVal)=>RemoveClass(RetVal)}>
+                <p>Are you sure you wish to remove this class?</p>
+                <p>This action is permanent and can only be reverted by re-loading the character data.</p>
+            </Modal>
         </>
     );
 }

@@ -6,7 +6,7 @@ import PCSContext from '../components/application/PCSContext';
 import Button from '../components/Button';
 import Text from '../components/Text';
 import Accordian from '../components/Accordian';
-import Modal from '../components/Modal';
+import Modal, { MODAL_TYPE } from '../components/Modal';
 import TextArea from '../components/TextArea';
 import List from '../components/List';
 import '../styles/Page.css';
@@ -19,7 +19,6 @@ export default function Weapons() {
     let Nav = useNavigate();
     let [ charIndex, setCharIndex ] = useState(-1);
     let [ wepList, setWepList ] = useState([]);
-    let [ showModal, setShowModal ] = useState(false);
     let [ removeIndex, setRemoveIndex ] = useState(-1);
     
     function SetAPI(value) {
@@ -70,14 +69,20 @@ export default function Weapons() {
         setWepList(newWeps);
     }
 
-    function RemoveWep() {
-        let newWeps = [ ...wepList ];
-        newWeps.splice(removeIndex,1);
+    function AskRemove(wepIndex) {
+        setRemoveIndex(wepIndex);
+        window.removeweapon.showModal();
+    }
 
-        SetAPI(newWeps);
-        setWepList(newWeps);
-        setRemoveIndex(-1);
-        setShowModal(false);
+    function RemoveWep(dialogValue) {
+        if (dialogValue === "ok") {
+            let newWeps = [...wepList];
+            newWeps.splice(removeIndex, 1);
+
+            SetAPI(newWeps);
+            setWepList(newWeps);
+            setRemoveIndex(-1);
+        }
     }
 
     function ChangeValue(index, type, value) {
@@ -99,46 +104,29 @@ export default function Weapons() {
             return (
                 <Accordian key={`wep-${item._id}`} title={item.name}>
                     <div className="flex flex-row space-x-1">
-                        <Text title="Name" id={`wep${index}name`} value={item.name} className="flex-grow" onChange={(retval)=>ChangeValue(index, "name", retval)} />
-                        <Button color="error" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
+                        <Text title="Name" id={`wep${index}name`} value={item.name} className="flex-grow" color="secondary" onChange={(retval)=>ChangeValue(index, "name", retval)} />
+                        <Button color="error" className="bi-trash" onClick={()=>AskRemove(index)} />
                     </div>
                     <div className="flex flex-row space-x-1">
-                        <List title="To Hit" id={`wep${index}hit`} value={item.hit} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "hit", retval)} />
-                        <List title="Damage" id={`wep${index}dmg`} value={item.dmg} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "dmg", retval)} />
+                        <List title="To Hit" id={`wep${index}hit`} value={item.hit} className="flex-grow w-1/2" color="secondary" onChange={(retval)=>ChangeValue(index, "hit", retval)} />
+                        <List title="Damage" id={`wep${index}dmg`} value={item.dmg} className="flex-grow w-1/2" color="secondary" onChange={(retval)=>ChangeValue(index, "dmg", retval)} />
                     </div>
                     <div className="flex flex-row space-x-1">
-                        <Text title="Crit" id={`wep${index}crit`} value={item.critical} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "critical", retval)} />
-                        <Text title="Rng" id={`wep${index}rng`} value={item.range} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "range", retval)} />
+                        <Text title="Crit" id={`wep${index}crit`} value={item.critical} className="flex-grow w-1/2" color="secondary" onChange={(retval)=>ChangeValue(index, "critical", retval)} />
+                        <Text title="Rng" id={`wep${index}rng`} value={item.range} className="flex-grow w-1/2" color="secondary" onChange={(retval)=>ChangeValue(index, "range", retval)} />
                     </div>
                     <div className="flex flex-row space-x-1">
-                        <Text title="Type" id={`wep${index}type`} value={item.type} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "type", retval)} />
-                        <Text title="Ammo" id={`wep${index}ammo`} value={item.ammo} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "ammo", retval)} />
+                        <Text title="Type" id={`wep${index}type`} value={item.type} className="flex-grow w-1/2" color="secondary" onChange={(retval)=>ChangeValue(index, "type", retval)} />
+                        <Text title="Ammo" id={`wep${index}ammo`} value={item.ammo} className="flex-grow w-1/2" color="secondary" onChange={(retval)=>ChangeValue(index, "ammo", retval)} />
                     </div>
-                    <TextArea title="Notes" id={`wep${index}info`} value={item.info} onChange={(retval)=>ChangeValue(index, "info", retval)} />
+                    <TextArea title="Notes" id={`wep${index}info`} value={item.info} color="secondary" onChange={(retval)=>ChangeValue(index, "info", retval)} />
                 </Accordian>
             );
         });
     }
 
-    function RenderRemoveModal() {
-        if (showModal && removeIndex != -1) {
-            return (
-                <Modal className="flex flex-col" title="Confirm Remove?" onClose={()=>{setShowModal(false);setRemoveIndex(-1);}}>
-                    <div className="mt-2 py-2 border-t border-black">
-                        <p>Are you sure you wish to remove the weapon: <span className="font-bold">{PCSD.files[charIndex].data.weapons[removeIndex].name}</span>?</p>
-                        <p>This action is permanent and can only be reverted by re-loading the character data.</p>
-                    </div>
-                    <div className="flex justify-center">
-                        <Button color="error" onClick={RemoveWep}>Confirmed, remove!</Button>
-                    </div>
-                </Modal>
-            );
-        }
-    }
-
     return (
         <>
-            {RenderRemoveModal()}
             <h1>Weapons</h1>
             <div className="main-container">
                 <Button color="primary" onClick={AddWep}>Add Weapon</Button>
@@ -146,6 +134,10 @@ export default function Weapons() {
             <div className="main-container">
                 {RenderWeps()}
             </div>
+            <Modal id="removeweapon" title="Confirm Remove?" type={MODAL_TYPE.okcancel} onClose={(RetVal) => RemoveWep(RetVal)}>
+                <p>Are you sure you wish to remove this weapon?</p>
+                <p>This action is permanent and can only be reverted by re-loading the character data.</p>
+            </Modal>
         </>
     );
 }

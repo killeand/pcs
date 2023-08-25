@@ -7,7 +7,7 @@ import Button from '../components/Button';
 import Text from '../components/Text';
 import Number from '../components/Number';
 import Accordian from '../components/Accordian';
-import Modal from '../components/Modal';
+import Modal, { MODAL_TYPE } from '../components/Modal';
 import TextArea from '../components/TextArea';
 import '../styles/Page.css';
 
@@ -19,7 +19,6 @@ export default function Armors() {
     let Nav = useNavigate();
     let [ charIndex, setCharIndex ] = useState(-1);
     let [ armList, setArmList ] = useState([]);
-    let [ showModal, setShowModal ] = useState(false);
     let [ removeIndex, setRemoveIndex ] = useState(-1);
     
     function SetAPI(value) {
@@ -69,14 +68,20 @@ export default function Armors() {
         setArmList(newArms);
     }
 
-    function RemoveArm() {
-        let newArms = [ ...armList ];
-        newArms.splice(removeIndex,1);
+    function AskRemove(wepIndex) {
+        setRemoveIndex(wepIndex);
+        window.removearmor.showModal();
+    }
 
-        SetAPI(newArms);
-        setArmList(newArms);
-        setRemoveIndex(-1);
-        setShowModal(false);
+    function RemoveArm(dialogValue) {
+        if (dialogValue === "ok") {
+            let newArms = [...armList];
+            newArms.splice(removeIndex, 1);
+
+            SetAPI(newArms);
+            setArmList(newArms);
+            setRemoveIndex(-1);
+        }
     }
 
     function ChangeValue(index, type, value) {
@@ -96,44 +101,27 @@ export default function Armors() {
         
         return armList.map((item, index) => {
             return (
-                <Accordian key={`arm-${item._id}`} title={item.name} titleElements={<Button color={(item.active)?"success":"disabled"} className={`pointer-events-auto ${(item.active)?"bi-check-square":"bi-square"}`} onClick={()=>ChangeValue(index, "active", !item.active)} />}>
+                <Accordian key={`arm-${item._id}`} title={item.name} titleElements={<Button color={(item.active)?"success":"error"} className={`pointer-events-auto ${(item.active)?"bi-check-square":"bi-square"}`} onClick={()=>ChangeValue(index, "active", !item.active)} />}>
                     <div className="flex flex-row space-x-1">
-                        <Text title="Name" id={`arm${index}name`} value={item.name} className="flex-grow" onChange={(retval)=>ChangeValue(index, "name", retval)} />
-                        <Button color="error" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
+                        <Text title="Name" id={`arm${index}name`} value={item.name} className="flex-grow" color="secondary" onChange={(retval)=>ChangeValue(index, "name", retval)} />
+                        <Button color="error" className="bi-trash" onClick={()=>AskRemove(index)} />
                     </div>
                     <div className="flex flex-row space-x-1">
-                        <Number title="AC" id={`arm${index}ac`} value={item.ac} min={0} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "ac", retval)} />
-                        <Number title="Max Dex" id={`arm${index}max`} value={item.maxdex} min={-1} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "maxdex", retval)} />
+                        <Number title="AC" id={`arm${index}ac`} value={item.ac} min={0} className="flex-grow w-1/2" color="secondary" onChange={(retval)=>ChangeValue(index, "ac", retval)} />
+                        <Number title="Max Dex" id={`arm${index}max`} value={item.maxdex} min={-1} className="flex-grow w-1/2" color="secondary" onChange={(retval)=>ChangeValue(index, "maxdex", retval)} />
                     </div>
                     <div className="flex flex-row space-x-1">
-                        <Number title="Penalty" id={`arm${index}pen`} value={item.penalty} min={0} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "penalty", retval)} />
-                        <Number title="Spell Fail" id={`arm${index}fail`} value={item.spellfail} min={0} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "spellfail", retval)} />
+                        <Number title="Penalty" id={`arm${index}pen`} value={item.penalty} min={0} className="flex-grow w-1/2" color="secondary" onChange={(retval)=>ChangeValue(index, "penalty", retval)} />
+                        <Number title="Spell Fail" id={`arm${index}fail`} value={item.spellfail} min={0} className="flex-grow w-1/2" color="secondary" onChange={(retval)=>ChangeValue(index, "spellfail", retval)} />
                     </div>
-                    <TextArea title="Notes" id={`arm${index}info`} value={item.info} onChange={(retval)=>ChangeValue(index, "info", retval)} />
+                    <TextArea title="Notes" id={`arm${index}info`} value={item.info} color="secondary" onChange={(retval)=>ChangeValue(index, "info", retval)} />
                 </Accordian>
             );
         });
     }
 
-    function RenderRemoveModal() {
-        if (showModal && removeIndex != -1) {
-            return (
-                <Modal className="flex flex-col" title="Confirm Remove?" onClose={()=>{setShowModal(false);setRemoveIndex(-1);}}>
-                    <div className="mt-2 py-2 border-t border-black">
-                        <p>Are you sure you wish to remove the armor: <span className="font-bold">{PCSD.files[charIndex].data.armors[removeIndex].name}</span>?</p>
-                        <p>This action is permanent and can only be reverted by re-loading the character data.</p>
-                    </div>
-                    <div className="flex justify-center">
-                        <Button color="error" onClick={RemoveArm}>Confirmed, remove!</Button>
-                    </div>
-                </Modal>
-            );
-        }
-    }
-
     return (
         <>
-            {RenderRemoveModal()}
             <h1>Armors</h1>
             <div className="main-container">
                 <Button color="primary" onClick={AddArm}>Add Armor</Button>
@@ -144,8 +132,12 @@ export default function Armors() {
             <div className="msg-container">
                 <div><span className="font-bold">Max Dex:</span> If the armor has no max dex penalty, set the value to a negative value.</div>
                 <div><span className="font-bold">Note:</span> Before the armor piece becomes active on the defensive stats page, you must click on the button in the title.</div>
-                <div><span className="font-bold">Inactive:</span> <span className="text-xs bi-square px-1 py-0.5 rounded-lg bg-gradient-to-b from-gray-100 to-gray-400" /> <span className="font-bold">Active:</span> <span className="text-xs bi-check-square px-1 py-0.5 rounded-lg bg-gradient-to-b from-emerald-100 to-emerald-400" /></div>
+                <div><span className="font-bold">Inactive:</span> <Button color="error" className="bi-square" /> <span className="font-bold">Active:</span> <Button color="success" className="bi-check-square" /></div>
             </div>
+            <Modal id="removearmor" title="Confirm Remove?" type={MODAL_TYPE.okcancel} onClose={(RetVal) => RemoveArm(RetVal)}>
+                <p>Are you sure you wish to remove this armor?</p>
+                <p>This action is permanent and can only be reverted by re-loading the character data.</p>
+            </Modal>
         </>
     );
 }

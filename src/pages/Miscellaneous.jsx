@@ -15,6 +15,7 @@ export default function Miscellaneous() {
     let PCSD = useContext(PCSContext);
     let Nav = useNavigate();
     let [ charIndex, setCharIndex ] = useState(-1);
+    let [ baseSpeedValues, setBaseSpeedValues ] = useState([0,0,0,0]);
     let [ speedValues, setSpeedValues ] = useState([0,0,0,0,0]);
     let [ initValue, setInitValue ] = useState(0);
 
@@ -41,6 +42,7 @@ export default function Miscellaneous() {
         if (!_.has(PCSD.files[tempIndex], "data.miscstats")) {
             _.assign(PCSD.files[tempIndex].data, {
                 miscstats: {
+                    basespeed: [0,0,0,0],
                     speed: [0,0,0,0,0],
                     init: 0,
                     resist: [0,0,0,0,0],
@@ -53,6 +55,7 @@ export default function Miscellaneous() {
         setCharIndex(tempIndex);
 
         /* ENTER PAGE SPECIFIC CODE HERE */
+        setBaseSpeedValues(PCSD.files[tempIndex].data.miscstats.basespeed);
         setSpeedValues(PCSD.files[tempIndex].data.miscstats.speed);
         setInitValue(PCSD.files[tempIndex].data.miscstats.init);
         /* ENTER PAGE SPECIFIC CODE HERE */
@@ -71,10 +74,15 @@ export default function Miscellaneous() {
     }
 
     function ChangeValue(path, value) {
+        if (path=='basespeed') setBaseSpeedValues(value);
         if (path=='speed') setSpeedValues(value);
         if (path=='init') setInitValue(value);
 
         SetAPI(path, value);
+    }
+
+    function CalcBase() {
+        return baseSpeedValues[0] + speedValues[0];
     }
 
     if (charIndex == -1) {
@@ -89,27 +97,34 @@ export default function Miscellaneous() {
                     <div className="flex flex-row space-x-1">
                         <div className="flex flex-col divide-y divide-solid divide-black">
                             <p className="text-xs m-0 p-0">Walk</p>
-                            <p className="text-center m-0 p-0">{speedValues[0]}</p>
+                            <p className="text-center m-0 p-0">{CalcBase()}</p>
                         </div>
                         <div className="flex flex-col divide-y divide-solid divide-black">
                             <p className="text-xs m-0 p-0">Run x4</p>
-                            <p className="text-center m-0 p-0">{(speedValues[1]==0)?speedValues[0]*4:speedValues[1]}</p>
+                            <p className="text-center m-0 p-0">{CalcBase()*4+speedValues[1]}</p>
+                        </div>
+                        <div className="flex flex-col divide-y divide-solid divide-black">
+                            <p className="text-xs m-0 p-0">Run x5</p>
+                            <p className="text-center m-0 p-0">{CalcBase()*5+speedValues[1]}</p>
                         </div>
                         <div className="flex flex-col divide-y divide-solid divide-black">
                             <p className="text-xs m-0 p-0">Swim</p>
-                            <p className="text-center m-0 p-0">{(speedValues[2]==0)?Math.floor(speedValues[0]/4):speedValues[2]}</p>
+                            <p className="text-center m-0 p-0">{((baseSpeedValues[1]==0)?Math.floor(CalcBase()/4):baseSpeedValues[1])+speedValues[2]}</p>
                         </div>
                         <div className="flex flex-col divide-y divide-solid divide-black">
                             <p className="text-xs m-0 p-0">Climb</p>
-                            <p className="text-center m-0 p-0">{(speedValues[3]==0)?Math.floor(speedValues[0]/4):speedValues[3]}</p>
+                            <p className="text-center m-0 p-0">{((baseSpeedValues[2]==0)?Math.floor(CalcBase()/4):baseSpeedValues[2])+speedValues[3]}</p>
                         </div>
                         <div className="flex flex-col divide-y divide-solid divide-black">
                             <p className="text-xs m-0 p-0">Fly</p>
-                            <p className="text-center m-0 p-0">{speedValues[4]}</p>
+                            <p className="text-center m-0 p-0">{baseSpeedValues[3] + speedValues[4]}</p>
                         </div>
                     </div>
                 }>
-                    <MultiNumber title={["Walk","Run","Swim","Climb","Fly"]} id="speed" value={GetAPI("speed")} min={[0,0,0,0,0]} onChange={(retval)=>ChangeValue("speed",retval)} />
+                    <h2>Base Speeds</h2>
+                    <MultiNumber title={["Walk", "Swim", "Climb", "Fly"]} id="speed" value={GetAPI("basespeed")} min={[0, 0, 0, 0]} max={[1000, 1000, 1000, 1000]} color="secondary" onChange={(retval) => ChangeValue("basespeed", retval)} />
+                    <h2>Modifiers</h2>
+                    <MultiNumber title={["Walk","Run","Swim","Climb","Fly"]} id="speed" value={GetAPI("speed")} min={[-1000,-1000,-1000,-1000,-1000]} max={[1000,1000,1000,1000,1000]} color="secondary" onChange={(retval)=>ChangeValue("speed",retval)} />
                 </Accordian>
                 <Accordian title="Initiative" titleElements={
                     <div className="flex flex-row space-x-1">
@@ -127,12 +142,12 @@ export default function Miscellaneous() {
                         </div>
                     </div>
                 }>
-                    <Number title="Misc" id="init" value={GetAPI("init")} min={0} onChange={(retval)=>ChangeValue("init",retval)} />
+                    <Number title="Misc" id="init" value={GetAPI("init")} min={0} max={100} color="secondary" onChange={(retval)=>ChangeValue("init",retval)} />
                 </Accordian>
                 <Accordian title="Resistances">
-                    <MultiNumber title={["Acid","Cold","Elec","Fire","Sonic"]} id="resist" value={GetAPI("resist")} min={[0,0,0,0,0]} onChange={(retval)=>ChangeValue("resist",retval)} />
-                    <Text title="DR" id="dr" value={GetAPI("dr")} onChange={(retval)=>ChangeValue("dr",retval)} />
-                    <Text title="SR" id="sr" value={GetAPI("sr")} onChange={(retval)=>ChangeValue("sr",retval)} />
+                    <MultiNumber title={["Acid","Cold","Elec","Fire","Sonic"]} id="resist" value={GetAPI("resist")} min={[0,0,0,0,0]} max={[1000,1000,1000,1000,1000]} color="secondary" onChange={(retval)=>ChangeValue("resist",retval)} />
+                    <Text title="DR" id="dr" value={GetAPI("dr")} color="secondary" onChange={(retval)=>ChangeValue("dr",retval)} />
+                    <Text title="SR" id="sr" value={GetAPI("sr")} color="secondary" onChange={(retval)=>ChangeValue("sr",retval)} />
                 </Accordian>
             </div>
             <div className="msg-container">

@@ -23,7 +23,7 @@ import Equipment from '../../pages/Equipment';
 import Spellbook from '../../pages/Spellbook';
 import Notes from '../../pages/Notes';
 import Tools from '../../pages/Tools';
-import CompTest from '../../pages/CompTest';
+//import CompTest from '../../pages/CompTest';
 
 const CHAR_PAGES = [
     {url:"details",icon:"bi-journal-text",name:"Character Details",component:(<Details />)},
@@ -82,7 +82,7 @@ export default function Application() {
         }
 
         menu.push(<Link key={`menu${menu.length + 1}`} className="bi-tools" to="/tools" onClick={HideMobileNav}> Tools</Link>);
-        menu.push(<Link key={`menu${menu.length + 2}`} className="bi-tools" to="/test" onClick={HideMobileNav}> Tests</Link>);
+        //menu.push(<Link key={`menu${menu.length + 2}`} className="bi-tools" to="/test" onClick={HideMobileNav}> Tests</Link>);
 
         return menu;
     }
@@ -109,7 +109,7 @@ export default function Application() {
                     <Routes>
                         <Route index element={<FileManager />} />
                         <Route path="tools/*" element={<Tools />} />
-                        <Route path="test" element={<CompTest />} />
+                        {/*<Route path="test" element={<CompTest />} />*/}
                         {RenderRoutes()}
                         <Route path="404" element={<p>Page not found</p>} />
                         <Route path="*" element={<Navigate to="/404" />} />

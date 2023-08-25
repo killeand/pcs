@@ -95,7 +95,7 @@ export default function Health() {
                     <Label title="Current Health" value={CalculateCurrentHealth()} className="w-1/2" />
                 </div>
                 <Accordian title="Wounds and Bonuses">
-                    <MultiNumber title={["Wounds", "Non-Lethal", "Misc", "Temp"]} id="health" value={healthValues} min={[0,0,-1000,-1000]} onChange={ChangeValue} />
+                    <MultiNumber title={["Wounds", "Non-Lethal", "Misc", "Temp"]} id="health" value={healthValues} min={[0,0,-1000,-1000]} max={[5000,5000,5000,5000]} color="secondary" onChange={ChangeValue} />
                 </Accordian>
             </div>
             <div className="msg-container">

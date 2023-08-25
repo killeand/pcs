@@ -2,24 +2,16 @@ import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
 import { ulid } from 'ulidx';
 import '../styles/TextArea.css';
+import { BGCOLORS, BORDERCOLORS } from '../scripts/Utilities';
 
-export default function TextArea({title, id, value, className, onChange}) {
-    title = title || "Text Area";
-    id = id || "";
-    value = value || ((value === "0") ? "0" : "");
-    className = className || "";
+export default function TextArea({title, id, value, color, placeholder, className, innerClass, outerClass, onChange}) {
     if (!onChange) console.warn("In order to get the text, you need to assign something to onChange...");
     
-    let [ formValue, setFormValue ] = useState(value);
-    let [ formId, setFormId ] = useState(id);
+    let [ formValue, setFormValue ] = useState(value || "");
+    let [ formId, setFormId ] = useState(id || ulid());
 
     useEffect(() => {
-        if (_.isEmpty(formId))
-            setFormId(ulid());
-    }, []);
-
-    useEffect(() => {
-        setFormValue(value);
+        setFormValue(value || "");
     }, [value]);
 
     function ChangeValue(e) {
@@ -30,9 +22,9 @@ export default function TextArea({title, id, value, className, onChange}) {
     }
 
     return (
-        <div className={`textarea-cont ${className}`}>
-            <label htmlFor={formId} className="textarea-label">{title}</label>
-            <textarea id={formId} name={formId} value={formValue} className="textarea-box" onChange={ChangeValue} />
+        <div className={`textarea-cont ${className || ""} ${outerClass || ""}`}>
+            <label htmlFor={formId} className={`textarea-label lg-title ${BGCOLORS[color] || BGCOLORS.default} ${BORDERCOLORS[color] || BORDERCOLORS.default}`}>{(title==0)?"0":title || "Text Area"}</label>
+            <textarea id={formId} name={formId} value={formValue} placeholder={placeholder} className={`textarea-box ${innerClass || ""} ${BORDERCOLORS[color] || BORDERCOLORS.default}`} onChange={ChangeValue} />
         </div>
     );
 }

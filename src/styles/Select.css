@@ -3,11 +3,11 @@
 }
 
 .select-label {
-    @apply col-span-2 text-center font-bold bg-primary text-primary-content py-1 px-2 rounded-l-md border-r border-primary;
+    @apply col-span-2 text-center border-r rounded-l-md;
 }
 
 .select-input {
-    @apply appearance-none bg-base-100 border-t-2 border-b-2 border-primary py-0.5 px-1 col-span-8 w-full border-r-2 rounded-r-md;
+    @apply appearance-none border-t-2 border-b-2 py-0.5 px-1 col-span-8 w-full border-r-2 rounded-r-md;
 }
 
 .select-end {

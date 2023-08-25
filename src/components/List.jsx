@@ -10,12 +10,7 @@ export default function List({title, id, value, color, className, innerClass, ou
     if (!onChange) console.warn("In order to get the list, you need to assign something to onChange...");
     
     let [ formValue, setFormValue ] = useState(value || []);
-    let [ formId, setFormId ] = useState(id || "");
-
-    useEffect(() => {
-        if (_.isEmpty(formId))
-            setFormId(ulid());
-    }, []);
+    let [ formId, setFormId ] = useState(id || ulid());
 
     useEffect(() => {
         setFormValue(value || []);
@@ -62,7 +57,7 @@ export default function List({title, id, value, color, className, innerClass, ou
     }
 
     return (
-        <Accordian title={title || "List"} titleElements={[
+        <Accordian title={(title==0)?"0":title || "List"} titleElements={[
             <div key={`${id}-size`} className="flex items-center">{formValue.length}</div>,
             <Button key={`${id}-add`} color="success" className="bi-plus-circle pointer-events-auto border border-black" onClick={AddItem} />
         ]} className={className || ""} outerClass={outerClass || ""} innerClass={innerClass || ""} color={color}>

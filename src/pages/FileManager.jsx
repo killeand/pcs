@@ -3,34 +3,45 @@ import _ from 'lodash';
 import { ulid } from 'ulidx';
 import PCSContext from '../components/application/PCSContext';
 import Button from '../components/Button';
-import Modal from '../components/Modal';
-import Text from '../components/Text';
+import Dialog from '../components/Dialog';
+import Modal, {MODAL_TYPE} from '../components/Modal';
 import "../styles/Page.css";
+import UpgradeManager from '../scripts/UpgradeManager';
 
 export default function FileManager() {
     let PCSD = useContext(PCSContext);
-    let [ newCharModal, setNewCharModal ] = useState(false);
-    let [ clearModal, setClearModal ] = useState(false);
-    let [ clearIndex, setClearIndex ] = useState(-1);
-    let [ newTitle, setNewTitle ] = useState("");
+    let [ showClear, setShowClear ] = useState([]);
 
     useEffect(() => {
         PCSD.setFiles([...PCSD.files]);
-    },[]);
+        setShowClear((new Array(PCSD.files.length)).fill(false));
+    }, []);
+    
+    function ToggleErase(index) {
+        let newShow = [...showClear];
+        newShow[index] = !newShow[index];
 
-    function NewCharacter() {
-        let newFiles = [...PCSD.files];
-        newFiles.push({
-            _id: ulid(),
-            title: newTitle,
-            loaded: false,
-            saved: false,
-            data: {}
-        });
+        setShowClear(newShow);
+    }
 
-        PCSD.setFiles(newFiles);
-        setNewCharModal(false);
-        setNewTitle("");
+    function NewCharacter(newCharName) {
+        if (!_.isEmpty(newCharName) && newCharName !== "close") {
+            let newFiles = [...PCSD.files];
+            newFiles.push({
+                _id: ulid(),
+                title: newCharName,
+                loaded: false,
+                saved: false,
+                data: {},
+                version: UpgradeManager.CurrentVersion
+            });
+
+            let newShow = [...showClear];
+            newShow.push(false);
+
+            PCSD.setFiles(newFiles);
+            setShowClear(newShow);
+        }
     }
 
     function LoadCharacter(e) {
@@ -45,10 +56,16 @@ export default function FileManager() {
 
                     try {
                         data = JSON.parse(decodeURIComponent(results));
-                        if (!_.has(data, "title") || !_.has(data, "data")) throw("Invalid data format");
-
-                        _.assign(data, {_id:ulid(),loaded:false,saved:true});
+                        if (!_.has(data, "title") || !_.has(data, "data")) throw ("Invalid data format");
+                        
+                        let upgraded = UpgradeManager.Upgrade(data);
+                        _.assign(data, { _id: ulid(), loaded: false, saved: !upgraded });
+                        
                         PCSD.setFiles([...PCSD.files, data]);
+                        
+                        let newShow = [...showClear];
+                        newShow.push(false);
+                        setShowClear(newShow);
                     }
                     catch(error) {
                         console.error("DEAL WITH NON-STANDARD FILE LOADS", error);
@@ -95,66 +112,18 @@ export default function FileManager() {
         PCSD.setFiles(newFiles);
     }
 
-    function RenderNewCharModal() {
-        if (newCharModal) {
-            return (
-                <Modal className="flex flex-col p-1 space-y-1" title="Create New Character" onClose={()=>{setNewCharModal(false);setNewTitle("");}}>
-                    <Text title="New Title" placeholder="Enter new name..." onChange={(e)=>setNewTitle(e)} />
-                    <div className="flex">
-                        {(_.isEmpty(newTitle))?(
-                            <Button color="disabled" className="flex-grow">Create Character</Button>
-                        ):(
-                            <Button color="success" className="flex-grow" onClick={NewCharacter}>Create Character</Button>
-                        )}
-                    </div>
-                </Modal>
-            );
-        }
-    }
-
-    function RenderClearDataModal() {
-        function ClearData(path) {
-            _.unset(PCSD.files[clearIndex].data, path);
-            setClearModal(false);
-            setClearIndex(-1);
-        }
-
-        function RenderItem(title, path) {
-            const filled = _.has(PCSD.files[clearIndex].data, path);
-
+    function RenderDataItem(index, title, path) {
+        if (_.has(PCSD.files[index].data, path))
             return (
                 <div className="flex flex-row items-center space-x-3 p-1 last:rounded-b-md hover:bg-gradient-to-r hover:from-slate-300 hover:to-white">
                     <div className="flex-grow">{title}</div>
-                    <div>{(filled) ? "Filled" : "Empty"}</div>
-                    <Button color={(filled) ? "error" : "disabled"} className="bi-trash" onClick={() => { (filled) ? ClearData(path) : null }}> Clear</Button>
+                    <Button color="error" className="bi-trash" onClick={() => ClearData(index, path)}> Clear</Button>
                 </div>
             );
-        }
+    }
 
-        if (clearModal) {
-            return (
-                <Modal className="flex flex-col space-y-1 max-h-80 overflow-y-scroll" title="Clear Data" onClose={()=>{setClearModal(false);setClearIndex(-1);}}>
-                    {RenderItem("Character Details", "details")}
-                    {RenderItem("Ability Scores", "stats")}
-                    {RenderItem("Classes", "classes")}
-                    {RenderItem("Health", "health")}
-                    {RenderItem("Saving Throws", "saves")}
-                    {RenderItem("Offensive Stats", "offense")}
-                    {RenderItem("Defensive Stats", "defense")}
-                    {RenderItem("Miscellaneous Stats", "miscstats")}
-                    {RenderItem("Weapons", "weapons")}
-                    {RenderItem("Armor", "armors")}
-                    {RenderItem("Skills", "skills")}
-                    {RenderItem("Custom Skills", "custskills")}
-                    {RenderItem("Experience", "exp")}
-                    {RenderItem("Wealth", "wealth")}
-                    {RenderItem("Abilities", "abilities")}
-                    {RenderItem("Equipment", "equipment")}
-                    {RenderItem("Spellbook", "spellbook")}
-                    {RenderItem("Notes", "notes")}
-                </Modal>
-            );
-        }
+    function ClearData(index, path) {
+        _.unset(PCSD.files[index].data, path);
     }
 
     function RenderCharacters() {
@@ -164,14 +133,36 @@ export default function FileManager() {
           
         return PCSD.files.map((files, index) => {
             return (
-                <div key={`character-${files._id}`} className="border border-primary rounded-md p-1 flex flex-row items-center space-x-2">
-                    <div className="flex-grow" onClick={()=>console.info(PCSD.files[index])}>{files.title}</div>
-                    <div className="flex flex-row space-x-1">
-                        <Button color="primary" className="bi-eraser" onClick={()=>{setClearModal(true);setClearIndex(index);}} />
-                        <Button color={(files.loaded)?"disabled":"secondary"} className={(files.loaded)?"bi-square-fill":"bi-caret-right-fill"} onClick={()=>ActivateCharacter(index)} />
-                        <Button color={(files.saved)?"disabled":"success"} className="bi-save-fill" onClick={()=>SaveCharacter(index)} />
-                        <Button color="error" className="bi-trash" onClick={()=>RemoveCharacter(index)} />
+                <div key={`character-${files._id}`} className="border border-primary rounded-md p-1 space-y-1">
+                    <div className="flex flex-row items-center space-x-2">
+                        <div className="flex-grow" onClick={()=>console.info(PCSD.files[index])}>{files.title}</div>
+                        <div className="flex flex-row space-x-1">
+                            <Button color="primary" className="bi-eraser" onClick={()=>ToggleErase(index)} />
+                            <Button color={(files.loaded)?"disabled":"secondary"} className={`${(files.loaded)?"bi-square-fill":"bi-caret-right-fill"} pointer-events-auto`} onClick={()=>ActivateCharacter(index)} />
+                            <Button color={(files.saved)?"disabled":"success"} className="bi-save-fill pointer-events-auto" onClick={()=>SaveCharacter(index)} />
+                            <Button color="error" className="bi-trash" onClick={()=>RemoveCharacter(index)} />
+                        </div>
                     </div>
+                    {(showClear[index]) && (<Dialog title="Erase Data" color="error">
+                        {RenderDataItem(index, "Character Details", "details")}
+                        {RenderDataItem(index, "Ability Scores", "stats")}
+                        {RenderDataItem(index, "Classes", "classes")}
+                        {RenderDataItem(index, "Health", "health")}
+                        {RenderDataItem(index, "Saving Throws", "saves")}
+                        {RenderDataItem(index, "Offensive Stats", "offense")}
+                        {RenderDataItem(index, "Defensive Stats", "defense")}
+                        {RenderDataItem(index, "Miscellaneous Stats", "miscstats")}
+                        {RenderDataItem(index, "Weapons", "weapons")}
+                        {RenderDataItem(index, "Armor", "armors")}
+                        {RenderDataItem(index, "Skills", "skills")}
+                        {RenderDataItem(index, "Custom Skills", "custskills")}
+                        {RenderDataItem(index, "Experience", "exp")}
+                        {RenderDataItem(index, "Wealth", "wealth")}
+                        {RenderDataItem(index, "Abilities", "abilities")}
+                        {RenderDataItem(index, "Equipment", "equipment")}
+                        {RenderDataItem(index, "Spellbook", "spellbook")}
+                        {RenderDataItem(index, "Notes", "notes")}
+                    </Dialog>)}
                 </div>
             );
         });
@@ -179,11 +170,9 @@ export default function FileManager() {
 
     return (
         <>
-            {RenderNewCharModal()}
-            {RenderClearDataModal()}
             <h1>File Manager</h1>
             <div className="main-container">
-                <Button color="primary" onClick={()=>setNewCharModal(true)}>New Character</Button>
+                <Button color="primary" onClick={()=>window.newchar.showModal()}>New Character</Button>
                 <Button as="label" color="primary">
                     <input type="file" className="hidden h-0" multiple accept=".json" onChange={LoadCharacter} />
                     Load Character
@@ -210,6 +199,9 @@ export default function FileManager() {
                 </div>
                 <div>Characters will be stored upon any changes to the list from this page, or periodically every 10 seconds. Upon loading the page again, they should be reloaded. Please note that this store uses localstorage for the characters, so if you move this web application the localstorage will be reset. It is a known flaw with non-server based web applications. To prevent any major losses, make sure you <Button color="green" className="bi-save-fill text-white text-xs px-1 py-0.5" /> save the characters listed.</div>
             </div>
+            <Modal id="newchar" title="Create New Character" type={MODAL_TYPE.prompt} onClose={(RetVal)=>NewCharacter(RetVal)}>
+                <p>Please enter the name of your new Character:</p>
+            </Modal>
         </>
     );
 }

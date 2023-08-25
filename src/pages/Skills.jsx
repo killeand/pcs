@@ -209,13 +209,13 @@ export default function Skills() {
         return PF_SKILLS.map((item)=>{
             let skillinfo = skills[FindSkill(item.k)][1];
             
-            return <SkillRow key={item.k} title={item.v} id={item.k} value={[item.f,ac_penalty,item.s,mods[item.s],skillinfo[0],skillinfo[1],skillinfo[2]]} onChange={(retval)=>ChangeSkill(item.k, retval)} />
+            return <SkillRow key={item.k} title={item.v} id={item.k} value={[item.f,ac_penalty,item.s,mods[item.s],skillinfo[0],skillinfo[1],skillinfo[2]]} color="secondary" onChange={(retval)=>ChangeSkill(item.k, retval)} />
         });
     }
 
     function RenderSubCSkill(flags) {
         return cSkills[FindCSkill(flags.k)][1].map((item,index)=>{
-            return <CSkillRow key={`${flags.k}-${item._id}`} title={item.name} id={`${flags.k}:${index}`} value={[flags.f,mods[flags.s],item.stats[0],item.stats[1],item.stats[2]]} className="pr-2" onChange={(retval)=>ChangeCSkill(flags.k,index,retval)} onDelete={()=>RemoveCSkill(flags.k,index)} />
+            return <CSkillRow key={`${flags.k}-${item._id}`} title={item.name} id={`${flags.k}:${index}`} value={[flags.f,mods[flags.s],item.stats[0],item.stats[1],item.stats[2]]} className="pr-2" color="secondary" onChange={(retval)=>ChangeCSkill(flags.k,index,retval)} onDelete={()=>RemoveCSkill(flags.k,index)} />
         });
     }
 
@@ -232,6 +232,7 @@ export default function Skills() {
                         <div className="col-span-2 text-center">Ranks</div>
                         <div className="col-span-1 text-center">Mod</div>
                         <div className="col-span-2 text-center">Misc</div>
+                        <div className="col-span-1">&nbsp;</div>
                     </div>
                     {RenderSubCSkill(item)}
                 </div>

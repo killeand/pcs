@@ -44,10 +44,6 @@ h2 {
     @apply text-xl font-bold p-1;
 }
 
-.2xl-title {
-    @apply text-2xl font-bold p-1;
-}
-
 fieldset {
     @apply flex flex-col border-2 border-primary rounded-md p-1;
 }

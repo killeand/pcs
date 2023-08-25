@@ -104,7 +104,7 @@ export default function Offensive() {
         temp_melee = bab + mods[0] + size_att + totals[0];
         temp_range = bab + mods[1] + size_att + totals[1];
 
-        while (temp_bab > 0) {
+        while (temp_bab >= 0) {
             melee_bonus.push(temp_melee);
             range_bonus.push(temp_range);
 
@@ -164,9 +164,9 @@ export default function Offensive() {
                 </div>
             }>
                 {(id=='cmb')?(
-                    <Select title="Modifier" id="cmbstate" value={cmbState} items={["Strength","Dexterity"]} onChange={setCmbState} />
+                    <Select title="Modifier" id="cmbstate" value={cmbState} items={["Strength","Dexterity"]} color="secondary" onChange={setCmbState} />
                 ):""}
-                <MultiNumber title={["Misc","Temp"]} id={id} value={GetAPI(id)} min={[-100,-100]} onChange={(retval)=>ChangeValue(id,retval)} />
+                <MultiNumber title={["Misc","Temp"]} id={id} value={GetAPI(id)} min={[-100,-100]} max={[100,100]} color="secondary" onChange={(retval)=>ChangeValue(id,retval)} />
             </Accordian>
         );
     }

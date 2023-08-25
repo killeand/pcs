@@ -1,5 +1,6 @@
 {
     "title": "",
+    "version": 0,
     "data": {
         "details": {
             "name": "",
@@ -52,6 +53,7 @@
         },
         "defense": [0,0,0,0],
         "miscstats": {
+            "basespeed": [0,0,0,0],
             "speed": [0,0,0,0,0],
             "init": 0,
             "resist": [0,0,0,0,0],

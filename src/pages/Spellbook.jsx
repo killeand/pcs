@@ -6,7 +6,7 @@ import PCSContext from '../components/application/PCSContext';
 import Accordian from '../components/Accordian';
 import Button from '../components/Button';
 import Select from '../components/Select';
-import Modal from '../components/Modal';
+import Modal, { MODAL_TYPE } from '../components/Modal';
 import Label from '../components/Label';
 import MultiNumber from '../components/MultiNumber';
 import List from '../components/List';
@@ -21,7 +21,6 @@ export default function Spellbook() {
     let Nav = useNavigate();
     let [ charIndex, setCharIndex ] = useState(-1);
     let [ book, setBook ] = useState([]);
-    let [ showModal, setShowModal ] = useState(false);
     let [ removeIndex, setRemoveIndex ] = useState(-1);
     
     function SetAPI(value) {
@@ -80,38 +79,46 @@ export default function Spellbook() {
     }
 
     function AddBook() {
-        let newBooks = [...book];
-        newBooks.push({
-            _id: ulid(),
-            class_id: "",
-            score: 0,
-            stats: [
-                [0,0,0],
-                [0,0,0],
-                [0,0,0],
-                [0,0,0],
-                [0,0,0],
-                [0,0,0],
-                [0,0,0],
-                [0,0,0],
-                [0,0,0],
-                [0,0,0]
-            ],
-            book: []
-        });
+        if (classlist.length != 0) {
+            let newBooks = [...book];
+            newBooks.push({
+                _id: ulid(),
+                class_id: "",
+                score: 0,
+                stats: [
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0]
+                ],
+                book: []
+            });
 
-        SetAPI(newBooks);
-        setBook(newBooks);
+            SetAPI(newBooks);
+            setBook(newBooks);
+        }
     }
 
-    function RemoveBook() {
-        let newBooks = [...book];
-        newBooks.splice(removeIndex, 1);
+    function AskRemove(bookIndex) {
+        setRemoveIndex(bookIndex);
+        window.removebook.showModal();
+    }
 
-        SetAPI(newBooks);
-        setBook(newBooks);
-        setRemoveIndex(-1);
-        setShowModal(false);
+    function RemoveBook(dialogValue) {
+        if (dialogValue === "ok") {
+            let newBooks = [...book];
+            newBooks.splice(removeIndex, 1);
+
+            SetAPI(newBooks);
+            setBook(newBooks);
+            setRemoveIndex(-1);
+        }
     }
 
     function ChangeBook(index, path, value) {
@@ -130,20 +137,23 @@ export default function Spellbook() {
     }
 
     function RenderBooks() {
+        if (classlist.length == 0)
+            return (<p>In order to create a Spellbook, you need to have a class available. Please visit the Classes page and create a new spell casting class, then return to this page.</p>);
+
         return book.map((item,index)=>{
             let classindex = FindClass(item.class_id);
 
             return (
                 <Accordian key={item._id} title={`${classlist[classindex].name}'s Spellbook`}>
                     <div className="flex flex-row space-x-1">
-                        <Select title="Class" id={`sb-${item._id}-class`} value={classindex} items={classlist.map((cli)=>cli.name)} className="flex-grow" onChange={(retval)=>ChangeBook(index, "class_id", classlist[retval]._id)} />
-                        <Button color="error" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
+                        <Select title="Class" id={`sb-${item._id}-class`} value={classindex} items={classlist.map((cli)=>cli.name)} className="flex-grow" color="secondary" onChange={(retval)=>ChangeBook(index, "class_id", classlist[retval]._id)} />
+                        <Button color="error" className="bi-trash" onClick={()=>AskRemove(index)} />
                     </div>
                     <div className="flex flex-row space-x-1">
-                        <Select title="Stat" id={`sb-${item._id}-score`} value={item.score} items={["Intelligence","Wisdom","Charisma"]} className="w-2/3" onChange={(retval)=>ChangeBook(index, "score", retval)} />
-                        <Label title="CL" value={classlist[classindex].level} className="w-1/3" />
+                        <Select title="Stat" id={`sb-${item._id}-score`} value={item.score} items={["Intelligence","Wisdom","Charisma"]} className="w-2/3" color="secondary" onChange={(retval)=>ChangeBook(index, "score", retval)} />
+                        <Label title="CL" value={classlist[classindex].level} color="secondary" className="w-1/3" />
                     </div>
-                    <Accordian title="Spell Slots">
+                    <Accordian title="Spell Slots" color="secondary">
                         {Array(10).fill(0).map((_, ss_index)=>{
                             let mod = PF_GETMOD(stats[item.score + 3]);
                             let modcalc = (Math.ceil(mod / 4) + (((mod % 4) == 0)?1:0)) - Math.ceil((ss_index - (mod % 4)) / 4);
@@ -152,11 +162,11 @@ export default function Spellbook() {
                             let total = modcalc + item.stats[ss_index][0] + item.stats[ss_index][1];
 
                             if (stats[item.score + 3] < (10+ss_index)) {
-                                return (<Label key={`${item._id}${ss_index}`} title={ss_index} value="Cannot cast spells of this level..." />)
+                                return (<Label key={`${item._id}${ss_index}`} title={ss_index} value="Cannot cast spells of this level..." color="accent" />)
                             }
 
                             return (
-                                <Label key={`${item._id}${ss_index}`} title={ss_index} value={
+                                <Label key={`${item._id}${ss_index}`} title={ss_index} color="accent" value={
                                     <>
                                         <div className="flex flex-col divide-y divide-solid divide-black">
                                             <p className="text-xs m-0 p-0">DC</p>
@@ -170,52 +180,21 @@ export default function Spellbook() {
                                             <p className="text-xs m-0 p-0">Mod</p>
                                             <p className="text-center m-0 p-0">{(ss_index==0)?"-":modcalc}</p>
                                         </div>
-                                        <MultiNumber title={["Class","Misc","Known"]} id={`ss-${ss_index}`} value={book[index].stats[ss_index]} onChange={(retval)=>ChangeSpellSlots(index, ss_index, retval)} />
+                                        <MultiNumber title={["Class","Misc","Known"]} id={`ss-${ss_index}`} value={book[index].stats[ss_index]} color="info" onChange={(retval)=>ChangeSpellSlots(index, ss_index, retval)} />
                                     </>
-                                } className="h-14" />    
+                                } />    
                             );
                         })}
                     </Accordian>
-                    <Accordian title="Distances">
-                        <Label title="Long" value={400 + (40 * classlist[classindex].level)} />
-                        <Label title="Medium" value={100 + (10 * classlist[classindex].level)} />
-                        <Label title="Short" value={25 + (5 * Math.ceil(classlist[classindex].level / 2))} />
+                    <Accordian title="Distances" color="secondary">
+                        <Label title="Long" value={400 + (40 * classlist[classindex].level)} color="accent" />
+                        <Label title="Medium" value={100 + (10 * classlist[classindex].level)} color="accent" />
+                        <Label title="Short" value={25 + (5 * Math.ceil(classlist[classindex].level / 2))} color="accent" />
                     </Accordian>
-                    <List title="Spells" id={`sb-${item._id}-book`} value={item.book} onChange={(retval)=>ChangeBook(index,"book",retval)} />
+                    <List title="Spells" id={`sb-${item._id}-book`} value={item.book} color="secondary" onChange={(retval)=>ChangeBook(index,"book",retval)} />
                 </Accordian>
             );
         })
-    }
-
-    function RenderRemoveModal() {
-        if (showModal && removeIndex != -1) {
-            return (
-                <Modal className="flex flex-col space-y-1 p-1" title="Confirm Remove?" onClose={()=>{setShowModal(false);setRemoveIndex(-1);}}>
-                    <div>
-                        <p>Are you sure you wish to remove the spellbook: <span className="font-bold">{classlist[FindClass(book[removeIndex].class_id)].name}'s Spellbook</span>?</p>
-                        <p>This action is permanent and can only be reverted by re-loading the character data.</p>
-                    </div>
-                    <div className="flex justify-center">
-                        <Button color="error" onClick={RemoveBook}>Confirmed, remove!</Button>
-                    </div>
-                </Modal>
-            );
-        }
-    }
-
-    function RenderClassModal() {
-        if (classlist.length == 0) {
-            return (
-                <Modal className="flex flex-col space-y-1 p-1" title="Error with Spellbook" onClose={()=>Nav("/classes")}>
-                    <div>
-                        <p>In order to create a Spellbook, you need to have a class available. Please visit the Classes page and create a new spell casting class, then return to this page.</p>
-                    </div>
-                    <div className="flex justify-center">
-                        <Button color="error" onClick={()=>Nav("/classes")}>Confirmed, go to Classes!</Button>
-                    </div>
-                </Modal>
-            );
-        }
     }
 
     if (charIndex == -1)
@@ -223,8 +202,6 @@ export default function Spellbook() {
 
     return (
         <>
-            {RenderRemoveModal()}
-            {RenderClassModal()}
             <h1>Spellbook</h1>
             <div className="main-container">
                 <Button color="primary" onClick={AddBook}>Add Spellbook</Button>
@@ -236,6 +213,10 @@ export default function Spellbook() {
                 <div><span className="font-bold">Spell Mod Calculation</span>: Mod = Ability Mod, Lv = Spell Level; (&lceil;Mod / 4&rceil; + (((Mod % 4) == 0) ? 1 : 0)) - &lceil;(Lv - (Mod % 4)) / 4&rceil;</div>
                 <div><span className="font-bold">Distances</span>: Cl = Caster Level; Long = 400 + 40 * Cl, Medium = 100 + 10 * Cl, Short = 25 + 5 * &lceil;Cl / 2&rceil;</div>
             </div>
+            <Modal id="removebook" title="Confirm Remove?" color="warning" type={MODAL_TYPE.okcancel} onClose={(RetVal) => RemoveBook(RetVal)}>
+                <p>Are you sure you wish to remove this spellbook?</p>
+                <p>This action is permanent and can only be reverted by re-loading the character data.</p>
+            </Modal>
         </>
     );
 }

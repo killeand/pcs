@@ -7,7 +7,7 @@ import Button from '../components/Button';
 import Text from '../components/Text';
 import Number from '../components/Number';
 import Accordian from '../components/Accordian';
-import Modal from '../components/Modal';
+import Modal, { MODAL_TYPE } from '../components/Modal';
 import TextArea from '../components/TextArea';
 import Label from '../components/Label';
 import '../styles/Page.css';
@@ -20,7 +20,6 @@ export default function Equipment() {
     let Nav = useNavigate();
     let [ charIndex, setCharIndex ] = useState(-1);
     let [ quipList, setQuipList ] = useState([]);
-    let [ showModal, setShowModal ] = useState(false);
     let [ removeIndex, setRemoveIndex ] = useState(-1);
     
     function SetAPI(value) {
@@ -74,14 +73,20 @@ export default function Equipment() {
         setQuipList(newQuip);
     }
 
-    function RemoveQuip() {
-        let newQuip = [...quipList];
-        newQuip.splice(removeIndex,1);
+    function AskRemove(quipIndex) {
+        setRemoveIndex(quipIndex);
+        window.removequip.showModal();
+    }
 
-        SetAPI(newQuip);
-        setQuipList(newQuip);
-        setRemoveIndex(-1);
-        setShowModal(false);
+    function RemoveQuip(dialogValue) {
+        if (dialogValue === "ok") {
+            let newQuip = [...quipList];
+            newQuip.splice(removeIndex, 1);
+
+            SetAPI(newQuip);
+            setQuipList(newQuip);
+            setRemoveIndex(-1);
+        }
     }
 
     function ChangeValue(index, type, value) {
@@ -103,15 +108,15 @@ export default function Equipment() {
             return (
                 <Accordian key={`class-${item._id}`} title={item.name} titleElements={<div>{item.num}</div>}>
                     <div className="flex flex-row space-x-1">
-                        <Text title="Name" id={`quip${index}name`} value={item.name} className="flex-grow" onChange={(retval)=>ChangeValue(index, "name", retval)} />
-                        <Button color="error" className="bi-trash" onClick={()=>{setShowModal(true);setRemoveIndex(index);}} />
+                        <Text title="Name" id={`quip${index}name`} value={item.name} className="flex-grow" color="secondary" onChange={(retval)=>ChangeValue(index, "name", retval)} />
+                        <Button color="error" className="bi-trash" onClick={()=>AskRemove(index)} />
                     </div>
-                    <Text title="Ref" id={`quip${index}ref`} value={item.ref} onChange={(retval)=>ChangeValue(index, "ref", retval)} />
+                    <Text title="Ref" id={`quip${index}ref`} value={item.ref} color="secondary" onChange={(retval)=>ChangeValue(index, "ref", retval)} />
                     <div className="flex flex-row space-x-1">
-                        <Number title="# of" id={`quip${index}num`} value={item.num} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "num", retval)} />
-                        <Number title="Weight" id={`quip${index}weight`} value={item.weight} className="flex-grow w-1/2" onChange={(retval)=>ChangeValue(index, "weight", retval)} />
+                        <Number title="# of" id={`quip${index}num`} value={item.num} min={0} max={5000} className="flex-grow w-1/2" color="secondary" onChange={(retval)=>ChangeValue(index, "num", retval)} />
+                        <Number title="Weight" id={`quip${index}weight`} value={item.weight} min={0} max={10000} className="flex-grow w-1/2" color="secondary" onChange={(retval)=>ChangeValue(index, "weight", retval)} />
                     </div>
-                    <TextArea title="Notes" id={`quip${index}info`} value={item.info} onChange={(retval)=>ChangeValue(index, "info", retval)} />
+                    <TextArea title="Notes" id={`quip${index}info`} value={item.info} color="secondary" onChange={(retval)=>ChangeValue(index, "info", retval)} />
                 </Accordian>
             );
         });
@@ -135,13 +140,16 @@ export default function Equipment() {
 
     return (
         <>
-            {RenderRemoveModal()}
             <h1>Equipment</h1>
             <div className="main-container">
                 <Button color="primary" onClick={AddQuip}>Add Item</Button>
                 <Label title="Total Weight" value={total_weight} />
                 {RenderQuip()}
             </div>
+            <Modal id="removequip" title="Confirm Remove?" type={MODAL_TYPE.okcancel} onClose={(RetVal) => RemoveQuip(RetVal)}>
+                <p>Are you sure you wish to remove this item?</p>
+                <p>This action is permanent and can only be reverted by re-loading the character data.</p>
+            </Modal>
         </>
     );
 }

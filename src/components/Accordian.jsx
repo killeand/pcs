@@ -17,7 +17,7 @@ export default function Accordian({title, titleElements, color, className, inner
         <div className={`${className || ""} ${outerClass || ""}`}>
             <div className={`accordian-top ${topstyle} ${BGCOLORS[color] || BGCOLORS.default} ${BORDERCOLORS[color] || BORDERCOLORS.default}`} onClick={OpenClose}>
                 <div className={`pointer-events-none ${caretstyle}`} />
-                <div className={`pointer-events-none flex-grow lg-title`}>{title || "Accordian"}</div>
+                <div className={`pointer-events-none flex-grow lg-title`}>{(title==0)?"0":title || "Accordian"}</div>
                 <div className={`pointer-events-none accordian-elements`}>{titleElements}</div>
             </div>
             <div className={`${innerClass || ""} accordian-bottom ${bottomstyle} ${BORDERCOLORS[color] || BORDERCOLORS.default}`}>
