@@ -7,7 +7,7 @@ import { BGCOLORS, BORDERCOLORS } from '../scripts/Utilities';
 export default function Text({title, id, value, placeholder, color, className, innerClass, outerClass, onChange}) {
     if (!onChange) console.warn("In order to get the text, you need to assign something to onChange...");
     
-    let [ formValue, setFormValue ] = useState(value || "");
+    let [ formValue, setFormValue ] = useState((value==0)?"0":value || "");
     let [ formId, setFormId ] = useState(id || ulid());
 
     useEffect(() => {

@@ -37,11 +37,13 @@ h2 {
 }
 
 .lg-title {
-    @apply text-lg font-bold p-1;
+    @apply text-xs md:text-sm lg:text-base xl:text-lg font-bold;
+    line-height: 1.25rem;
 }
 
 .xl-title {
-    @apply text-xl font-bold p-1;
+    @apply text-sm md:text-base lg:text-lg xl:text-xl font-bold;
+    line-height: 1.5rem;
 }
 
 fieldset {
