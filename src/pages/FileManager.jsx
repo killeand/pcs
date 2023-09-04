@@ -55,7 +55,7 @@ export default function FileManager() {
                     let data = null;
 
                     try {
-                        data = JSON.parse(decodeURIComponent(results));
+                        data = JSON.parse(results);
                         if (!_.has(data, "title") || !_.has(data, "data")) throw ("Invalid data format");
                         
                         let upgraded = UpgradeManager.Upgrade(data);
