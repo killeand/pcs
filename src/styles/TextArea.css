@@ -3,7 +3,7 @@
 }
 
 .textarea-label {
-    @apply rounded-t-md border-b;
+    @apply rounded-t-md border-b p-2;
 }
 
 .textarea-box {

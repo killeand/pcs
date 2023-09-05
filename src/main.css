@@ -29,11 +29,11 @@ nav a:last-child {
 }
 
 h1 {
-    @apply text-xl font-bold border-base-content border-b-2 leading-3 my-1;
+    @apply text-base md:text-lg lg:text-xl font-bold border-base-content border-b-2 leading-5 my-1;
 }
 
 h2 {
-    @apply text-lg font-bold border-b border-l border-primary pl-2 base-size;
+    @apply text-sm md:text-base lg:text-lg font-bold border-b border-l border-primary leading-5 pl-2 base-size;
 }
 
 .lg-title {
