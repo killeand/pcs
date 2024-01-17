@@ -23,7 +23,8 @@ import Equipment from '../../pages/Equipment';
 import Spellbook from '../../pages/Spellbook';
 import Notes from '../../pages/Notes';
 import Tools from '../../pages/Tools';
-//import CompTest from '../../pages/CompTest';
+import Components from '@/pages/tests/Components';
+import Typography from '@/pages/tests/Typography';
 
 const CHAR_PAGES = [
     {url:"details",icon:"bi-journal-text",name:"Character Details",component:(<Details />)},
@@ -46,6 +47,22 @@ const CHAR_PAGES = [
 
 export default function Application() {
     let PCSD = useContext(PCSContext);
+    let GoogleScopes = [
+        encodeURIComponent("https://www.googleapis.com/auth/userinfo.email"),
+        encodeURIComponent("https://www.googleapis.com/auth/userinfo.profile"),
+        "openid",
+        encodeURIComponent("https://www.googleapis.com/auth/drive.file")
+    ];
+    let GoogleLink = "https://accounts.google.com/o/oauth2/v2/auth?"
+        + "client_id=850992449367-pmpcqbqueupfpvi34vt6se4mtmoo6ooq.apps.googleusercontent.com&"
+        + "redirect_uri=" + encodeURIComponent("http://localhost:5173/") + "&"
+        + "response_type=token&"
+        + "scope=" + GoogleScopes.join(" ");
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has("code") || urlParams.has("access_token")) {
+        console.log("DATA", urlParams);
+    }
 
     useEffect(() => themeChange(false), []);
 
@@ -82,7 +99,9 @@ export default function Application() {
         }
 
         menu.push(<Link key={`menu${menu.length + 1}`} className="bi-tools" to="/tools" onClick={HideMobileNav}> Tools</Link>);
-        //menu.push(<Link key={`menu${menu.length + 2}`} className="bi-tools" to="/test" onClick={HideMobileNav}> Tests</Link>);
+        menu.push(<Link key={`menu${menu.length + 2}`} className="bi-code" to="/components" onClick={HideMobileNav}> Components</Link>);
+        menu.push(<Link key={`menu${menu.length + 3}`} className="bi-fonts" to="/typography" onClick={HideMobileNav}> Typography</Link>);
+        menu.push(<a key={`menu${menu.length + 4}`} className="bi-google" href={GoogleLink} onClick={HideMobileNav}> Google Login</a>);
 
         return menu;
     }
@@ -109,7 +128,8 @@ export default function Application() {
                     <Routes>
                         <Route index element={<FileManager />} />
                         <Route path="tools/*" element={<Tools />} />
-                        {/*<Route path="test" element={<CompTest />} />*/}
+                        <Route path="components" element={<Components />} />
+                        <Route path="typography" element={<Typography />} />
                         {RenderRoutes()}
                         <Route path="404" element={<p>Page not found</p>} />
                         <Route path="*" element={<Navigate to="/404" />} />
