@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*########## MAIN TAG CHANGES ##########*/
+
+* {
+    @apply box-border;
+}
+
+html,
+body {
+    @apply min-h-screen h-fit w-full font-mono;
+}
+
+body {
+    @apply flex flex-col;
+}
+
+header,
+main,
+footer {
+    @apply bg-base-100 rounded-xl border border-black drop-shadow-md p-2 m-1;
+}
+
+nav a {
+    @apply flex-grow px-2 py-1 hover:bg-gradient-to-r from-base-100 to-accent;
+}
+
+nav a:last-child {
+    @apply rounded-b-xl md:rounded-bl-xl;
+}
+
+aside ol,
+aside ul,
+header ol,
+header ul {
+    @apply m-0;
+}
+
+aside a:hover,
+header a:hover {
+    @apply no-underline;
+}

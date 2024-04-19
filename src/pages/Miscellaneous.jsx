@@ -5,7 +5,7 @@ import PCSContext from '../components/application/PCSContext';
 import Text from '../components/Text';
 import Accordian from '../components/Accordian';
 import MultiNumber from '../components/MultiNumber';
-import Number from '../components/Number';
+import Number from '../components/TextNumber';
 import '../styles/Page.css';
 
 export default function Miscellaneous() {

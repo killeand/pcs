@@ -6,7 +6,7 @@ import PCSContext from '../components/application/PCSContext';
 import Button from '../components/Button';
 import Label from '../components/Label';
 import Text from '../components/Text';
-import Number from '../components/Number';
+import Number from '../components/TextNumber';
 import MultiNumber from '../components/MultiNumber';
 import Accordian from '../components/Accordian';
 import Modal, {MODAL_TYPE} from '../components/Modal';

@@ -2,18 +2,29 @@ export function RandomNum(low, high) {
     return low + Math.floor(Math.random() * (high + 1 - low));
 };
 
-export const BTNCOLORS = {
-    neutral: "btn-neutral",
+export function ZeroValue(input, altinput = "") {
+    return (input === 0) ? "0" : input || altinput;
+}
+
+export const BTN_COLORS = {
     primary: "btn-primary",
     secondary: "btn-secondary",
+    neutral: "btn-neutral",
     accent: "btn-accent",
     info: "btn-info",
     success: "btn-success",
     warning: "btn-warning",
     error: "btn-error",
-    disabled: "btn-disabled",
     default: "btn-primary"
-};
+}
+
+export const BTN_SIZE = {
+    lg: "btn-lg",
+    md: "",
+    sm: "btn-sm",
+    xs: "btn-xs",
+    default: "btn-sm"
+}
 
 export const BGCOLORS = {
     neutral: "bg-neutral text-neutral-content",

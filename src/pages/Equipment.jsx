@@ -5,7 +5,7 @@ import { ulid } from 'ulidx';
 import PCSContext from '../components/application/PCSContext';
 import Button from '../components/Button';
 import Text from '../components/Text';
-import Number from '../components/Number';
+import Number from '../components/TextNumber';
 import Accordian from '../components/Accordian';
 import Modal, { MODAL_TYPE } from '../components/Modal';
 import TextArea from '../components/TextArea';

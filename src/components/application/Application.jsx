@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { HashRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
 import _ from 'lodash';
-import { themeChange } from 'theme-change';
 import Button from '../Button';
 import PCSContext from './PCSContext';
 import IconicIcon from '../../images/iconic';
@@ -9,8 +8,6 @@ import { MAIN_MENU } from '@/scripts/Menu';
 
 export default function Application() {
     let PCSD = useContext(PCSContext);
-
-    useEffect(() => themeChange(false), []);
 
     function ToggleNav() {
         let navbar = document.getElementsByTagName("nav")[0];

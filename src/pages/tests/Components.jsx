@@ -7,7 +7,7 @@ import Label from "@/components/Label"
 import List from "@/components/List"
 import Modal from "@/components/Modal"
 import MultiNumber from "@/components/MultiNumber"
-import Number from "@/components/Number"
+import Number from "@/components/TextNumber"
 import Select from "@/components/Select"
 import SkillRow from "@/components/pathfinder/SkillRow"
 import Text from "@/components/Text"
@@ -47,7 +47,7 @@ export default function Page() {
             </div>
             <div>
                 <Label />
-                <Label title="New Label" value="New label field" color="warning" innerClass="justify-center" outerClass="my-2" />
+                <Label title="New Label" value="New Label Value" color="warning" innerClass="justify-center" outerClass="my-2" />
             </div>
             <div>
                 <div style={valuestyles}>{lisv.join(", ")}</div>

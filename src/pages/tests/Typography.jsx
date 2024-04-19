@@ -11,8 +11,9 @@ export default function Page() {
                 <li>Unordered List Test</li>
                 <li>Unordered List Test</li>
             </ul>
+            <hr />
             <h2>h2 Layer</h2>
-            <p>Donec ut erat nunc. Nullam ac ultricies diam. Vestibulum sed auctor nunc, pulvinar ultricies risus. Aliquam in semper nibh, eget rutrum lacus. Maecenas vulputate semper turpis, nec porttitor eros. Curabitur lobortis commodo ornare. Integer nec urna mi. Integer pulvinar euismod ultricies. Curabitur varius ex consequat, euismod orci sit amet, rutrum nibh. Sed eget tincidunt felis, a consectetur purus. Cras in vehicula erat, eget semper mauris. In sollicitudin vel risus sed molestie.</p>
+            <p><strong>Donec ut erat nunc.</strong> Nullam ac ultricies diam. <em>Vestibulum sed auctor nunc</em>, pulvinar ultricies risus. Aliquam in semper nibh, eget rutrum lacus. Maecenas vulputate semper turpis, nec porttitor eros. Curabitur lobortis commodo ornare. Integer nec urna mi. Integer pulvinar euismod ultricies. Curabitur varius ex consequat, euismod orci sit amet, rutrum nibh. Sed eget tincidunt felis, a consectetur purus. Cras in vehicula erat, eget semper mauris. In sollicitudin vel risus sed molestie.</p>
             <ol>
                 <li>Ordered List Test</li>
                 <li>Ordered List Test</li>

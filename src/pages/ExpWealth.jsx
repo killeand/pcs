@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
 import PCSContext from '../components/application/PCSContext';
-import Number from '../components/Number';
+import Number from '../components/TextNumber';
 import Label from '../components/Label';
 import Select from '../components/Select';
 import MultiNumber from '../components/MultiNumber';

@@ -1,13 +1,10 @@
-import { BGCOLORS, BORDERCOLORS } from '../scripts/Utilities';
-import '../styles/Text.css';
+import { BGCOLORS, BORDERCOLORS, ZeroValue } from '../scripts/Utilities';
 
-export default function Label({title, value, color, className, innerClass, outerClass}) {
-    //value = value || ((value === "0") ? "0" : "");
-
+export default function Label({title, value, color, innerClass, outerClass}) {
     return (
-        <div className={`text-cont ${className || ""} ${outerClass || ""}`}>
-            <div className={`text-label lg-title ${BGCOLORS[color] || BGCOLORS.default} ${BORDERCOLORS[color] || BORDERCOLORS.default}`}>{(title==0)?"0":title || "Label"}</div>
-            <div className={`text-input ${BORDERCOLORS[color] || BORDERCOLORS.default} ${innerClass || ""}`}>{(value==0)?"0":value || ""}</div>
-        </div>
+        <label className={`input input-bordered flex items-stretch px-0 ${BORDERCOLORS[color] || BORDERCOLORS.default} ${outerClass || ""}`}>
+            <div className={`title_3 min-w-[20%] rounded-l-md flex items-center justify-center pl-2 ${BGCOLORS[color] || BGCOLORS.default}`}>{ZeroValue(title, "Label")}</div>
+            <div className={`grow flex items-center px-2 ${innerClass || ""}`}>{ZeroValue(value, "")}</div>
+        </label>
     );
 }
