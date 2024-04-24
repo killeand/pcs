@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Button from './Button';
 import _ from 'lodash';
 import { BGCOLORS, BORDERCOLORS } from '../scripts/Utilities';
-import Text from './Text';
+import Text from './InputText';
 
 export default function Modal({ id, title, color, className, innerClass, outerClass, children, type, onClose }) {
     const [formValue, setFormValue] = useState("");

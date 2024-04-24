@@ -3,7 +3,7 @@ import { useLocation, Link } from 'react-router-dom';
 import _ from 'lodash';
 import Button from '../components/Button';
 import Accordian from '../components/Accordian';
-import Number from '../components/TextNumber';
+import Number from '../components/InputNumber';
 import Select from '../components/Select';
 import Label from '../components/Label';
 import { RandomNum } from '../scripts/Utilities';

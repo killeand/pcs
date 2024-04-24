@@ -1,18 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import _ from 'lodash';
-import { ulid } from 'ulidx';
-import '../styles/TextArea.css';
-import { BGCOLORS, BORDERCOLORS } from '../scripts/Utilities';
+import { useState, useId } from 'react';
+import { BGCOLORS, BORDERCOLORS, ZeroValue } from '@/scripts/Utilities';
 
-export default function TextArea({title, id, value, color, placeholder, className, innerClass, outerClass, onChange}) {
-    if (!onChange) console.warn("In order to get the text, you need to assign something to onChange...");
-    
-    let [ formValue, setFormValue ] = useState((value==0)?"0":value || "");
-    let [ formId, setFormId ] = useState(id || ulid());
-
-    useEffect(() => {
-        setFormValue(value || "");
-    }, [value]);
+export default function TextArea({title, id, value, color, placeholder, innerClass, outerClass, onChange}) {
+    let [ formValue, setFormValue ] = useState(ZeroValue(value, ""));
+    let [ formId, setFormId ] = useState(id || useId());
 
     function ChangeValue(e) {
         let newValue = e.target.value;
@@ -22,9 +13,9 @@ export default function TextArea({title, id, value, color, placeholder, classNam
     }
 
     return (
-        <div className={`textarea-cont ${className || ""} ${outerClass || ""}`}>
-            <label htmlFor={formId} className={`textarea-label lg-title ${BGCOLORS[color] || BGCOLORS.default} ${BORDERCOLORS[color] || BORDERCOLORS.default}`}>{(title==0)?"0":title || "Text Area"}</label>
-            <textarea id={formId} name={formId} value={formValue} placeholder={placeholder} className={`textarea-box ${innerClass || ""} ${BORDERCOLORS[color] || BORDERCOLORS.default}`} onChange={ChangeValue} />
-        </div>
+        <label htmlFor={formId} className={`textarea textarea-bordered flex flex-col p-0 ${BORDERCOLORS[color] || BORDERCOLORS.default} ${outerClass || ""}`}>
+            <div className={`title_3 p-2 rounded-t-md ${BGCOLORS[color] || BGCOLORS.default}`}>{ZeroValue(title, "Text Area")}</div>
+            <textarea id={formId} name={formId} value={formValue} placeholder={placeholder} className={`rounded-b-md px-2 ${innerClass || ""} ${BORDERCOLORS[color] || BORDERCOLORS.default}`} onChange={ChangeValue} />
+        </label>
     );
 }

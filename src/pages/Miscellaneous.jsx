@@ -2,10 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
 import PCSContext from '../components/application/PCSContext';
-import Text from '../components/Text';
+import Text from '../components/InputText';
 import Accordian from '../components/Accordian';
 import MultiNumber from '../components/MultiNumber';
-import Number from '../components/TextNumber';
+import Number from '../components/InputNumber';
 import '../styles/Page.css';
 
 export default function Miscellaneous() {

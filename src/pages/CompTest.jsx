@@ -7,10 +7,10 @@ import Label from "../components/Label"
 import List from "../components/List"
 import Modal from "../components/Modal"
 import MultiNumber from "../components/MultiNumber"
-import Number from "../components/TextNumber"
+import Number from "../components/InputNumber"
 import Select from "../components/Select"
 import SkillRow from "../components/pathfinder/SkillRow"
-import Text from "../components/Text"
+import Text from "../components/InputText"
 import TextArea from "../components/TextArea"
 import { ulid } from 'ulidx';
 

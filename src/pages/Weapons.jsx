@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ulid } from 'ulidx';
 import PCSContext from '../components/application/PCSContext';
 import Button from '../components/Button';
-import Text from '../components/Text';
+import Text from '../components/InputText';
 import Accordian from '../components/Accordian';
 import Modal, { MODAL_TYPE } from '../components/Modal';
 import TextArea from '../components/TextArea';

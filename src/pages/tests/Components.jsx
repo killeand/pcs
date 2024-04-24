@@ -7,10 +7,10 @@ import Label from "@/components/Label"
 import List from "@/components/List"
 import Modal from "@/components/Modal"
 import MultiNumber from "@/components/MultiNumber"
-import Number from "@/components/TextNumber"
+import InputNumber from "@/components/InputNumber"
 import Select from "@/components/Select"
 import SkillRow from "@/components/pathfinder/SkillRow"
-import Text from "@/components/Text"
+import InputText from "@/components/InputText"
 import TextArea from "@/components/TextArea"
 import { ulid } from 'ulidx';
 
@@ -67,8 +67,8 @@ export default function Page() {
             </div>
             <div>
                 <div style={valuestyles}>{numv}</div>
-                <Number />
-                <Number title="New Number" value={numv} min={50} onChange={(retval)=>setNumv(retval)} />
+                <InputNumber />
+                <InputNumber title="New Number" value={numv} min={50} onChange={(retval)=>setNumv(retval)} />
             </div>
             <div>
                 <div style={valuestyles}>{SelStrings[selv]}</div>
@@ -77,8 +77,8 @@ export default function Page() {
             </div>
             <div>
                 <div style={valuestyles}>{texv}</div>
-                <Text />
-                <Text title="Text Box" value={texv} placeholder="What?!" color="warning" onChange={(retval)=>setTexv(retval)} />
+                <InputText />
+                <InputText title="Text Box" value={texv} placeholder="What?!" color="warning" onChange={(retval)=>setTexv(retval)} />
             </div>
             <div>
                 <div style={valuestyles}><pre>{teav}</pre></div>
