@@ -1,28 +1,14 @@
-import { useState } from 'react';
-import { BGCOLORS, BORDERCOLORS } from '../scripts/Utilities';
-import '../styles/Accordian.css';
+import { BGCOLORS, BORDERCOLORS, ZeroValue } from '@/scripts/Utilities';
 
-export default function Accordian({title, titleElements, color, className, innerClass, outerClass, children}) {
-    const [opened, setOpened] = useState(false);
-    const caretstyle = (opened) ? "bi-caret-down" : "bi-caret-right";
-    const topstyle = (opened) ? "" : "rounded-b-md";
-    const bottomstyle = (opened) ? "flex" : "hidden";
-
-    function OpenClose(e) {
-        if (e.target.tagName != "BUTTON")
-            setOpened(!opened);
-    }
-
+export default function Accordian({ title, titleElements, color, innerClass, outerClass, children }) {
     return (
-        <div className={`${className || ""} ${outerClass || ""}`}>
-            <div className={`accordian-top ${topstyle} ${BGCOLORS[color] || BGCOLORS.default} ${BORDERCOLORS[color] || BORDERCOLORS.default}`} onClick={OpenClose}>
-                <div className={`pointer-events-none ${caretstyle}`} />
-                <div className={`pointer-events-none flex-grow lg-title`}>{(title==0)?"0":title || "Accordian"}</div>
-                <div className={`pointer-events-none accordian-elements`}>{titleElements}</div>
+        <div className={`collapse border ${outerClass || ''} ${BORDERCOLORS[color] || BORDERCOLORS.default}`}>
+            <input type='checkbox' className='min-h-0' />
+            <div className={`collapse-title flex min-h-0 flex-row items-center p-2 ${BGCOLORS[color] || BGCOLORS.default}`}>
+                <div className={`title_3 bi-caret-right flex-grow`}>{ZeroValue(title, 'Accordian')}</div>
+                <div className={`flex flex-row space-x-2 [&>div]:rounded-md [&>div]:border [&>div]:border-black [&>div]:bg-secondary [&>div]:px-1 [&>div]:text-secondary-content`}>{titleElements}</div>
             </div>
-            <div className={`${innerClass || ""} accordian-bottom ${bottomstyle} ${BORDERCOLORS[color] || BORDERCOLORS.default}`}>
-                {children}
-            </div>
+            <div className={`collapse-content bg-base-100 p-0 text-base-content ${innerClass || ''}`}>{children}</div>
         </div>
     );
 }

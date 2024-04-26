@@ -9,7 +9,8 @@ import Text from '../components/InputText';
 import Number from '../components/InputNumber';
 import MultiNumber from '../components/MultiNumber';
 import Accordian from '../components/Accordian';
-import Modal, {MODAL_TYPE} from '../components/Modal';
+import Modal from '../components/Modal';
+import { MODAL_TYPE } from '@/scripts/Utilities';
 import '../styles/Page.css';
 
 export default function Classes() {
@@ -18,10 +19,10 @@ export default function Classes() {
     #########################################################################*/
     let PCSD = useContext(PCSContext);
     let Nav = useNavigate();
-    let [ charIndex, setCharIndex ] = useState(-1);
-    let [ classList, setClassList ] = useState([]);
-    let [ removeIndex, setRemoveIndex ] = useState(-1);
-    
+    let [charIndex, setCharIndex] = useState(-1);
+    let [classList, setClassList] = useState([]);
+    let [removeIndex, setRemoveIndex] = useState(-1);
+
     function SetAPI(value) {
         PCSD.files[charIndex].data.classes = value;
         PCSD.files[charIndex].saved = false;
@@ -31,14 +32,14 @@ export default function Classes() {
         let tempIndex = PCSD.getLoadedIndex();
 
         if (tempIndex == -1) {
-            Nav("/");
+            Nav('/');
 
             return;
         }
 
-        if (!_.has(PCSD.files[tempIndex], "data.classes")) {
+        if (!_.has(PCSD.files[tempIndex], 'data.classes')) {
             _.assign(PCSD.files[tempIndex].data, {
-                classes: [] 
+                classes: [],
             });
         }
 
@@ -56,14 +57,14 @@ export default function Classes() {
         let newClasses = [...classList];
         newClasses.push({
             _id: ulid(),
-            name: "Untitled Class",
+            name: 'Untitled Class',
             level: 1,
             hd: 0,
             health: 0,
             bab: 0,
             skillnum: 0,
-            favclass: [0,0],
-            saves: [0,0,0]
+            favclass: [0, 0],
+            saves: [0, 0, 0],
         });
 
         SetAPI(newClasses);
@@ -76,7 +77,7 @@ export default function Classes() {
     }
 
     function RemoveClass(dialogValue) {
-        if (dialogValue === "ok") {
+        if (dialogValue === 'ok') {
             let newClasses = [...classList];
             newClasses.splice(removeIndex, 1);
 
@@ -95,7 +96,7 @@ export default function Classes() {
 
         classList.forEach((item, index) => {
             total += item.level;
-        })
+        });
 
         return total;
     }
@@ -127,23 +128,21 @@ export default function Classes() {
     }
 
     function RenderClasses() {
-        if (charIndex == -1)
-            return (<p>Loading...</p>);
+        if (charIndex == -1) return <p>Loading...</p>;
 
-        if (classList.length == 0)
-            return (<p>No classes have been added yet...</p>)
-        
+        if (classList.length == 0) return <p>No classes have been added yet...</p>;
+
         return classList.map((item, index) => {
             return (
                 <Accordian key={`class-${item._id}`} title={item.name} titleElements={<div>{item.level}</div>}>
-                    <div className="flex flex-row">
-                        <Text title="Class Name" id={`class${index+1}name`} value={item.name} className="flex-grow mr-1" color="secondary" onChange={(retval)=>ChangeValue(index, 0, retval)} />
-                        <Button color="error" className="bi-trash" onClick={()=>AskRemove(index)} />
+                    <div className='flex flex-row'>
+                        <Text title='Class Name' id={`class${index + 1}name`} value={item.name} className='mr-1 flex-grow' color='secondary' onChange={(retval) => ChangeValue(index, 0, retval)} />
+                        <Button color='error' className='bi-trash' onClick={() => AskRemove(index)} />
                     </div>
-                    <Number title="Level" id={`class${index + 1}level`} value={item.level} min={1} max={20} color="secondary" onChange={(retval)=>ChangeValue(index, 1, retval)} />
-                    <MultiNumber title={["HD", "Health", "BAB", "Skill Num"]} id={`class${index+1}bs`} value={[item.hd, item.health, item.bab, item.skillnum]} min={[0,0,0,0]} max={[100,5000,20,20]} color="secondary" onChange={(retval)=>ChangeValue(index, 2, retval)} />
-                    <MultiNumber title={["Fav Class Health", "Fav Class Skill"]} id={`class${index+1}fc`} value={[item.favclass[0], item.favclass[1]]} min={[0,0]} max={[20,20]} color="secondary" onChange={(retval)=>ChangeValue(index, 3, retval)} />
-                    <MultiNumber title={["Fortitude", "Reflex", "Will"]} id={`class${index+1}st`} value={[item.saves[0], item.saves[1], item.saves[2]]} min={[0,0,0]} max={[20,20,20]} color="secondary" onChange={(retval)=>ChangeValue(index, 4, retval)} />
+                    <Number title='Level' id={`class${index + 1}level`} value={item.level} min={1} max={20} color='secondary' onChange={(retval) => ChangeValue(index, 1, retval)} />
+                    <MultiNumber title={['HD', 'Health', 'BAB', 'Skill Num']} id={`class${index + 1}bs`} value={[item.hd, item.health, item.bab, item.skillnum]} min={[0, 0, 0, 0]} max={[100, 5000, 20, 20]} color='secondary' onChange={(retval) => ChangeValue(index, 2, retval)} />
+                    <MultiNumber title={['Fav Class Health', 'Fav Class Skill']} id={`class${index + 1}fc`} value={[item.favclass[0], item.favclass[1]]} min={[0, 0]} max={[20, 20]} color='secondary' onChange={(retval) => ChangeValue(index, 3, retval)} />
+                    <MultiNumber title={['Fortitude', 'Reflex', 'Will']} id={`class${index + 1}st`} value={[item.saves[0], item.saves[1], item.saves[2]]} min={[0, 0, 0]} max={[20, 20, 20]} color='secondary' onChange={(retval) => ChangeValue(index, 4, retval)} />
                 </Accordian>
             );
         });
@@ -152,14 +151,14 @@ export default function Classes() {
     return (
         <>
             <h1>Classes</h1>
-            <div className="main-container">
-                <Button color="primary" onClick={AddClass}>Add Class</Button>
-                <Label title="Total Class Levels" value={CalculateLevels()} />
+            <div className='main-container'>
+                <Button color='primary' onClick={AddClass}>
+                    Add Class
+                </Button>
+                <Label title='Total Class Levels' value={CalculateLevels()} />
             </div>
-            <div className="main-container">
-                {RenderClasses()}
-            </div>
-            <Modal id="removeclass" title="Confirm Remove?" color="warning" type={MODAL_TYPE.okcancel} onClose={(RetVal)=>RemoveClass(RetVal)}>
+            <div className='main-container'>{RenderClasses()}</div>
+            <Modal id='removeclass' title='Confirm Remove?' color='warning' type={MODAL_TYPE.okcancel} onClose={(RetVal) => RemoveClass(RetVal)}>
                 <p>Are you sure you wish to remove this class?</p>
                 <p>This action is permanent and can only be reverted by re-loading the character data.</p>
             </Modal>
