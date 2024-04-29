@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
-import UpgradeManager from '../../scripts/UpgradeManager';
-import _ from 'lodash';
+import React, { useState, useEffect, useRef } from "react";
+import UpgradeManager from "../../scripts/UpgradeManager";
+import _ from "lodash";
 
 const PCSContext = React.createContext(null);
 
 export function PCSContextProvider(props) {
     let saveRef = useRef([]);
-    let [ files, setFiles ] = useState([]);
-    let [ saveTimer, setSaveTimer ] = useState(null);
+    let [files, setFiles] = useState([]);
+    let [saveTimer, setSaveTimer] = useState(null);
 
     useEffect(() => {
         if (!_.isNil(localStorage.getItem("PCSGlobalStore"))) {
@@ -24,27 +24,26 @@ export function PCSContextProvider(props) {
         }
 
         if (_.isNil(saveTimer))
-            setSaveTimer(setInterval(() => {
-                if (_.isEmpty(saveRef.current))
-                    if (!_.isNil(localStorage.getItem("PCSGlobalStore"))) {
-                        localStorage.removeItem("PCSGlobalStore");
-                    }
-                else
-                    localStorage.setItem("PCSGlobalStore", JSON.stringify(saveRef.current));
-            }, 10 * 1000));
-        
+            setSaveTimer(
+                setInterval(() => {
+                    if (_.isEmpty(saveRef.current))
+                        if (!_.isNil(localStorage.getItem("PCSGlobalStore"))) {
+                            localStorage.removeItem("PCSGlobalStore");
+                        } else localStorage.setItem("PCSGlobalStore", JSON.stringify(saveRef.current));
+                }, 10 * 1000)
+            );
+
         return () => clearInterval(saveTimer);
-    },[]);
+    }, []);
 
     useEffect(() => {
         if (!_.isEmpty(files)) {
             localStorage.setItem("PCSGlobalStore", JSON.stringify(files));
             saveRef.current = [...files];
-        }
-        else {
+        } else {
             localStorage.removeItem("PCSGlobalStore");
         }
-    },[files]);
+    }, [files]);
 
     function getLoadedIndex() {
         for (let i = 0; i < files.length; i++) {
@@ -54,11 +53,7 @@ export function PCSContextProvider(props) {
         return -1;
     }
 
-    return (
-        <PCSContext.Provider value={{ files, setFiles, getLoadedIndex }}>
-            {props.children}
-        </PCSContext.Provider>
-    );
+    return <PCSContext.Provider value={{ files, setFiles, getLoadedIndex }}>{props.children}</PCSContext.Provider>;
 }
 
 export default PCSContext;

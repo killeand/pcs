@@ -10,7 +10,7 @@
 
 html,
 body {
-    @apply min-h-screen h-fit w-full font-mono;
+    @apply h-fit min-h-screen w-full font-mono;
 }
 
 body {
@@ -20,11 +20,11 @@ body {
 header,
 main,
 footer {
-    @apply bg-base-100 rounded-xl border border-black drop-shadow-md p-2 m-1;
+    @apply m-1 rounded-xl border border-black bg-base-100 p-2 drop-shadow-md;
 }
 
 nav a {
-    @apply flex-grow px-2 py-1 hover:bg-gradient-to-r from-base-100 to-accent;
+    @apply flex-grow from-base-100 to-accent px-2 py-1 no-underline hover:bg-gradient-to-r;
 }
 
 nav a:last-child {
@@ -38,19 +38,14 @@ header ul {
     @apply m-0;
 }
 
-aside a:hover,
-header a:hover {
-    @apply no-underline;
-}
-
 .main-container {
-    @apply flex flex-col space-y-1 mt-1 w-full md:w-2/3 lg:w-1/2;
+    @apply mt-1 flex w-full flex-col space-y-1 md:w-2/3 lg:w-1/2;
 }
 
 .blank-container {
-    @apply flex flex-col border-2 border-primary rounded-md p-1 w-full md:w-2/3 lg:w-1/2;
+    @apply flex w-full flex-col rounded-md border-2 border-primary p-1 md:w-2/3 lg:w-1/2;
 }
 
 .msg-container {
-    @apply flex flex-col flex-grow justify-end mt-3 italic text-xs w-full md:w-2/3 lg:w-1/2;
+    @apply mt-3 flex w-full flex-grow flex-col justify-end text-xs italic md:w-2/3 lg:w-1/2;
 }

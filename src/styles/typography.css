@@ -11,8 +11,9 @@ hr {
     @apply mb-3;
 }
 
-h1, .title_1 {
-    @apply text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold;
+h1,
+.title_1 {
+    @apply text-xl font-bold md:text-2xl lg:text-3xl xl:text-4xl;
     line-height: 2.5rem;
 }
 
@@ -20,8 +21,9 @@ h1 {
     @apply border-b-4 border-l-4 border-primary pl-1;
 }
 
-h2, .title_2 {
-    @apply text-base md:text-lg lg:text-xl xl:text-2xl font-bold;
+h2,
+.title_2 {
+    @apply text-base font-bold md:text-lg lg:text-xl xl:text-2xl;
     line-height: 1.5rem;
 }
 
@@ -29,8 +31,9 @@ h2 {
     @apply border-b-2 border-l-2 border-primary pl-1;
 }
 
-h3, .title_3 {
-    @apply text-xs md:text-sm lg:text-base xl:text-lg font-bold;
+h3,
+.title_3 {
+    @apply text-xs font-bold md:text-sm lg:text-base xl:text-lg;
     line-height: 1rem;
 }
 
@@ -43,35 +46,27 @@ ol {
     @apply ml-3;
 }
 
-ul>li {
-    @apply list-disc list-inside;
+ul > li {
+    @apply list-inside list-disc;
 }
 
-ol>li {
-    @apply list-decimal list-inside;
-}
-
-a:not(.btn) {
-    @apply text-primary underline;
-}
-
-li a:not(.btn) {
-    @apply text-base-content no-underline;
+ol > li {
+    @apply list-inside list-decimal;
 }
 
 code {
-    @apply mockup-code bg-base-300 text-base-content mx-auto w-full md:w-3/4;
+    @apply mockup-code mx-auto w-full bg-base-300 text-base-content md:w-3/4;
 }
 
 fieldset {
-    @apply border border-secondary flex flex-col space-y-2 mx-auto w-full md:w-3/4 px-3 pb-3;
+    @apply mx-auto flex w-full flex-col space-y-2 border border-secondary px-3 pb-3 md:w-3/4;
 }
 
-fieldset>legend {
-    @apply font-bold px-3 border border-primary;
+fieldset > legend {
+    @apply border border-primary px-3 font-bold;
 }
 
-fieldset>* {
+fieldset > * {
     @apply mb-0;
 }
 
@@ -79,20 +74,20 @@ blockquote {
     @apply mx-auto w-full md:w-3/4;
 }
 
-blockquote>p {
-    @apply bg-base-200 text-base-content px-3 m-0 pb-3 indent-10;
+blockquote > p {
+    @apply m-0 bg-base-200 px-3 pb-3 indent-10 text-base-content;
 }
 
-blockquote>p:first-of-type {
+blockquote > p:first-of-type {
     @apply rounded-t-md pt-3;
 }
 
-blockquote>p:last-of-type {
+blockquote > p:last-of-type {
     @apply rounded-b-md;
 }
 
-blockquote>cite {
-    @apply font-bold italic ml-5;
+blockquote > cite {
+    @apply ml-5 font-bold italic;
 }
 
 strong,

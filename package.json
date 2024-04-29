@@ -6,7 +6,8 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build && cp -f ./dist/index.html ./docs/index.html",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "format": "prettier --write ./src/"
     },
     "dependencies": {
         "bootstrap-icons": "^1.11.3",
