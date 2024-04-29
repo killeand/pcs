@@ -1,14 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
-import _ from 'lodash';
-import { useNavigate } from 'react-router-dom';
-import PCSContext from '../components/application/PCSContext';
-import Number from '../components/InputNumber';
-import Label from '../components/Label';
-import Select from '../components/Select';
-import MultiNumber from '../components/MultiNumber';
-import TextArea from '../components/TextArea';
-import { PF_EXP } from '../scripts/Pathfinder';
-import '../styles/Page.css';
+import React, { useContext, useEffect, useState } from "react";
+import _ from "lodash";
+import { useNavigate } from "react-router-dom";
+import PCSContext from "../components/application/PCSContext";
+import Number from "../components/InputNumber";
+import Label from "../components/Label";
+import Select from "../components/Select";
+import MultiNumber from "../components/MultiNumber";
+import TextArea from "../components/TextArea";
+import { PF_EXP } from "../scripts/Pathfinder";
 
 export default function ExpWealth() {
     /*#########################################################################
@@ -16,9 +15,8 @@ export default function ExpWealth() {
     #########################################################################*/
     let PCSD = useContext(PCSContext);
     let Nav = useNavigate();
-    let [ charIndex, setCharIndex ] = useState(-1);
-    let [ xp, setXp ] = useState([0,1]);
-
+    let [charIndex, setCharIndex] = useState(-1);
+    let [xp, setXp] = useState([0, 1]);
 
     function GetWealth(path) {
         return _.get(PCSD.files[charIndex].data.wealth, path);
@@ -28,7 +26,7 @@ export default function ExpWealth() {
         PCSD.files[charIndex].data.exp = value;
         PCSD.files[charIndex].saved = false;
     }
-    
+
     function SetWealth(path, value) {
         let newObj = {};
         newObj[path] = value;
@@ -47,19 +45,19 @@ export default function ExpWealth() {
 
         if (!_.has(PCSD.files[tempIndex], "data.exp")) {
             _.assign(PCSD.files[tempIndex].data, {
-                exp: [0,1]
+                exp: [0, 1],
             });
         }
 
         if (!_.has(PCSD.files[tempIndex], "data.wealth")) {
             _.assign(PCSD.files[tempIndex].data, {
                 wealth: {
-                    plat: [0,0],
-                    gold: [0,0],
-                    silv: [0,0],
-                    copp: [0,0],
-                    othe: ""
-                }
+                    plat: [0, 0],
+                    gold: [0, 0],
+                    silv: [0, 0],
+                    copp: [0, 0],
+                    othe: "",
+                },
             });
         }
 
@@ -94,26 +92,25 @@ export default function ExpWealth() {
         SetWealth(path, value);
     }
 
-    if (charIndex == -1)
-        return (<p>Loading...</p>);
+    if (charIndex == -1) return <p>Loading...</p>;
 
     return (
         <>
             <h1>Experience and Wealth</h1>
             <h2 className="mt-2">Experience</h2>
             <div className="main-container">
-                <Number title="Current XP" id="xp" value={xp[0]} min={0} onChange={(retval)=>ChangeExp(0, retval)} />
+                <Number title="Current XP" id="xp" value={xp[0]} min={0} onChange={(retval) => ChangeExp(0, retval)} />
                 <Label title="Next Level" value={next_level} />
-                <Select title="Progression" id="progress" value={xp[1]} items={["Slow","Medium","Fast"]} onChange={(retval)=>ChangeExp(1, retval)} />
+                <Select title="Progression" id="progress" value={xp[1]} items={["Slow", "Medium", "Fast"]} onChange={(retval) => ChangeExp(1, retval)} />
                 <Label title="Current Level" value={level_index} />
             </div>
             <h2 className="mt-2">Wealth</h2>
             <div className="main-container">
-                <Label title="Platinum" value={<MultiNumber title={["Carried","Stored"]} id="platinum" value={GetWealth("plat")} min={[0,0]} max={[99999999,99999999]} className="flex-grow" color="secondary" onChange={(retval)=>ChangeWealth("plat",retval)} />} />
-                <Label title="Gold" value={<MultiNumber title={["Carried","Stored"]} id="gold" value={GetWealth("gold")} min={[0,0]} max={[99999999,99999999]} className="flex-grow" color="secondary" onChange={(retval)=>ChangeWealth("gold",retval)} />} />
-                <Label title="Silver" value={<MultiNumber title={["Carried","Stored"]} id="silver" value={GetWealth("silv")} min={[0,0]} max={[99999999,99999999]} className="flex-grow" color="secondary" onChange={(retval)=>ChangeWealth("silv",retval)} />} />
-                <Label title="Copper" value={<MultiNumber title={["Carried","Stored"]} id="copper" value={GetWealth("copp")} min={[0,0]} max={[99999999,99999999]} className="flex-grow" color="secondary" onChange={(retval)=>ChangeWealth("copp",retval)} />} />
-                <TextArea title="Other (in gp)" id="other" value={GetWealth("othe")} onChange={(retval)=>ChangeWealth("othe",retval)} />
+                <MultiNumber title={["Platinum Carried", "Stored"]} id="platinum" value={GetWealth("plat")} min={[0, 0]} max={[99999999, 99999999]} outerClass="flex-grow" color="secondary" onChange={(retval) => ChangeWealth("plat", retval)} />
+                <MultiNumber title={["Gold Carried", "Stored"]} id="gold" value={GetWealth("gold")} min={[0, 0]} max={[99999999, 99999999]} outerClass="flex-grow" color="secondary" onChange={(retval) => ChangeWealth("gold", retval)} />
+                <MultiNumber title={["Silver Carried", "Stored"]} id="silver" value={GetWealth("silv")} min={[0, 0]} max={[99999999, 99999999]} outerClass="flex-grow" color="secondary" onChange={(retval) => ChangeWealth("silv", retval)} />
+                <MultiNumber title={["Copper Carried", "Stored"]} id="copper" value={GetWealth("copp")} min={[0, 0]} max={[99999999, 99999999]} outerClass="flex-grow" color="secondary" onChange={(retval) => ChangeWealth("copp", retval)} />
+                <TextArea title="Other (in gp)" id="other" value={GetWealth("othe")} onChange={(retval) => ChangeWealth("othe", retval)} />
             </div>
         </>
     );

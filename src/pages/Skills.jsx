@@ -1,14 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
-import _ from 'lodash';
-import { useNavigate } from 'react-router-dom';
-import { ulid } from 'ulidx';
-import PCSContext from '../components/application/PCSContext';
-import SkillRow from '../components/pathfinder/SkillRow';
-import CSkillRow from '../components/pathfinder/CSkillRow';
-import Label from '../components/Label';
-import Button from '../components/Button';
-import { PF_STATS_SHORT, PF_GETMOD, PF_SKILLS, PF_CUST_SKILLS } from '../scripts/Pathfinder';
-import '../styles/Page.css';
+import React, { useContext, useEffect, useState } from "react";
+import _ from "lodash";
+import { useNavigate } from "react-router-dom";
+import { ulid } from "ulidx";
+import PCSContext from "../components/application/PCSContext";
+import SkillRow from "../components/pathfinder/SkillRow";
+import CSkillRow from "../components/pathfinder/CSkillRow";
+import Label from "../components/Label";
+import Button from "../components/Button";
+import { PF_STATS_SHORT, PF_GETMOD, PF_SKILLS, PF_CUST_SKILLS } from "../scripts/Pathfinder";
 
 export default function Skills() {
     /*#########################################################################
@@ -16,18 +15,16 @@ export default function Skills() {
     #########################################################################*/
     let PCSD = useContext(PCSContext);
     let Nav = useNavigate();
-    let [ charIndex, setCharIndex ] = useState(-1);
-    let [ skills, setSkills ] = useState([]);
-    let [ cSkills, setCSkills ] = useState([]);
+    let [charIndex, setCharIndex] = useState(-1);
+    let [skills, setSkills] = useState([]);
+    let [cSkills, setCSkills] = useState([]);
 
     function SetAPI(path, custom, value) {
         let newObj = {};
         newObj[path] = value;
 
-        if (custom)
-            _.assign(PCSD.files[charIndex].data.custskills, newObj);
-        else
-            _.assign(PCSD.files[charIndex].data.skills, newObj);
+        if (custom) _.assign(PCSD.files[charIndex].data.custskills, newObj);
+        else _.assign(PCSD.files[charIndex].data.skills, newObj);
 
         PCSD.files[charIndex].saved = false;
     }
@@ -44,29 +41,29 @@ export default function Skills() {
         if (!_.has(PCSD.files[tempIndex], "data.skills")) {
             _.assign(PCSD.files[tempIndex].data, {
                 skills: {
-                    appr: [false,0,0],
-                    acro: [false,0,0],
-                    bluf: [false,0,0],
-                    clim: [false,0,0],
-                    dipl: [false,0,0],
-                    disd: [false,0,0],
-                    disg: [false,0,0],
-                    esca: [false,0,0],
-                    fly: [false,0,0],
-                    hana: [false,0,0],
-                    heal: [false,0,0],
-                    inti: [false,0,0],
-                    ling: [false,0,0],
-                    perc: [false,0,0],
-                    ride: [false,0,0],
-                    senm: [false,0,0],
-                    sleh: [false,0,0],
-                    spel: [false,0,0],
-                    stea: [false,0,0],
-                    surv: [false,0,0],
-                    swim: [false,0,0],
-                    usmd: [false,0,0]
-                }
+                    appr: [false, 0, 0],
+                    acro: [false, 0, 0],
+                    bluf: [false, 0, 0],
+                    clim: [false, 0, 0],
+                    dipl: [false, 0, 0],
+                    disd: [false, 0, 0],
+                    disg: [false, 0, 0],
+                    esca: [false, 0, 0],
+                    fly: [false, 0, 0],
+                    hana: [false, 0, 0],
+                    heal: [false, 0, 0],
+                    inti: [false, 0, 0],
+                    ling: [false, 0, 0],
+                    perc: [false, 0, 0],
+                    ride: [false, 0, 0],
+                    senm: [false, 0, 0],
+                    sleh: [false, 0, 0],
+                    spel: [false, 0, 0],
+                    stea: [false, 0, 0],
+                    surv: [false, 0, 0],
+                    swim: [false, 0, 0],
+                    usmd: [false, 0, 0],
+                },
             });
         }
 
@@ -76,8 +73,8 @@ export default function Skills() {
                     craf: [],
                     know: [],
                     perf: [],
-                    prof: []
-                }
+                    prof: [],
+                },
             });
         }
 
@@ -89,10 +86,10 @@ export default function Skills() {
         let stateSkills = [];
         let stateCSkills = [];
 
-        _.forEach(tempSkills, (item, key)=>{
+        _.forEach(tempSkills, (item, key) => {
             stateSkills.push([key, item]);
         });
-        _.forEach(tempCSkills, (item, key)=>{
+        _.forEach(tempCSkills, (item, key) => {
             stateCSkills.push([key, item]);
         });
 
@@ -105,15 +102,11 @@ export default function Skills() {
     #########################################################################*/
 
     function FindSkill(path) {
-        for (let i = 0; i < skills.length; i++)
-            if (skills[i][0]==path)
-                return i;
+        for (let i = 0; i < skills.length; i++) if (skills[i][0] == path) return i;
     }
 
     function FindCSkill(path) {
-        for (let i = 0; i < cSkills.length; i++)
-            if (cSkills[i][0]==path)
-                return i;
+        for (let i = 0; i < cSkills.length; i++) if (cSkills[i][0] == path) return i;
     }
 
     function AddCSkill(path) {
@@ -123,7 +116,7 @@ export default function Skills() {
         newCSkills[index][1].push({
             _id: ulid(),
             name: "New Skill",
-            stats: [false,0,0]
+            stats: [false, 0, 0],
         });
 
         setCSkills(newCSkills);
@@ -147,18 +140,14 @@ export default function Skills() {
         newCSkills[index][1][subindex] = {
             _id: newCSkills[index][1][subindex]._id,
             name: value[1],
-            stats: [
-                value[0],
-                value[2],
-                value[3]
-            ]
+            stats: [value[0], value[2], value[3]],
         };
 
         setCSkills(newCSkills);
         SetAPI(path, true, newCSkills[index][1]);
     }
 
-    let mods = [0,0,0,0,0,0];
+    let mods = [0, 0, 0, 0, 0, 0];
     let ac_penalty = 0;
     let ttl_ranks = 0;
     let use_ranks = 0;
@@ -166,7 +155,9 @@ export default function Skills() {
     if (charIndex != -1) {
         if (_.has(PCSD.files[charIndex].data, "stats")) {
             let stats = PCSD.files[charIndex].data.stats;
-            mods.forEach((item, index)=>{mods[index]=PF_GETMOD(_.sum(_.get(stats, PF_STATS_SHORT[index])));});
+            mods.forEach((item, index) => {
+                mods[index] = PF_GETMOD(_.sum(_.get(stats, PF_STATS_SHORT[index])));
+            });
         }
 
         if (_.has(PCSD.files[charIndex].data, "armors")) {
@@ -180,18 +171,18 @@ export default function Skills() {
         if (_.has(PCSD.files[charIndex].data, "classes")) {
             let classes = PCSD.files[charIndex].data.classes;
 
-            classes.forEach((item)=>{
-                let rpl = (item.skillnum + mods[3]);
-                if (rpl < 1) rpl=1;
-                ttl_ranks += (rpl*item.level) + item.favclass[1];
+            classes.forEach((item) => {
+                let rpl = item.skillnum + mods[3];
+                if (rpl < 1) rpl = 1;
+                ttl_ranks += rpl * item.level + item.favclass[1];
             });
         }
 
-        skills.forEach((item)=>{
+        skills.forEach((item) => {
             use_ranks += item[1][1];
         });
-        cSkills.forEach((item)=>{
-            item[1].forEach((subitem)=>{
+        cSkills.forEach((item) => {
+            item[1].forEach((subitem) => {
                 use_ranks += subitem.stats[1];
             });
         });
@@ -199,36 +190,38 @@ export default function Skills() {
 
     function ChangeSkill(path, value) {
         let newSkills = [...skills];
-        newSkills[FindSkill(path)][1] = [value[0],value[2],value[3]];
+        newSkills[FindSkill(path)][1] = [value[0], value[2], value[3]];
 
         setSkills(newSkills);
         SetAPI(path, false, newSkills[FindSkill(path)][1]);
     }
 
     function RenderSkills() {
-        return PF_SKILLS.map((item)=>{
+        return PF_SKILLS.map((item) => {
             let skillinfo = skills[FindSkill(item.k)][1];
-            
-            return <SkillRow key={item.k} title={item.v} id={item.k} value={[item.f,ac_penalty,item.s,mods[item.s],skillinfo[0],skillinfo[1],skillinfo[2]]} color="secondary" onChange={(retval)=>ChangeSkill(item.k, retval)} />
+
+            return <SkillRow key={item.k} title={item.v} id={item.k} value={[item.f, ac_penalty, item.s, mods[item.s], skillinfo[0], skillinfo[1], skillinfo[2]]} color="secondary" onChange={(retval) => ChangeSkill(item.k, retval)} />;
         });
     }
 
     function RenderSubCSkill(flags) {
-        return cSkills[FindCSkill(flags.k)][1].map((item,index)=>{
-            return <CSkillRow key={`${flags.k}-${item._id}`} title={item.name} id={`${flags.k}:${index}`} value={[flags.f,mods[flags.s],item.stats[0],item.stats[1],item.stats[2]]} className="pr-2" color="secondary" onChange={(retval)=>ChangeCSkill(flags.k,index,retval)} onDelete={()=>RemoveCSkill(flags.k,index)} />
+        return cSkills[FindCSkill(flags.k)][1].map((item, index) => {
+            return <CSkillRow key={`${flags.k}-${item._id}`} title={item.name} id={`${flags.k}:${index}`} value={[flags.f, mods[flags.s], item.stats[0], item.stats[1], item.stats[2]]} className="pr-2" color="secondary" onChange={(retval) => ChangeCSkill(flags.k, index, retval)} onDelete={() => RemoveCSkill(flags.k, index)} />;
         });
     }
 
     function RenderCSkills() {
-        return PF_CUST_SKILLS.map((item)=>{
+        return PF_CUST_SKILLS.map((item) => {
             return (
                 <div key={item.k} className="rounded-md border-2 border-primary">
-                    <div className="flex flex-row p-1 items-center">
-                        <div className="font-bold flex-grow">{item.v} {((item.f&1)==1)?"*":""} {((item.f&2)==2)?<>&dagger;</>:""} ({PF_STATS_SHORT[item.s]})</div>
-                        <Button color="success" className="text-xs bi-plus-square" onClick={()=>AddCSkill(item.k)} />
+                    <div className="flex flex-row items-center p-1">
+                        <div className="flex-grow font-bold">
+                            {item.v} {(item.f & 1) == 1 ? "*" : ""} {(item.f & 2) == 2 ? <>&dagger;</> : ""} ({PF_STATS_SHORT[item.s]})
+                        </div>
+                        <Button color="success" className="bi-plus-square text-xs" onClick={() => AddCSkill(item.k)} />
                     </div>
-                    <div className="grid grid-cols-12 gap-1 text-xs bg-primary text-primary-content">
-                        <div className="col-start-6 col-span-1 text-center">TTL</div>
+                    <div className="grid grid-cols-12 gap-1 bg-primary text-xs text-primary-content">
+                        <div className="col-span-1 col-start-6 text-center">TTL</div>
                         <div className="col-span-2 text-center">Ranks</div>
                         <div className="col-span-1 text-center">Mod</div>
                         <div className="col-span-2 text-center">Misc</div>
@@ -240,8 +233,7 @@ export default function Skills() {
         });
     }
 
-    if (charIndex == -1)
-        return (<p>Loading...</p>);
+    if (charIndex == -1) return <p>Loading...</p>;
 
     return (
         <>
@@ -251,25 +243,32 @@ export default function Skills() {
                 <Label title="Used Ranks" value={use_ranks} />
             </div>
             <div className="main-container space-y-0 rounded-md border-2 border-primary">
-                <div className="grid grid-cols-12 gap-1 text-xs bg-primary text-primary-content rounded-t-sm">
-                    <div className="col-start-7 col-span-1 text-center">TTL</div>
+                <div className="grid grid-cols-12 gap-1 rounded-t-sm bg-primary text-xs text-primary-content">
+                    <div className="col-span-1 col-start-7 text-center">TTL</div>
                     <div className="col-span-2 text-center">Ranks</div>
                     <div className="col-span-1 text-center">Mod</div>
                     <div className="col-span-2 text-center">Misc</div>
                 </div>
                 {RenderSkills()}
             </div>
-            <div className="main-container">
-                {RenderCSkills()}
-            </div>
+            <div className="main-container">{RenderCSkills()}</div>
             <div className="msg-container">
-                <div><span className="font-bold">*</span>: Armor Check Penalty (subtracts {ac_penalty})</div>
-                <div><span className="font-bold">&dagger;</span>: Cannot Use Untrained</div>
-                <div><span className="font-bold">Total Skills</span>: Sum of((Class Skill # + INT Mod) * Class Level) + FC Skill Total (min 1 per level)</div>
-                <div><span className="font-bold">Used Skills</span>: Sum of(Skill Ranks + Custom Skill Ranks)</div>
-                <div><span className="font-bold">Total Points in Skill</span>: Ranks + Ability Mod + Misc + (If Class and Rank == 3) - (If STR or DEX == Armor Check Penalty)</div>
+                <div>
+                    <span className="font-bold">*</span>: Armor Check Penalty (subtracts {ac_penalty})
+                </div>
+                <div>
+                    <span className="font-bold">&dagger;</span>: Cannot Use Untrained
+                </div>
+                <div>
+                    <span className="font-bold">Total Skills</span>: Sum of((Class Skill # + INT Mod) * Class Level) + FC Skill Total (min 1 per level)
+                </div>
+                <div>
+                    <span className="font-bold">Used Skills</span>: Sum of(Skill Ranks + Custom Skill Ranks)
+                </div>
+                <div>
+                    <span className="font-bold">Total Points in Skill</span>: Ranks + Ability Mod + Misc + (If Class and Rank == 3) - (If STR or DEX == Armor Check Penalty)
+                </div>
             </div>
-            
         </>
     );
 }

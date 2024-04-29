@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
-import _ from 'lodash';
-import { useNavigate } from 'react-router-dom';
-import PCSContext from '../components/application/PCSContext';
-import List from '../components/List';
-import '../styles/Page.css';
+import React, { useContext, useEffect, useState } from "react";
+import _ from "lodash";
+import { useNavigate } from "react-router-dom";
+import PCSContext from "../components/application/PCSContext";
+import List from "../components/List";
 
 export default function Abilities() {
     /*#########################################################################
@@ -11,12 +10,12 @@ export default function Abilities() {
     #########################################################################*/
     let PCSD = useContext(PCSContext);
     let Nav = useNavigate();
-    let [ charIndex, setCharIndex ] = useState(-1);
+    let [charIndex, setCharIndex] = useState(-1);
 
     function GetAPI(path) {
         return _.get(PCSD.files[charIndex].data.abilities, path);
     }
-    
+
     function SetAPI(path, value) {
         let newObj = {};
         newObj[path] = value;
@@ -39,32 +38,31 @@ export default function Abilities() {
                     feats: [],
                     features: [],
                     racial: [],
-                    misc: []
-                }
+                    misc: [],
+                },
             });
         }
 
         setCharIndex(tempIndex);
 
         /* ENTER PAGE SPECIFIC CODE HERE */
-        
+
         /* ENTER PAGE SPECIFIC CODE HERE */
     }, []);
     /*#########################################################################
     ## CLOSING COMMON PAGE BLOCK FOR API ACCESS
     #########################################################################*/
 
-    if (charIndex == -1)
-        return (<p>Loading...</p>);
+    if (charIndex == -1) return <p>Loading...</p>;
 
     return (
         <>
             <h1>Feats and Abilities</h1>
             <div className="main-container">
-                <List title="Feats" id="feats" value={GetAPI("feats")} onChange={(retval)=>SetAPI("feats",retval)} />
-                <List title="Class Features" id="features" value={GetAPI("features")} onChange={(retval)=>SetAPI("features",retval)} />
-                <List title="Racial" id="racial" value={GetAPI("racial")} onChange={(retval)=>SetAPI("racial",retval)} />
-                <List title="Miscellaneous" id="misc" value={GetAPI("misc")} onChange={(retval)=>SetAPI("misc",retval)} />
+                <List title="Feats" id="feats" value={GetAPI("feats")} onChange={(retval) => SetAPI("feats", retval)} />
+                <List title="Class Features" id="features" value={GetAPI("features")} onChange={(retval) => SetAPI("features", retval)} />
+                <List title="Racial" id="racial" value={GetAPI("racial")} onChange={(retval) => SetAPI("racial", retval)} />
+                <List title="Miscellaneous" id="misc" value={GetAPI("misc")} onChange={(retval) => SetAPI("misc", retval)} />
             </div>
         </>
     );

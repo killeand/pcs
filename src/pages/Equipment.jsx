@@ -1,17 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
-import _ from 'lodash';
-import { useNavigate } from 'react-router-dom';
-import { ulid } from 'ulidx';
-import PCSContext from '../components/application/PCSContext';
-import Button from '../components/Button';
-import Text from '../components/InputText';
-import Number from '../components/InputNumber';
-import Accordian from '../components/Accordian';
-import Modal from '../components/Modal';
-import TextArea from '../components/TextArea';
-import Label from '../components/Label';
-import { MODAL_TYPE } from '@/scripts/Utilities';
-import '../styles/Page.css';
+import React, { useContext, useEffect, useState } from "react";
+import _ from "lodash";
+import { useNavigate } from "react-router-dom";
+import { ulid } from "ulidx";
+import PCSContext from "../components/application/PCSContext";
+import Button from "../components/Button";
+import Text from "../components/InputText";
+import Number from "../components/InputNumber";
+import Accordian from "../components/Accordian";
+import Modal from "../components/Modal";
+import TextArea from "../components/TextArea";
+import Label from "../components/Label";
+import { MODAL_TYPE } from "@/scripts/Utilities";
 
 export default function Equipment() {
     /*#########################################################################
@@ -32,12 +31,12 @@ export default function Equipment() {
         let tempIndex = PCSD.getLoadedIndex();
 
         if (tempIndex == -1) {
-            Nav('/');
+            Nav("/");
 
             return;
         }
 
-        if (!_.has(PCSD.files[tempIndex], 'data.equipment')) {
+        if (!_.has(PCSD.files[tempIndex], "data.equipment")) {
             _.assign(PCSD.files[tempIndex].data, {
                 equipment: [],
             });
@@ -63,11 +62,11 @@ export default function Equipment() {
         let newQuip = [...quipList];
         newQuip.push({
             _id: ulid(),
-            name: 'New Item',
-            ref: '',
+            name: "New Item",
+            ref: "",
             num: 0,
             weight: 0,
-            info: '',
+            info: "",
         });
 
         SetAPI(newQuip);
@@ -80,7 +79,7 @@ export default function Equipment() {
     }
 
     function RemoveQuip(dialogValue) {
-        if (dialogValue === 'ok') {
+        if (dialogValue === "ok") {
             let newQuip = [...quipList];
             newQuip.splice(removeIndex, 1);
 
@@ -105,17 +104,17 @@ export default function Equipment() {
 
         return quipList.map((item, index) => {
             return (
-                <Accordian key={`class-${item._id}`} title={item.name} titleElements={<div>{item.num}</div>}>
-                    <div className='flex flex-row space-x-1'>
-                        <Text title='Name' id={`quip${index}name`} value={item.name} className='flex-grow' color='secondary' onChange={(retval) => ChangeValue(index, 'name', retval)} />
-                        <Button color='error' className='bi-trash' onClick={() => AskRemove(index)} />
+                <Accordian key={`class-${item._id}`} title={item.name} titleElements={<div>{item.num}</div>} innerClass="flex flex-col p-1 gap-1">
+                    <div className="flex flex-row space-x-1">
+                        <Text title="Name" id={`quip${index}name`} value={item.name} outerClass="flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "name", retval)} />
+                        <Button color="error" className="bi-trash" onClick={() => AskRemove(index)} />
                     </div>
-                    <Text title='Ref' id={`quip${index}ref`} value={item.ref} color='secondary' onChange={(retval) => ChangeValue(index, 'ref', retval)} />
-                    <div className='flex flex-row space-x-1'>
-                        <Number title='# of' id={`quip${index}num`} value={item.num} min={0} max={5000} className='w-1/2 flex-grow' color='secondary' onChange={(retval) => ChangeValue(index, 'num', retval)} />
-                        <Number title='Weight' id={`quip${index}weight`} value={item.weight} min={0} max={10000} className='w-1/2 flex-grow' color='secondary' onChange={(retval) => ChangeValue(index, 'weight', retval)} />
+                    <Text title="Ref" id={`quip${index}ref`} value={item.ref} color="secondary" onChange={(retval) => ChangeValue(index, "ref", retval)} />
+                    <div className="flex flex-row space-x-1">
+                        <Number title="# of" id={`quip${index}num`} value={item.num} min={0} max={5000} outerClass="w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "num", retval)} />
+                        <Number title="Weight" id={`quip${index}weight`} value={item.weight} min={0} max={10000} outerClass="w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "weight", retval)} />
                     </div>
-                    <TextArea title='Notes' id={`quip${index}info`} value={item.info} color='secondary' onChange={(retval) => ChangeValue(index, 'info', retval)} />
+                    <TextArea title="Notes" id={`quip${index}info`} value={item.info} color="secondary" onChange={(retval) => ChangeValue(index, "info", retval)} />
                 </Accordian>
             );
         });
@@ -125,20 +124,20 @@ export default function Equipment() {
         if (showModal && removeIndex != -1) {
             return (
                 <Modal
-                    className='flex flex-col'
-                    title='Confirm Remove?'
+                    className="flex flex-col"
+                    title="Confirm Remove?"
                     onClose={() => {
                         setShowModal(false);
                         setRemoveIndex(-1);
                     }}>
-                    <div className='mt-2 border-t border-black py-2'>
+                    <div className="mt-2 border-t border-black py-2">
                         <p>
-                            Are you sure you wish to remove the item: <span className='font-bold'>{PCSD.files[charIndex].data.equipment[removeIndex].name}</span>?
+                            Are you sure you wish to remove the item: <span className="font-bold">{PCSD.files[charIndex].data.equipment[removeIndex].name}</span>?
                         </p>
                         <p>This action is permanent and can only be reverted by re-loading the character data.</p>
                     </div>
-                    <div className='flex justify-center'>
-                        <Button color='error' onClick={RemoveQuip}>
+                    <div className="flex justify-center">
+                        <Button color="error" onClick={RemoveQuip}>
                             Confirmed, remove!
                         </Button>
                     </div>
@@ -150,14 +149,14 @@ export default function Equipment() {
     return (
         <>
             <h1>Equipment</h1>
-            <div className='main-container'>
-                <Button color='primary' onClick={AddQuip}>
+            <div className="main-container">
+                <Button color="primary" onClick={AddQuip}>
                     Add Item
                 </Button>
-                <Label title='Total Weight' value={total_weight} />
+                <Label title="Total Weight" value={total_weight} />
                 {RenderQuip()}
             </div>
-            <Modal id='removequip' title='Confirm Remove?' type={MODAL_TYPE.okcancel} onClose={(RetVal) => RemoveQuip(RetVal)}>
+            <Modal id="removequip" title="Confirm Remove?" type={MODAL_TYPE.okcancel} onClose={(RetVal) => RemoveQuip(RetVal)}>
                 <p>Are you sure you wish to remove this item?</p>
                 <p>This action is permanent and can only be reverted by re-loading the character data.</p>
             </Modal>

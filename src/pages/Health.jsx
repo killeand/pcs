@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
-import _ from 'lodash';
-import { useNavigate } from 'react-router-dom';
-import PCSContext from '../components/application/PCSContext';
-import Label from '../components/Label';
-import MultiNumber from '../components/MultiNumber';
-import Accordian from '../components/Accordian';
-import '../styles/Page.css';
+import React, { useContext, useEffect, useState } from "react";
+import _ from "lodash";
+import { useNavigate } from "react-router-dom";
+import PCSContext from "../components/application/PCSContext";
+import Label from "../components/Label";
+import MultiNumber from "../components/MultiNumber";
+import Accordian from "../components/Accordian";
 
 export default function Health() {
     /*#########################################################################
@@ -13,9 +12,9 @@ export default function Health() {
     #########################################################################*/
     let PCSD = useContext(PCSContext);
     let Nav = useNavigate();
-    let [ charIndex, setCharIndex ] = useState(-1);
-    let [ healthValues, setHealthValues ] = useState([0,0,0,0])
-    
+    let [charIndex, setCharIndex] = useState(-1);
+    let [healthValues, setHealthValues] = useState([0, 0, 0, 0]);
+
     function SetAPI(value) {
         _.assign(PCSD.files[charIndex].data.health, value);
         PCSD.files[charIndex].saved = false;
@@ -32,7 +31,7 @@ export default function Health() {
 
         if (!_.has(PCSD.files[tempIndex], "data.health")) {
             _.assign(PCSD.files[tempIndex].data, {
-                health: [0,0,0,0]
+                health: [0, 0, 0, 0],
             });
         }
 
@@ -53,7 +52,7 @@ export default function Health() {
 
         if (_.has(PCSD.files[charIndex].data, "stats")) {
             let con = PCSD.files[charIndex].data.stats.con;
-            conmod = Math.floor(((con[0] + con[1] + con[2] + con[3]) - 10) / 2);
+            conmod = Math.floor((con[0] + con[1] + con[2] + con[3] - 10) / 2);
         }
 
         if (_.has(PCSD.files[charIndex].data, "classes")) {
@@ -63,7 +62,7 @@ export default function Health() {
             });
         }
 
-        total += (level * conmod);
+        total += level * conmod;
         if (total <= 0) total = 1;
 
         return total;
@@ -72,7 +71,7 @@ export default function Health() {
     function CalculateCurrentHealth() {
         let total = CalculateMaxHealth();
 
-        total += -(healthValues[0]) + -(healthValues[1]) + healthValues[2] + healthValues[3];
+        total += -healthValues[0] + -healthValues[1] + healthValues[2] + healthValues[3];
 
         return total;
     }
@@ -83,7 +82,7 @@ export default function Health() {
     }
 
     if (charIndex == -1) {
-        return (<p>Loading...</p>);
+        return <p>Loading...</p>;
     }
 
     return (
@@ -95,13 +94,19 @@ export default function Health() {
                     <Label title="Current Health" value={CalculateCurrentHealth()} className="w-1/2" />
                 </div>
                 <Accordian title="Wounds and Bonuses">
-                    <MultiNumber title={["Wounds", "Non-Lethal", "Misc", "Temp"]} id="health" value={healthValues} min={[0,0,-1000,-1000]} max={[5000,5000,5000,5000]} color="secondary" onChange={ChangeValue} />
+                    <MultiNumber title={["Wounds", "Non-Lethal", "Misc", "Temp"]} id="health" value={healthValues} min={[0, 0, -1000, -1000]} max={[5000, 5000, 5000, 5000]} color="secondary" onChange={ChangeValue} />
                 </Accordian>
             </div>
             <div className="msg-container">
-                <div><span className="font-bold">Note:</span> Wounds and Non-Lethal subtract from the total health, while Misc and Temp add to the total.</div>
-                <div><span className="font-bold">Max Calculation:</span> Total = Sum of Each Class(Health + Favored Class Health)</div>
-                <div><span className="font-bold">Current Calculation:</span> Total = -(Wounds) + -(Non-Lethal) + Misc + Temp</div>
+                <div>
+                    <span className="font-bold">Note:</span> Wounds and Non-Lethal subtract from the total health, while Misc and Temp add to the total.
+                </div>
+                <div>
+                    <span className="font-bold">Max Calculation:</span> Total = Sum of Each Class(Health + Favored Class Health)
+                </div>
+                <div>
+                    <span className="font-bold">Current Calculation:</span> Total = -(Wounds) + -(Non-Lethal) + Misc + Temp
+                </div>
             </div>
         </>
     );

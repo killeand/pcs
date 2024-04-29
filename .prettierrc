@@ -5,9 +5,9 @@
     "trailingComma": "es5",
     "bracketSpacing": true,
     "bracketSameLine": true,
-    "singleQuote": true,
+    "singleQuote": false,
     "printWidth": 1000,
-    "jsxSingleQuote": true,
+    "jsxSingleQuote": false,
     "proseWrap": "never",
     "plugins": ["prettier-plugin-tailwindcss"]
 }

@@ -42,3 +42,15 @@ aside a:hover,
 header a:hover {
     @apply no-underline;
 }
+
+.main-container {
+    @apply flex flex-col space-y-1 mt-1 w-full md:w-2/3 lg:w-1/2;
+}
+
+.blank-container {
+    @apply flex flex-col border-2 border-primary rounded-md p-1 w-full md:w-2/3 lg:w-1/2;
+}
+
+.msg-container {
+    @apply flex flex-col flex-grow justify-end mt-3 italic text-xs w-full md:w-2/3 lg:w-1/2;
+}

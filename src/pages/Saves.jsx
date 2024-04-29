@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
-import _ from 'lodash';
-import { useNavigate } from 'react-router-dom';
-import PCSContext from '../components/application/PCSContext';
-import Accordian from '../components/Accordian';
-import MultiNumber from '../components/MultiNumber';
-import '../styles/Page.css';
+import React, { useContext, useEffect, useState } from "react";
+import _ from "lodash";
+import { useNavigate } from "react-router-dom";
+import PCSContext from "../components/application/PCSContext";
+import Accordian from "../components/Accordian";
+import MultiNumber from "../components/MultiNumber";
 
 export default function Saves() {
     /*#########################################################################
@@ -12,15 +11,15 @@ export default function Saves() {
     #########################################################################*/
     let PCSD = useContext(PCSContext);
     let Nav = useNavigate();
-    let [ charIndex, setCharIndex ] = useState(-1);
-    let [ fortValues, setFortValues ] = useState([0,0,0]);
-    let [ refValues, setRefValues ] = useState([0,0,0]);
-    let [ willValues, setWillValues ] = useState([0,0,0]);
+    let [charIndex, setCharIndex] = useState(-1);
+    let [fortValues, setFortValues] = useState([0, 0, 0]);
+    let [refValues, setRefValues] = useState([0, 0, 0]);
+    let [willValues, setWillValues] = useState([0, 0, 0]);
 
     function GetAPI(path) {
         return _.get(PCSD.files[charIndex].data.saves, path);
     }
-    
+
     function SetAPI(path, value) {
         let newObj = {};
         newObj[path] = value;
@@ -40,10 +39,10 @@ export default function Saves() {
         if (!_.has(PCSD.files[tempIndex], "data.saves")) {
             _.assign(PCSD.files[tempIndex].data, {
                 saves: {
-                    fort: [0,0,0],
-                    ref: [0,0,0],
-                    will: [0,0,0]
-                }
+                    fort: [0, 0, 0],
+                    ref: [0, 0, 0],
+                    will: [0, 0, 0],
+                },
             });
         }
 
@@ -59,9 +58,9 @@ export default function Saves() {
     ## CLOSING COMMON PAGE BLOCK FOR API ACCESS
     #########################################################################*/
 
-    let base_saves = [0,0,0];
-    let abi_saves = [0,0,0];
-    let ttl_saves = [0,0,0];
+    let base_saves = [0, 0, 0];
+    let abi_saves = [0, 0, 0];
+    let ttl_saves = [0, 0, 0];
 
     if (charIndex != -1) {
         if (_.has(PCSD.files[charIndex].data, "stats")) {
@@ -97,31 +96,33 @@ export default function Saves() {
 
     function RenderThrow(title, id, index) {
         if (charIndex == -1) {
-            return (<p>Loading...</p>);
+            return <p>Loading...</p>;
         }
 
         return (
-            <Accordian title={title} titleElements={
-                <div className="flex flex-row space-x-1">
-                    <div className="flex flex-col divide-y divide-solid divide-black">
-                        <p className="text-xs m-0 p-0">Base</p>
-                        <p className="text-center m-0 p-0">{base_saves[index]}</p>
+            <Accordian
+                title={title}
+                titleElements={
+                    <div className="flex flex-row space-x-1">
+                        <div className="flex flex-col divide-y divide-solid divide-black">
+                            <p className="m-0 p-0 text-xs">Base</p>
+                            <p className="m-0 p-0 text-center">{base_saves[index]}</p>
+                        </div>
+                        <div className="flex flex-col divide-y divide-solid divide-black">
+                            <p className="m-0 p-0 text-xs">Mod</p>
+                            <p className="m-0 p-0 text-center">{abi_saves[index]}</p>
+                        </div>
+                        <div className="flex flex-col divide-y divide-solid divide-black">
+                            <p className="m-0 p-0 text-xs">Misc</p>
+                            <p className="m-0 p-0 text-center">{ttl_saves[index]}</p>
+                        </div>
+                        <div className="flex flex-col divide-y divide-solid divide-black rounded-md bg-base-300 text-base-content">
+                            <p className="m-0 p-0 text-xs">Total</p>
+                            <p className="m-0 p-0 text-center">{base_saves[index] + abi_saves[index] + ttl_saves[index]}</p>
+                        </div>
                     </div>
-                    <div className="flex flex-col divide-y divide-solid divide-black">
-                        <p className="text-xs m-0 p-0">Mod</p>
-                        <p className="text-center m-0 p-0">{abi_saves[index]}</p>
-                    </div>
-                    <div className="flex flex-col divide-y divide-solid divide-black">
-                        <p className="text-xs m-0 p-0">Misc</p>
-                        <p className="text-center m-0 p-0">{ttl_saves[index]}</p>
-                    </div>
-                    <div className="flex flex-col divide-y divide-solid divide-black bg-base-300 text-base-content rounded-md">
-                        <p className="text-xs m-0 p-0">Total</p>
-                        <p className="text-center m-0 p-0">{base_saves[index] + abi_saves[index] + ttl_saves[index]}</p>
-                    </div>
-                </div>
-            }>
-                <MultiNumber title={["Enhance", "Misc", "Temp"]} id={id} value={GetAPI(id)} min={[0,-100,-100]} max={[100,100,100]} color="secondary" onChange={(retval) => ChangeValue(id, retval)} />
+                }>
+                <MultiNumber title={["Enhance", "Misc", "Temp"]} id={id} value={GetAPI(id)} min={[0, -100, -100]} max={[100, 100, 100]} color="secondary" onChange={(retval) => ChangeValue(id, retval)} />
             </Accordian>
         );
     }

@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
-import _ from 'lodash';
-import { useNavigate } from 'react-router-dom';
-import PCSContext from '../components/application/PCSContext';
-import Label from '../components/Label';
-import Accordian from '../components/Accordian';
-import MultiNumber from '../components/MultiNumber';
-import '../styles/Page.css';
+import React, { useContext, useEffect, useState } from "react";
+import _ from "lodash";
+import { useNavigate } from "react-router-dom";
+import PCSContext from "../components/application/PCSContext";
+import Label from "../components/Label";
+import Accordian from "../components/Accordian";
+import MultiNumber from "../components/MultiNumber";
 
 export default function Defensive() {
     /*#########################################################################
@@ -13,9 +12,9 @@ export default function Defensive() {
     #########################################################################*/
     let PCSD = useContext(PCSContext);
     let Nav = useNavigate();
-    let [ charIndex, setCharIndex ] = useState(-1);
-    let [ defValues, setDefValues ] = useState([0,0,0,0]);
-    
+    let [charIndex, setCharIndex] = useState(-1);
+    let [defValues, setDefValues] = useState([0, 0, 0, 0]);
+
     function SetAPI(value) {
         _.assign(PCSD.files[charIndex].data.defense, value);
         PCSD.files[charIndex].saved = false;
@@ -32,7 +31,7 @@ export default function Defensive() {
 
         if (!_.has(PCSD.files[tempIndex], "data.defense")) {
             _.assign(PCSD.files[tempIndex].data, {
-                defense: [0,0,0,0]
+                defense: [0, 0, 0, 0],
             });
         }
 
@@ -56,13 +55,13 @@ export default function Defensive() {
     let final_ac = 0;
     let final_touch = 0;
     let final_flat = 0;
-    let getMod = (val)=>Math.floor((val-10)/2);
+    let getMod = (val) => Math.floor((val - 10) / 2);
 
     if (charIndex != -1) {
         if (_.has(PCSD.files[charIndex].data, "details")) {
             let sizeval = PCSD.files[charIndex].data.details.size - 4;
-            let calced = Math.ceil(Math.pow(2,Math.abs(sizeval))/2)
-            size = (sizeval==0)?0:((sizeval>0)?-(calced):calced);
+            let calced = Math.ceil(Math.pow(2, Math.abs(sizeval)) / 2);
+            size = sizeval == 0 ? 0 : sizeval > 0 ? -calced : calced;
         }
 
         if (_.has(PCSD.files[charIndex].data, "stats")) {
@@ -84,7 +83,7 @@ export default function Defensive() {
             });
         }
 
-        if (maxdex >= 0) actual_dex = (dexmod > maxdex)?maxdex:dexmod;
+        if (maxdex >= 0) actual_dex = dexmod > maxdex ? maxdex : dexmod;
         else actual_dex = dexmod;
 
         final_ac = 10 + total_ac + actual_dex + size + _.sum(defValues);
@@ -98,7 +97,7 @@ export default function Defensive() {
     }
 
     if (charIndex == -1) {
-        return (<p>Loading...</p>);
+        return <p>Loading...</p>;
     }
 
     return (
@@ -106,79 +105,83 @@ export default function Defensive() {
             <h1>Defensive Stats</h1>
             <div className="main-container">
                 <Accordian title="Total AC" titleElements={<div>{final_ac}</div>}>
-                    <div className="flex flex-row space-x-1 justify-evenly">
+                    <div className="flex flex-row justify-evenly space-x-1">
                         <div className="flex flex-col divide-y divide-solid divide-black">
-                            <p className="text-xs m-0 p-0">Base</p>
-                            <p className="text-center m-0 p-0">10</p>
+                            <p className="m-0 p-0 text-xs">Base</p>
+                            <p className="m-0 p-0 text-center">10</p>
                         </div>
                         <div className="flex flex-col divide-y divide-solid divide-black">
-                            <p className="text-xs m-0 p-0">Armor</p>
-                            <p className="text-center m-0 p-0">{total_ac}</p>
+                            <p className="m-0 p-0 text-xs">Armor</p>
+                            <p className="m-0 p-0 text-center">{total_ac}</p>
                         </div>
                         <div className="flex flex-col divide-y divide-solid divide-black">
-                            <p className="text-xs m-0 p-0">Dexterity</p>
-                            <p className="text-center m-0 p-0">{actual_dex}</p>
+                            <p className="m-0 p-0 text-xs">Dexterity</p>
+                            <p className="m-0 p-0 text-center">{actual_dex}</p>
                         </div>
                         <div className="flex flex-col divide-y divide-solid divide-black">
-                            <p className="text-xs m-0 p-0">Size</p>
-                            <p className="text-center m-0 p-0">{size}</p>
+                            <p className="m-0 p-0 text-xs">Size</p>
+                            <p className="m-0 p-0 text-center">{size}</p>
                         </div>
                         <div className="flex flex-col divide-y divide-solid divide-black">
-                            <p className="text-xs m-0 p-0">Bonuses</p>
-                            <p className="text-center m-0 p-0">{_.sum(defValues)}</p>
+                            <p className="m-0 p-0 text-xs">Bonuses</p>
+                            <p className="m-0 p-0 text-center">{_.sum(defValues)}</p>
                         </div>
                     </div>
                 </Accordian>
                 <Accordian title="Touch AC" titleElements={<div>{final_touch}</div>}>
-                    <div className="flex flex-row space-x-1 justify-evenly">
+                    <div className="flex flex-row justify-evenly space-x-1">
                         <div className="flex flex-col divide-y divide-solid divide-black">
-                            <p className="text-xs m-0 p-0">Base</p>
-                            <p className="text-center m-0 p-0">10</p>
+                            <p className="m-0 p-0 text-xs">Base</p>
+                            <p className="m-0 p-0 text-center">10</p>
                         </div>
                         <div className="flex flex-col divide-y divide-solid divide-black">
-                            <p className="text-xs m-0 p-0">Dexterity</p>
-                            <p className="text-center m-0 p-0">{actual_dex}</p>
+                            <p className="m-0 p-0 text-xs">Dexterity</p>
+                            <p className="m-0 p-0 text-center">{actual_dex}</p>
                         </div>
                         <div className="flex flex-col divide-y divide-solid divide-black">
-                            <p className="text-xs m-0 p-0">Size</p>
-                            <p className="text-center m-0 p-0">{size}</p>
+                            <p className="m-0 p-0 text-xs">Size</p>
+                            <p className="m-0 p-0 text-center">{size}</p>
                         </div>
                         <div className="flex flex-col divide-y divide-solid divide-black">
-                            <p className="text-xs m-0 p-0">Bonuses (-Natural)</p>
-                            <p className="text-center m-0 p-0">{_.sum(defValues)-defValues[1]}</p>
+                            <p className="m-0 p-0 text-xs">Bonuses (-Natural)</p>
+                            <p className="m-0 p-0 text-center">{_.sum(defValues) - defValues[1]}</p>
                         </div>
                     </div>
                 </Accordian>
                 <Accordian title="Flat-Foot AC" titleElements={<div>{final_flat}</div>}>
-                    <div className="flex flex-row space-x-1 justify-evenly">
+                    <div className="flex flex-row justify-evenly space-x-1">
                         <div className="flex flex-col divide-y divide-solid divide-black">
-                            <p className="text-xs m-0 p-0">Base</p>
-                            <p className="text-center m-0 p-0">10</p>
+                            <p className="m-0 p-0 text-xs">Base</p>
+                            <p className="m-0 p-0 text-center">10</p>
                         </div>
                         <div className="flex flex-col divide-y divide-solid divide-black">
-                            <p className="text-xs m-0 p-0">Armor</p>
-                            <p className="text-center m-0 p-0">{total_ac}</p>
+                            <p className="m-0 p-0 text-xs">Armor</p>
+                            <p className="m-0 p-0 text-center">{total_ac}</p>
                         </div>
                         <div className="flex flex-col divide-y divide-solid divide-black">
-                            <p className="text-xs m-0 p-0">Size</p>
-                            <p className="text-center m-0 p-0">{size}</p>
+                            <p className="m-0 p-0 text-xs">Size</p>
+                            <p className="m-0 p-0 text-center">{size}</p>
                         </div>
                         <div className="flex flex-col divide-y divide-solid divide-black">
-                            <p className="text-xs m-0 p-0">Bonuses (-Dodge)</p>
-                            <p className="text-center m-0 p-0">{_.sum(defValues)-defValues[0]}</p>
+                            <p className="m-0 p-0 text-xs">Bonuses (-Dodge)</p>
+                            <p className="m-0 p-0 text-center">{_.sum(defValues) - defValues[0]}</p>
                         </div>
                     </div>
                 </Accordian>
                 <Accordian title="AC Bonuses">
-                    <MultiNumber title={["Dodge","Natural","Misc","Temp"]} id="bonuses" value={defValues} min={[0,0,-100,-100]} max={[100,100,100,100]} color="secondary" onChange={ChangeValue} />
+                    <MultiNumber title={["Dodge", "Natural", "Misc", "Temp"]} id="bonuses" value={defValues} min={[0, 0, -100, -100]} max={[100, 100, 100, 100]} color="secondary" onChange={ChangeValue} />
                 </Accordian>
                 <Label title="Armor Check Penalty" value={ac_penalty} />
-                <Label title="Maximum Dex" value={(maxdex!=-1)?maxdex:"N/A"} />
+                <Label title="Maximum Dex" value={maxdex != -1 ? maxdex : "N/A"} />
                 <Label title="Spell Failure" value={spellfail} />
             </div>
             <div className="msg-container">
-                <div><span className="font-bold">Armor Number</span>: Total of all protective items (under armor) that are marked as active.</div>
-                <div><span className="font-bold">Dexterity Number</span>: If there is a Max Dex, the Dexterity value will be limited by the Max Dex.</div>
+                <div>
+                    <span className="font-bold">Armor Number</span>: Total of all protective items (under armor) that are marked as active.
+                </div>
+                <div>
+                    <span className="font-bold">Dexterity Number</span>: If there is a Max Dex, the Dexterity value will be limited by the Max Dex.
+                </div>
             </div>
         </>
     );
