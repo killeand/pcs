@@ -105,17 +105,17 @@ export default function Weapons() {
                         <Text title="Name" id={`wep${index}name`} value={item.name} outerClass="flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "name", retval)} />
                         <Button color="error" className="bi-trash" onClick={() => AskRemove(index)} />
                     </div>
-                    <div className="flex flex-row space-x-1">
-                        <List title="To Hit" id={`wep${index}hit`} value={item.hit} outerClass="w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "hit", retval)} />
-                        <List title="Damage" id={`wep${index}dmg`} value={item.dmg} outerClass="w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "dmg", retval)} />
+                    <div className="flex flex-col gap-1 md:flex-row">
+                        <List title="To Hit" id={`wep${index}hit`} value={item.hit} outerClass="md:w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "hit", retval)} />
+                        <List title="Damage" id={`wep${index}dmg`} value={item.dmg} outerClass="md:w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "dmg", retval)} />
                     </div>
-                    <div className="flex flex-row space-x-1">
-                        <Text title="Crit" id={`wep${index}crit`} value={item.critical} outerClass="w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "critical", retval)} />
-                        <Text title="Rng" id={`wep${index}rng`} value={item.range} outerClass="w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "range", retval)} />
+                    <div className="flex flex-col gap-1 md:flex-row">
+                        <Text title="Crit" id={`wep${index}crit`} value={item.critical} outerClass="md:w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "critical", retval)} />
+                        <Text title="Rng" id={`wep${index}rng`} value={item.range} outerClass="md:w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "range", retval)} />
                     </div>
-                    <div className="flex flex-row space-x-1">
-                        <Text title="Type" id={`wep${index}type`} value={item.type} outerClass="w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "type", retval)} />
-                        <Text title="Ammo" id={`wep${index}ammo`} value={item.ammo} outerClass="w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "ammo", retval)} />
+                    <div className="flex flex-col gap-1 md:flex-row">
+                        <Text title="Type" id={`wep${index}type`} value={item.type} outerClass="md:w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "type", retval)} />
+                        <Text title="Ammo" id={`wep${index}ammo`} value={item.ammo} outerClass="md:w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "ammo", retval)} />
                     </div>
                     <TextArea title="Notes" id={`wep${index}info`} value={item.info} color="secondary" onChange={(retval) => ChangeValue(index, "info", retval)} />
                 </Accordian>

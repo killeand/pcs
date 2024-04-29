@@ -110,9 +110,9 @@ export default function Equipment() {
                         <Button color="error" className="bi-trash" onClick={() => AskRemove(index)} />
                     </div>
                     <Text title="Ref" id={`quip${index}ref`} value={item.ref} color="secondary" onChange={(retval) => ChangeValue(index, "ref", retval)} />
-                    <div className="flex flex-row space-x-1">
-                        <Number title="# of" id={`quip${index}num`} value={item.num} min={0} max={5000} outerClass="w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "num", retval)} />
-                        <Number title="Weight" id={`quip${index}weight`} value={item.weight} min={0} max={10000} outerClass="w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "weight", retval)} />
+                    <div className="flex flex-col gap-1 md:flex-row">
+                        <Number title="# of" id={`quip${index}num`} value={item.num} min={0} max={5000} outerClass="md:w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "num", retval)} />
+                        <Number title="Weight" id={`quip${index}weight`} value={item.weight} min={0} max={10000} outerClass="md:w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "weight", retval)} />
                     </div>
                     <TextArea title="Notes" id={`quip${index}info`} value={item.info} color="secondary" onChange={(retval) => ChangeValue(index, "info", retval)} />
                 </Accordian>

@@ -103,17 +103,17 @@ export default function Armors() {
                     <Button color={item.active ? "success" : "error"} className={`pointer-events-auto ${item.active ? "bi-check-square" : "bi-square"}`} onClick={() => ChangeValue(index, "active", !item.active)}>
                         {item.active ? " Remove" : " Equip"}
                     </Button>
-                    <div className="flex flex-row space-x-1">
+                    <div className="flex flex-row gap-1">
                         <Text title="Name" id={`arm${index}name`} value={item.name} outerClass="flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "name", retval)} />
                         <Button color="error" className="bi-trash" onClick={() => AskRemove(index)} />
                     </div>
-                    <div className="flex flex-row space-x-1">
-                        <Number title="AC" id={`arm${index}ac`} value={item.ac} min={0} outerClass="w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "ac", retval)} />
-                        <Number title="Max Dex" id={`arm${index}max`} value={item.maxdex} min={-1} outerClass="w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "maxdex", retval)} />
+                    <div className="flex flex-col gap-1 md:flex-row">
+                        <Number title="AC" id={`arm${index}ac`} value={item.ac} min={0} outerClass="md:w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "ac", retval)} />
+                        <Number title="Max Dex" id={`arm${index}max`} value={item.maxdex} min={-1} outerClass="md:w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "maxdex", retval)} />
                     </div>
-                    <div className="flex flex-row space-x-1">
-                        <Number title="Penalty" id={`arm${index}pen`} value={item.penalty} min={0} outerClass="w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "penalty", retval)} />
-                        <Number title="Spell Fail" id={`arm${index}fail`} value={item.spellfail} min={0} outerClass="w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "spellfail", retval)} />
+                    <div className="flex flex-col gap-1 md:flex-row">
+                        <Number title="Penalty" id={`arm${index}pen`} value={item.penalty} min={0} outerClass="md:w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "penalty", retval)} />
+                        <Number title="Spell Fail" id={`arm${index}fail`} value={item.spellfail} min={0} outerClass="md:w-1/2 flex-grow" color="secondary" onChange={(retval) => ChangeValue(index, "spellfail", retval)} />
                     </div>
                     <TextArea title="Notes" id={`arm${index}info`} value={item.info} color="secondary" onChange={(retval) => ChangeValue(index, "info", retval)} />
                 </Accordian>

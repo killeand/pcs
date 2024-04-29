@@ -52,8 +52,8 @@ export default function List({ title, id, value, color, innerClass, outerClass, 
     }
 
     return (
-        <Accordian title={ZeroValue(title, "List")} titleElements={<div className="flex items-center">{formValue.length}</div>} outerClass={outerClass || ""} innerClass={`flex flex-col space-y-2 ${innerClass || ""}`} color={color}>
-            <Button color="success" className="bi-plus-circle w-full rounded-t-none" onClick={AddItem}>
+        <Accordian title={ZeroValue(title, "List")} titleElements={<div className="flex items-center">{formValue.length}</div>} outerClass={outerClass || ""} innerClass={`flex flex-col gap-1 p-1 ${innerClass || ""}`} color={color}>
+            <Button color="success" className="bi-plus-circle w-full" onClick={AddItem}>
                 Add Item
             </Button>
             {RenderItems()}

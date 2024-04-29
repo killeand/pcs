@@ -153,7 +153,7 @@ export default function Spellbook() {
                         <Select title="Stat" id={`sb-${item._id}-score`} value={item.score} items={["Intelligence", "Wisdom", "Charisma"]} outerClass="w-2/3" color="secondary" onChange={(retval) => ChangeBook(index, "score", retval)} />
                         <Label title="CL" value={classlist[classindex].level} color="secondary" outerClass="w-1/3" />
                     </div>
-                    <Accordian title="Spell Slots" color="secondary">
+                    <Accordian title="Spell Slots" color="secondary" innerClass="flex flex-col p-1 gap-1">
                         {Array(10)
                             .fill(0)
                             .map((_, ss_index) => {
@@ -172,6 +172,8 @@ export default function Spellbook() {
                                         key={`${item._id}${ss_index}`}
                                         title={ss_index}
                                         color="accent"
+                                        outerClass="h-fit"
+                                        innerClass="flex flex-row gap-1"
                                         value={
                                             <>
                                                 <div className="flex flex-col divide-y divide-solid divide-black">
