@@ -5,13 +5,17 @@ import PCSContext from "../components/application/PCSContext";
 import Button from "../components/Button";
 import Dialog from "../components/Dialog";
 import Modal from "../components/Modal";
+import Accordian from "@/components/Accordian";
 import { MODAL_TYPE } from "@/scripts/Utilities";
 
 import UpgradeManager from "../scripts/UpgradeManager";
 
+const DataSystem = "65ef6852d749c5036a83f5cf";
+
 export default function FileManager() {
     let PCSD = useContext(PCSContext);
     let [showClear, setShowClear] = useState([]);
+    let [apikey, setApikey] = useState(localStorage.getItem("PCS-APIKEY"));
 
     useEffect(() => {
         PCSD.setFiles([...PCSD.files]);
@@ -23,6 +27,26 @@ export default function FileManager() {
         newShow[index] = !newShow[index];
 
         setShowClear(newShow);
+    }
+
+    function SetAPIKey(newKey) {
+        if (newKey === "") {
+            localStorage.removeItem("PCS-APIKEY");
+            setApikey(null);
+        } else if (newKey !== "close") {
+            localStorage.setItem("PCS-APIKEY", newKey);
+            setApikey(newKey);
+        }
+    }
+
+    function LoadAPI() {
+        fetch("https://cs-api-ten.vercel.app/api/data/" + DataSystem, {
+            method: "get",
+            headers: {
+                "X-API-Key": apikey,
+                "content-type": "application/json",
+            },
+        });
     }
 
     function NewCharacter(newCharName) {
@@ -179,16 +203,41 @@ export default function FileManager() {
         <>
             <h1>File Manager</h1>
             <div className="main-container">
-                <Button color="primary" onClick={() => window.newchar.showModal()}>
-                    New Character
-                </Button>
-                <Button as="label" color="primary">
-                    <input type="file" className="hidden h-0" multiple accept=".json" onChange={LoadCharacter} />
-                    Load Character
-                </Button>
+                <div className="flex flex-col gap-1 md:flex-row">
+                    <Button color="success" className="h-full" onClick={() => window.newchar.showModal()}>
+                        New Character
+                    </Button>
+                    <div className="flex flex-grow flex-col gap-1">
+                        <Button as="label" color="secondary" className="bi-floppy-fill">
+                            <input type="file" className="hidden h-0" multiple accept=".json" onChange={LoadCharacter} />
+                            Load from Disk
+                        </Button>
+                        <Button color="secondary" className="bi-globe" onClick={LoadAPI}>
+                            Load from CS-API
+                        </Button>
+                        <Button color="secondary" className="bi-database-fill">
+                            Save to CS-API
+                        </Button>
+                        <div className="flex flex-col justify-evenly gap-1 md:flex-row">
+                            <Button color="secondary" className="bi-question-lg flex-grow" onClick={() => window.csapi.showModal()}>
+                                What is CS-API?
+                            </Button>
+                            <Button as="a" href="https://cs-api-ten.vercel.app/auth/register" target="_blank" color="secondary" className="bi-envelope-paper-heart-fill flex-grow">
+                                Register
+                            </Button>
+                            <Button as="a" href="https://cs-api-ten.vercel.app/auth/signin" target="_blank" color="secondary" className="bi-shield-lock-fill flex-grow">
+                                Sign In
+                            </Button>
+                            <Button color={apikey != null ? "info" : "secondary"} className="bi-key-fill flex-grow" onClick={() => window.apikey.showModal()}>
+                                Enter API Key
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+                <Accordian title="Loaded Characters" titleElements={<div>{PCSD?.files?.length || 0}</div>} innerClass="flex flex-col p-1 gap-1">
+                    {RenderCharacters()}
+                </Accordian>
             </div>
-            <h2>Characters</h2>
-            <div className="main-container">{RenderCharacters()}</div>
             <div className="msg-container space-y-1">
                 <div className="font-bold">
                     <Button color="primary" className="bi-eraser px-1 py-0.5 text-xs" /> - Clear Data
@@ -208,8 +257,15 @@ export default function FileManager() {
                     Characters will be stored upon any changes to the list from this page, or periodically every 10 seconds. Upon loading the page again, they should be reloaded. Please note that this store uses localstorage for the characters, so if you move this web application the localstorage will be reset. It is a known flaw with non-server based web applications. To prevent any major losses, make sure you <Button color="green" className="bi-save-fill px-1 py-0.5 text-xs text-white" /> save the characters listed.
                 </div>
             </div>
-            <Modal id="newchar" title="Create New Character" type={MODAL_TYPE.prompt} onClose={(RetVal) => NewCharacter(RetVal)}>
+            <Modal id="csapi" title="What is CS-API" type={MODAL_TYPE.ok}>
+                <p>CS-API, or Character Sheet - Application Programming Interface, is a website designed for the offline series of character sheets (such as this).</p>
+                <p>It allows you to sign up, generate an API Key, and use that key as a unique identifier for you. After that, the feature allows you to save and load characters between every device, or even &quot;offline&quot; and online.</p>
+            </Modal>
+            <Modal id="newchar" title="Create New Character" type={MODAL_TYPE.prompt} valueReset onClose={(RetVal) => NewCharacter(RetVal)}>
                 <p>Please enter the name of your new Character:</p>
+            </Modal>
+            <Modal id="apikey" title="Enter API Key" type={MODAL_TYPE.prompt} value={apikey} onClose={(RetVal) => SetAPIKey(RetVal)}>
+                <p>Please enter your API key generated on the CS-API website:</p>
             </Modal>
         </>
     );

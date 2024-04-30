@@ -3,8 +3,8 @@ import Button from "./Button";
 import { BGCOLORS, ZeroValue, MODAL_TYPE } from "@/scripts/Utilities";
 import InputText from "./InputText";
 
-export default function Modal({ id, title, color, innerClass, outerClass, children, type, onClose }) {
-    const [formValue, setFormValue] = useState("");
+export default function Modal({ id, title, color, value, valueReset, innerClass, outerClass, children, type, onClose }) {
+    const [formValue, setFormValue] = useState(ZeroValue(value));
 
     function RenderButtons() {
         switch (type) {
@@ -45,7 +45,7 @@ export default function Modal({ id, title, color, innerClass, outerClass, childr
             else onClose(e.target.returnValue);
         }
 
-        setFormValue("");
+        if (valueReset) setFormValue("");
     }
 
     return (
