@@ -1,4 +1,5 @@
 import _ from "lodash";
+import { toast } from "react-toastify";
 
 export default class UpgradeManager {
     static CurrentVersion = 1;
@@ -23,7 +24,7 @@ export default class UpgradeManager {
             });
 
             upgraded = true;
-            console.info(`Upgrading ${fileData.title} to version 0`);
+            toast.info(`Upgrading ${fileData.title} to version 0`);
         }
 
         // VERSION 1 UPDATE
@@ -44,7 +45,7 @@ export default class UpgradeManager {
 
             fileData.version = 1;
             upgraded = true;
-            console.info(`Upgrading ${fileData.title} to version 1`);
+            toast.info(`Upgrading ${fileData.title} to version 1`);
         }
 
         return upgraded;

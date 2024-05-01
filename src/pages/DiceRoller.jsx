@@ -21,7 +21,6 @@ export default function DiceRoller() {
     let diceconv = [4, 6, 8, 10, 12, 20, 100, 0];
 
     function SetPreset(num, die) {
-        console.log(num, die);
         setNumdice(num);
         setDicenum(die);
     }

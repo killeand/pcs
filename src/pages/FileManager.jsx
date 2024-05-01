@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
 import { ulid } from "ulidx";
-import PCSContext from "../components/application/PCSContext";
-import Button from "../components/Button";
-import Dialog from "../components/Dialog";
-import Modal from "../components/Modal";
+import PCSContext from "@/components/application/PCSContext";
+import Button from "@/components/Button";
+import Dialog from "@/components/Dialog";
+import Modal from "@/components/Modal";
 import Accordian from "@/components/Accordian";
 import { MODAL_TYPE } from "@/scripts/Utilities";
-
-import UpgradeManager from "../scripts/UpgradeManager";
+import UpgradeManager from "@/scripts/UpgradeManager";
+import { toast } from "react-toastify";
 
 const DataSystem = "65ef6852d749c5036a83f5cf";
 
@@ -16,6 +16,7 @@ export default function FileManager() {
     let PCSD = useContext(PCSContext);
     let [showClear, setShowClear] = useState([]);
     let [apikey, setApikey] = useState(localStorage.getItem("PCS-APIKEY"));
+    let [apiblocker, setApiblocker] = useState(localStorage.getItem("PCS-APIKEY") == null);
 
     useEffect(() => {
         PCSD.setFiles([...PCSD.files]);
@@ -33,20 +34,94 @@ export default function FileManager() {
         if (newKey === "") {
             localStorage.removeItem("PCS-APIKEY");
             setApikey(null);
+            setApiblocker(true);
         } else if (newKey !== "close") {
             localStorage.setItem("PCS-APIKEY", newKey);
             setApikey(newKey);
+            setApiblocker(false);
         }
     }
 
     function LoadAPI() {
-        fetch("https://cs-api-ten.vercel.app/api/data/" + DataSystem, {
-            method: "get",
-            headers: {
-                "X-API-Key": apikey,
-                "content-type": "application/json",
-            },
-        });
+        if (!apiblocker) {
+            setApiblocker(true);
+
+            fetch("https://cs-api-ten.vercel.app/api/data/" + DataSystem, {
+                method: "get",
+                headers: {
+                    "X-API-Key": apikey,
+                    "content-type": "application/json",
+                },
+            })
+                .then((retval) => retval.json())
+                .then((json) => {
+                    let data = null;
+
+                    try {
+                        data = JSON.parse(json.data[0].csdata);
+                    } catch (error) {
+                        toast.error("Could not load the data as the response did not contain the required json");
+                        setApiblocker(false);
+                        return;
+                    }
+
+                    for (let i = 0; i < data.length; i++) {
+                        if (!_.has(data[i], "title") || !_.has(data[i], "data")) {
+                            toast.error("Could not load the data as the internal structure does not match the application");
+                            return;
+                        }
+
+                        let upgraded = UpgradeManager.Upgrade(data[i]);
+                        _.assign(data[i], { _id: ulid(), loaded: false, saved: !upgraded });
+
+                        PCSD.setFiles([...PCSD.files, data[i]]);
+
+                        let newShow = [...showClear];
+                        newShow.push(false);
+                        setShowClear(newShow);
+
+                        toast.info(`${data[i].title} has been added!`);
+                    }
+
+                    setApiblocker(false);
+                })
+                .catch((error) => {
+                    toast.error("Could not load from API " + error);
+                    setApiblocker(false);
+                });
+        } else {
+            toast.warning("Too many requests to the system will result in an error. Please wait for a notification that your character has been added.");
+        }
+    }
+
+    function SaveAPI() {
+        if (!apiblocker) {
+            setApiblocker(true);
+
+            fetch("https://cs-api-ten.vercel.app/api/data", {
+                method: "post",
+                headers: {
+                    "X-API-Key": apikey,
+                    "content-type": "text/plain",
+                },
+                body: {
+                    system: DataSystem,
+                    data: PCSD.files,
+                },
+            })
+                .then((retval) => retval.json())
+                .then((json) => {
+                    console.log(json);
+
+                    setApiblocker(false);
+                })
+                .catch((error) => {
+                    toast.error("Could not save to API " + error);
+                    setApiblocker(false);
+                });
+        } else {
+            toast.warning("Too many requests to the system will result in an error. Please wait for a notification that your characters have been saved.");
+        }
     }
 
     function NewCharacter(newCharName) {
@@ -92,7 +167,7 @@ export default function FileManager() {
                         newShow.push(false);
                         setShowClear(newShow);
                     } catch (error) {
-                        console.error("DEAL WITH NON-STANDARD FILE LOADS", error);
+                        toast.error("Could not load the file, it does not appear to be the JSON required.");
                     }
                 });
                 FR.readAsText(files[i]);
@@ -215,16 +290,18 @@ export default function FileManager() {
                         <Button color="secondary" className="bi-globe" onClick={LoadAPI}>
                             Load from CS-API
                         </Button>
-                        <Button color="secondary" className="bi-database-fill">
+                        <Button color="secondary" className="bi-database-fill" onClick={SaveAPI}>
                             Save to CS-API
                         </Button>
-                        <div className="flex flex-col justify-evenly gap-1 md:flex-row">
+                        <div className="flex flex-col justify-evenly gap-1 xl:flex-row">
                             <Button color="secondary" className="bi-question-lg flex-grow" onClick={() => window.csapi.showModal()}>
                                 What is CS-API?
                             </Button>
                             <Button as="a" href="https://cs-api-ten.vercel.app/auth/register" target="_blank" color="secondary" className="bi-envelope-paper-heart-fill flex-grow">
                                 Register
                             </Button>
+                        </div>
+                        <div className="flex flex-col justify-evenly gap-1 xl:flex-row">
                             <Button as="a" href="https://cs-api-ten.vercel.app/auth/signin" target="_blank" color="secondary" className="bi-shield-lock-fill flex-grow">
                                 Sign In
                             </Button>
@@ -265,7 +342,7 @@ export default function FileManager() {
                 <p>Please enter the name of your new Character:</p>
             </Modal>
             <Modal id="apikey" title="Enter API Key" type={MODAL_TYPE.prompt} value={apikey} onClose={(RetVal) => SetAPIKey(RetVal)}>
-                <p>Please enter your API key generated on the CS-API website:</p>
+                <p>Please enter your API key generated on the CS-API website, leave blank to erase:</p>
             </Modal>
         </>
     );

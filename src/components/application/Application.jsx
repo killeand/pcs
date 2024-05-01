@@ -3,6 +3,7 @@ import { HashRouter, Routes, Route, Link } from "react-router-dom";
 import _ from "lodash";
 import PCSContext from "./PCSContext";
 import IconicIcon from "../../images/iconic";
+import { ToastContainer } from "react-toastify";
 import { MAIN_MENU } from "@/scripts/Menu";
 
 export default function Application() {
@@ -84,6 +85,7 @@ export default function Application() {
                     <input type="radio" name="theme-buttons" className="theme-controller btn join-item" value="winter" checked={theme == "winter"} aria-label="Winter" onChange={SelectTheme} />
                 </div>
             </footer>
+            <ToastContainer stacked position="bottom-center" autoClose={5000} theme="colored" />
         </HashRouter>
     );
 }
