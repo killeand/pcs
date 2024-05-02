@@ -11,6 +11,7 @@ import UpgradeManager from "@/scripts/UpgradeManager";
 import { toast } from "react-toastify";
 
 const DataSystem = "65ef6852d749c5036a83f5cf";
+const ApiUrl = "https://cs-api-ten.vercel.app";
 
 export default function FileManager() {
     let PCSD = useContext(PCSContext);
@@ -46,8 +47,9 @@ export default function FileManager() {
         if (!apiblocker) {
             setApiblocker(true);
 
-            fetch("https://cs-api-ten.vercel.app/api/data/" + DataSystem, {
+            fetch(ApiUrl + "/api/data/" + DataSystem, {
                 method: "get",
+                mode: "cors",
                 headers: {
                     "X-API-Key": apikey,
                     "content-type": "application/json",
@@ -65,6 +67,8 @@ export default function FileManager() {
                         return;
                     }
 
+                    let NewChars = [];
+
                     for (let i = 0; i < data.length; i++) {
                         if (!_.has(data[i], "title") || !_.has(data[i], "data")) {
                             toast.error("Could not load the data as the internal structure does not match the application");
@@ -74,7 +78,8 @@ export default function FileManager() {
                         let upgraded = UpgradeManager.Upgrade(data[i]);
                         _.assign(data[i], { _id: ulid(), loaded: false, saved: !upgraded });
 
-                        PCSD.setFiles([...PCSD.files, data[i]]);
+                        // PCSD.setFiles([...PCSD.files, data[i]]);
+                        NewChars.push(data[i]);
 
                         let newShow = [...showClear];
                         newShow.push(false);
@@ -83,6 +88,8 @@ export default function FileManager() {
                         toast.info(`${data[i].title} has been added!`);
                     }
 
+                    PCSD.setFiles([...PCSD.files, ...NewChars]);
+
                     setApiblocker(false);
                 })
                 .catch((error) => {
@@ -90,7 +97,8 @@ export default function FileManager() {
                     setApiblocker(false);
                 });
         } else {
-            toast.warning("Too many requests to the system will result in an error. Please wait for a notification that your character has been added.");
+            if (apikey) toast.warning("Too many requests to the system will result in an error. Please wait for a notification that your character has been added.");
+            else toast.warning("You must supply an API Key before you can load data from the CS-API.");
         }
     }
 
@@ -98,21 +106,30 @@ export default function FileManager() {
         if (!apiblocker) {
             setApiblocker(true);
 
-            fetch("https://cs-api-ten.vercel.app/api/data", {
+            let SentData = _.cloneDeep(PCSD.files);
+            SentData = SentData.map((data) => {
+                _.unset(data, "loaded");
+                _.unset(data, "saved");
+                _.unset(data, "_id");
+
+                return data;
+            });
+
+            fetch(ApiUrl + "/api/data", {
                 method: "post",
+                mode: "cors",
                 headers: {
                     "X-API-Key": apikey,
-                    "content-type": "text/plain",
+                    "content-type": "application/json",
                 },
-                body: {
+                body: JSON.stringify({
                     system: DataSystem,
-                    data: PCSD.files,
-                },
+                    data: JSON.stringify(SentData),
+                }),
             })
                 .then((retval) => retval.json())
                 .then((json) => {
-                    console.log(json);
-
+                    toast.success("Characters saved to CS-API.");
                     setApiblocker(false);
                 })
                 .catch((error) => {
@@ -120,7 +137,8 @@ export default function FileManager() {
                     setApiblocker(false);
                 });
         } else {
-            toast.warning("Too many requests to the system will result in an error. Please wait for a notification that your characters have been saved.");
+            if (apikey) toast.warning("Too many requests to the system will result in an error. Please wait for a notification that your characters have been saved.");
+            else toast.warning("You must supply an API Key before you can save data to the CS-API.");
         }
     }
 
@@ -297,12 +315,12 @@ export default function FileManager() {
                             <Button color="secondary" className="bi-question-lg flex-grow" onClick={() => window.csapi.showModal()}>
                                 What is CS-API?
                             </Button>
-                            <Button as="a" href="https://cs-api-ten.vercel.app/auth/register" target="_blank" color="secondary" className="bi-envelope-paper-heart-fill flex-grow">
+                            <Button as="a" href={`${ApiUrl}/auth/register`} target="_blank" color="secondary" className="bi-envelope-paper-heart-fill flex-grow">
                                 Register
                             </Button>
                         </div>
                         <div className="flex flex-col justify-evenly gap-1 xl:flex-row">
-                            <Button as="a" href="https://cs-api-ten.vercel.app/auth/signin" target="_blank" color="secondary" className="bi-shield-lock-fill flex-grow">
+                            <Button as="a" href={`${ApiUrl}/auth/signin`} target="_blank" color="secondary" className="bi-shield-lock-fill flex-grow">
                                 Sign In
                             </Button>
                             <Button color={apikey != null ? "info" : "secondary"} className="bi-key-fill flex-grow" onClick={() => window.apikey.showModal()}>
